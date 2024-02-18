@@ -46,6 +46,8 @@ urlpatterns = [
     path('ver_casos/', ver_casos, name='ver_casos'),
     path('caso/<int:codigo_abogado>/', casos_abogado, name="detalle_casos"),
        
+
+       
     path('calendar', views.CalendarView.as_view(), name='calendar'),
     # Email
     path("email/", include("e_mail.urls")),

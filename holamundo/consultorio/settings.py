@@ -9,8 +9,17 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
 from pathlib import Path
+from django.contrib.messages import constants as messages
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,10 +49,14 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'django_extensions',
     'login',
-
-    # Veltrix Theme
-    'layouts',
+     #Local App
+    'e_mail',
+    'components',
     'extra_pages',
+    'email_templates',
+    'layouts',
+    'authentication',
+
 
     "crispy_forms",
     'crispy_bootstrap5',
@@ -56,11 +69,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'imagekit',
     'rest_framework',
-
-  
-
-
      
+    'allauth.socialaccount.providers.google',
+    
+
 ]
 
 MIDDLEWARE = [
@@ -245,7 +257,21 @@ SITE_ID = 1
 
 # Provider Configurations
 SOCIALACCOUNT_PROVIDERS = {
-    
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': 
+        {
+            'client_id': '556542475411-atai04oepna72lf526enbkq3b5d6sod1.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
 }
 
 # client id = '556542475411-atai04oepna72lf526enbkq3b5d6sod1.apps.googleusercontent.com'
