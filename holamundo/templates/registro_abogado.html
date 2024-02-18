@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Abogado</title>
+
+    <!-- Agrega los enlaces a los estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+          margin-top: 20px;
+          margin-bottom: 20px; 
+        }
+      </style>
+</head>
+<body>
+       
+    <form method="post" action="{% url 'registro_abogado' %}">
+            {% csrf_token %}
+
+        <div class="container">
+            <div class="row justify-content-center">
+            <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Ingrese sus datos</h2>
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">Registro del Abogado</h5>
+                <p class="card-text">
+                    <div class="form-group">
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" class="form-control" id="cedula" name="cedula" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="nombrea">Nombre:</label>
+                        <input type="text" class="form-control" id="nombrea" name="nombrea" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="celular">Celular:</label>
+                        <input type="text" class="form-control" id="celular" name="celular" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="correo">Correo:</label>
+                        <input type="email" class="form-control" id="correo" name="correo" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="tipos_especialidad">Especialidad:</label>
+                        <select class="form-control" id="tipos_especialidad" name="tipos_especialidad">
+                            {% for choice in ESPECIALIDAD_CHOICES %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="usuario">Usuario:</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="contraseña">Contraseña:</label>
+                        <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                    </div>
+        
+                </p>
+                <a type="submit" href="login_cliente.html" class="btn btn-primary">Registrar</a>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </form>
+    <!-- Agrega los scripts de Bootstrap (jQuery primero, luego Popper.js, y finalmente Bootstrap JS) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

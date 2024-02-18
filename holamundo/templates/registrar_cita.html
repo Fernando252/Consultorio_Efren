@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registro de Citas</title>
+
+    <!-- Enlaces a los estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Asegúrate de cargar jQuery antes de los scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Enlace al widget DateTimePicker -->
+    {{ form.media.css }}
+    {{ form.media.js }}
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script>
+        $(function () {
+            $('#id_fecha_cita').datetimepicker();
+        });
+    </script>
+    <!-- Enlace al estilo de Tempus Dominus -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/css/tempusdominus-bootstrap-4.min.css">
+</head>
+
+<body>
+
+    <form method="post" action="{% url 'registrar_cita' %}" class="container">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Ingrese sus datos</h2>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Registro de Citas</h5>
+
+                        <div class="form-group">
+                            <label for="id_abogado" class="font-weight-bold">Abogado:</label>
+                            {{ form.abogado }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_cliente" class="font-weight-bold">Cliente:</label>
+                            {{ form.cliente }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_fecha_cita" class="font-weight-bold">Fecha para la Cita:</label>
+                            {{ form.fecha_cita }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_lugar_cita" class="font-weight-bold">Lugar de la Cita:</label>
+                            {{ form.lugar_cita }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_descripcion" class="font-weight-bold">Descripción:</label>
+                            {{ form.descripcion }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Registrar Cita</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Scripts de Bootstrap (Popper.js y Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body> 
+</html>

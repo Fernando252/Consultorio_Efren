@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Detalles del Cliente</title>         
+</head>
+<body>
+    <h1>Detalles del Cliente: {{ cliente.nombrec }}</h1>
+
+    <table class="table"> 
+        <thead class="table-light">
+            <td>Id</td>
+            <td>abogado</td>
+            <td>Fecha de Cita</td>
+            <td>fecha_creacion</td>
+            <td>lugar_cita</td>
+            <td>Descripción</td>
+            <!-- Agrega más columnas según tus necesidades -->
+        </thead>
+        {% for cita in citas_cliente %}
+        <tbody>    
+                <td><a href="/cita/{{ cita.pk }}">{{ cita.pk }}</a></td>
+                <td>{{ cita.abogado }}</td>
+                <td>{{ cita.fecha_cita }}</td>
+                <td>{{ cita.fecha_creacion}}</td>
+                <td>{{ cita.lugar_cita}}</td>
+                <td>{{ cita.descripcion }}</td>
+                <!-- Agrega más celdas según los campos de tu modelo Cita -->
+        </tbody>    
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock %}

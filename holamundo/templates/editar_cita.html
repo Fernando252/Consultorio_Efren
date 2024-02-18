@@ -1,0 +1,27 @@
+<!-- editar_cita.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Editar Cita</title>
+</head>
+<body>
+    <h1>Editar Cita</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <ul>
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>

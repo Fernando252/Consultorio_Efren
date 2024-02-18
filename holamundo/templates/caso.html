@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Detalles del Abogado</title>         
+</head>
+<body>
+    <h1>Detalles del Abogado: {{ abogado.nombrea }}</h1>
+
+    <table class="table table-striped"> 
+        <tr>
+            <td>Id</td>
+            <td>Cliente</td>
+            <td>Fecha de Apertura</td>
+            <td>Estado</td>
+            <td>Tipo de caso</td>
+            <td>Detalle</td>
+        </tr>
+        {% for caso in casos_abogado %}
+            <tr>
+                <td><a href="/casos/{{ caso.pk }}">{{ caso.pk }}</a></td>
+                <td>{{ caso.cliente }}</td>
+                <td>{{ caso.fecha_apertura }}</td>
+                <td>{{ caso.Estado }}</td>
+                <td>{{ caso.tipos_casos }}</td>
+                <td>{{ caso.descripcion }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock %}

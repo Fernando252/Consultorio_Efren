@@ -1,0 +1,248 @@
+{% load static %} 
+{% block sidebar %}
+            <div class="vertical-menu">
+
+                <div data-simplebar class="h-100">
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <!-- Left Menu Start -->
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <li class="menu-title" key="Main">Main</li>
+
+                            <li>
+                                <a href="{% url 'dashboard' %}" class="waves-effect">
+                                    <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
+                                    <span key="Dashboard">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'calendar' %}" class=" waves-effect">
+                                    <i class="ti-calendar"></i>
+                                    <span key="Calendar">Calendar</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-email"></i>
+                                    <span key="Email">Email</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'email-inbox' %}" key="Inbox">Inbox</a></li>
+                                    <li><a href="{% url 'email-emailread' %}" key="Email_Read">Email Read</a></li>
+                                    <li><a href="{% url 'email-emailcompose' %}" key="Email_Compose">Email Compose</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="menu-title" key="Components">Components</li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-package"></i>
+                                    <span key="UI_Elements">UI_Elements</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'uielements-alerts' %}" key="Alerts">Alerts</a></li>
+                                    <li><a href="{% url 'uielements-buttons' %}" key="Buttons">Buttons</a></li>
+                                    <li><a href="{% url 'uielements-cards' %}" key="Cards">Cards</a></li>
+                                    <li><a href="{% url 'uielements-carousel' %}" key="Carousel">Carousel</a></li>
+                                    <li><a href="{% url 'uielements-dropdowns' %}" key="Dropdowns">Dropdowns</a></li>
+                                    <li><a href="{% url 'uielements-grid' %}" key="Grid">Grid</a></li>
+                                    <li><a href="{% url 'uielements-images' %}" key="Images">Images</a></li>
+                                    <li><a href="{% url 'uielements-lightbox' %}" key="Lightbox">Lightbox</a></li>
+                                    <li><a href="{% url 'uielements-modals' %}" key="Modals">Modals</a></li>
+                                    <li><a href="{% url 'uielements-rangeslidebar' %}" key="Range_Slider">Range Slider</a></li>
+                                    <li><a href="{% url 'uielements-sessiontimeout' %}" key="Session_Timeout">Session Timeout</a></li>
+                                    <li><a href="{% url 'uielements-progressbars' %}" key="Progress_Bars">Progress Bars</a></li>
+                                    <li><a href="{% url 'uielements-sweetalert' %}" key="SweetAlert_2">SweetAlert 2</a></li>
+                                    <li><a href="{% url 'uielements-tabs' %}" key="Tabs_and_Accordions">Tabs &amp; Accordions</a></li>
+                                    <li><a href="{% url 'uielements-typography' %}" key="Typography">Typography</a></li>
+                                    <li><a href="{% url 'uielements-video' %}" key="Video">Video</a></li>
+                                    <li><a href="{% url 'uielements-general' %}" key="General">General</a></li>
+                                    <li><a href="{% url 'uielements-colors' %}" key="Colors">Colors</a></li>
+                                    <li><a href="{% url 'uielements-rating' %}" key="Rating">Rating</a></li>
+                                    <li><a href="{% url 'uielements-offcanvas' %}" key="Offcanvas">Offcanvas</a></li>
+                                    <li><a href="{% url 'uielements-utilities' %}">Utilities</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="ti-receipt"></i>
+                                    <span class="badge rounded-pill bg-success float-end">9</span>
+                                    <span key="Forms" >Forms</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'forms-formelements' %}" key="Form_Elements">Form Elements</a></li>
+                                    <li><a href="{% url 'forms-formvalidation' %}" key="Form_Validation">Form Validation</a></li>
+                                    <li><a href="{% url 'forms-formadvanced' %}" key="Form_Advanced">Form Advanced</a></li>
+                                    <li><a href="{% url 'forms-formeditors' %}" key="Form_Editors">Form Editors</a></li>
+                                    <li><a href="{% url 'forms-formfileupload' %}" key="Form_File_Upload">Form File Upload</a></li>
+                                    <li><a href="{% url 'forms-formxeditable' %}" key="Form_Xeditable">Form Xeditable</a></li>
+                                    <li><a href="{% url 'forms-formrepeater' %}" key="Form_Repeater">Form Repeater</a></li>
+                                    <li><a href="{% url 'forms-formwizard' %}" key="Form_Wizard">Form Wizard</a></li>
+                                    <li><a href="{% url 'forms-formmask' %}" key="Form_Mask">Form Mask</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-pie-chart"></i>
+                                    <span key="Charts">Charts</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'charts-morrischarts' %}" key="Morris_Chart">Morris Charts</a></li>
+                                    <li><a href="{% url 'charts-chartistcharts' %}" key="Chartist_Chart">Chartist Charts</a></li>
+                                    <li><a href="{% url 'charts-chartjscharts' %}" key="Chartjs_Chart">Chartjs Charts</a></li>
+                                    <li><a href="{% url 'charts-flotcharts' %}" key="Flot_Chart">Flot Charts</a></li>
+                                    <li><a href="{% url 'charts-jqueryknobcharts' %}" key="Jquery_Knob_Chart">Jquery Knob Charts</a></li>
+                                    <li><a href="{% url 'charts-sparklinecharts' %}" key="Sparkline_Chart">Sparkline Charts</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-view-grid"></i>
+                                    <span key="Tables">Tables</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'tables-basictables' %}" key="Basic_Tables">Basic Tables</a></li>
+                                    <li><a href="{% url 'tables-datatables' %}" key="Data_Table">Data Tables</a></li>
+                                    <li><a href="{% url 'tables-responsivetables' %}" key="Responsive_Table">Responsive Tables</a></li>
+                                    <li><a href="{% url 'tables-editabletables' %}" key="Editable_Table">Editable Tables</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-face-smile"></i>
+                                    <span key="Icons" >Icons</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'icons-materialdesign' %}" key="Material_Design">Material Design</a></li>
+                                    <li><a href="{% url 'icons-fontawesome' %}" key="Font_Awesome">Font Awesome</a></li>
+                                    <li><a href="{% url 'icons-ionicons' %}" key="Ion_Icons">Ion Icons</a></li>
+                                    <li><a href="{% url 'icons-themifyicons' %}" key="Themify_Icons">Themify Icons</a></li>
+                                    <li><a href="{% url 'icons-dripicons' %}" key="Dripicons">Dripicons</a></li>
+                                    <li><a href="{% url 'icons-typicons' %}" key="Typicons_Icons">Typicons Icons</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="ti-location-pin"></i>
+                                    <span class="badge rounded-pill bg-danger float-end">2</span>
+                                    <span key="Maps">Maps</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'maps-googlemaps' %}" key="Google_Map"> Google Maps</a></li>
+                                    <li><a href="{% url 'maps-vectormaps' %}" key="Vector_Map"> Vector Maps</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="menu-title"  key="Extras">Extras</li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-layout"></i>
+                                    <span key="Layouts">Layouts</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow" key="Vertical">Vertical</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{% url 'layouts-light_sidebar' %}" key="Light_Sidebar">Light Sidebar</a></li>
+                                            <li><a href="{% url 'layouts-compact_sidebar' %}" key="Compact_Sidebar">Compact Sidebar</a></li>
+                                            <li><a href="{% url 'layouts-icon_sidebar' %}" key="Icon_Sidebar">Icon Sidebar</a></li>
+                                            <li><a href="{% url 'layouts-boxed-width' %}" key="Boxed_Layout">Boxed Layout</a></li>
+                                            <li><a href="{% url 'layouts-colored_sidebar' %}" key="Colored_Sidebar">Colored Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" class="has-arrow" key="Horizontal">Horizontal</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="{% url 'layouts-horizontal' %}" key="Horizontal">Horizontal</a></li>
+                                            <li><a href="{% url 'layouts-hori_topbar_light' %}" key="Light_Topbar">Light Topbar</a></li>
+                                            <li><a href="{% url 'layouts-hori_boxed_width' %}" key="Boxed_Layout">Boxed Layout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-archive"></i>
+                                    <span key="Authentication"> Authentication </span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'login' %}" key="Login_1">Login 1</a></li>
+                                    <li><a href="{% url 'login-2' %}" key="Login_2">Login 2</a></li>
+                                    <li><a href="{% url 'register' %}" key="Register_1">Register 1</a></li>
+                                    <li><a href="{% url 'register-2' %}" key="Register_2">Register 2</a></li>
+                                    <li><a href="{% url 'recover-password' %}" key="Recover_Password_1">Recover Password 1</a></li>
+                                    <li><a href="{% url 'recover-password-2' %}" key="Recover_Password_2">Recover Password 2</a></li>
+                                    <li><a href="{% url 'lock-screen' %}" key="Lock_Screen_1">Lock Screen 1</a></li>
+                                    <li><a href="{% url 'lock-screen-2' %}" key="Lock_Screen_2">Lock Screen 2</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-support"></i>
+                                    <span key="Extra_Pages">  Extra Pages  </span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'extra_pages-timeline' %}" key="Timeline">Timeline</a></li>
+                                    <li><a href="{% url 'extra_pages-invoice' %}" key="Invoice">Invoice</a></li>
+                                    <li><a href="{% url 'extra_pages-directory' %}" key="Directory">Directory</a></li>
+                                    <li><a href="{% url 'extra_pages-starterpage' %}" key="Starter_Page">Starter Page</a></li>
+                                    <li><a href="{% url 'extra_pages-404error' %}" key="Error_404">Error 404</a></li>
+                                    <li><a href="{% url 'extra_pages-500error' %}" key="Error_500">Error 500</a></li>
+                                    <li><a href="{% url 'extra_pages-pricing' %}" key="Pricing">Pricing</a></li>
+                                    <li><a href="{% url 'extra_pages-gallery' %}" key="Gallery">Gallery</a></li>
+                                    <li><a href="{% url 'extra_pages-maintenance' %}" key="Maintenance">Maintenance</a></li>
+                                    <li><a href="{% url 'extra_pages-comingsoon' %}" key="Coming_Soon">Coming Soon</a></li>
+                                    <li><a href="{% url 'extra_pages-faqs' %}" key="FAQs">FAQs</a></li>
+                                    <li><a href="{% url 'extra_pages-profile' %}">Profile </a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-bookmark-alt"></i>
+                                    <span key="Email_Templates">  Email Templates  </span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'email_templates-basic_action_email' %}" key="Basic_Action_Email">Basic Action Email</a></li>
+                                    <li><a href="{% url 'email_templates-alert_email' %}" key="Alert_Email">Alert Email</a></li>
+                                    <li><a href="{% url 'email_templates-billing_email' %}" key="Billing_Email">Billing Email</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-more"></i>
+                                    <span key="Multi_Level">Multi Level</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li><a href="javascript: void(0);" key="Level_1_1">Level 1.1</a></li>
+                                    <li><a href="javascript: void(0);" class="has-arrow" key="Level_1_2">Level 1.2</a>
+                                        <ul class="sub-menu" aria-expanded="true">
+                                            <li><a href="javascript: void(0);" key="Level_2_1">Level 2.1</a></li>
+                                            <li><a href="javascript: void(0);" key="Level_2_2">Level 2.2</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+            </div>
+
+{% endblock %}

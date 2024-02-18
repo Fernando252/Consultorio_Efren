@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Detall de la cita</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card">
+                <div class="card-header">
+
+                        <h5 class="card-title">Detalle de la Cita</h5>
+
+                </div>
+
+                <p class="card-text"><strong>Abogado:</strong>{{ cita.abogado }}</p>
+                <p class="card-text"><strong>Cliente:</strong> {{ cita.cliente }}</p>
+                <p class="card-text"><strong>Fecha_cita:</strong> {{ cita.fecha_cita }}</p>
+                <p class="card-text"><strong>Lugar_cita:</strong> {{ cita.lugar_cita }}</p>
+                <p class="card-text"><strong>Descripción:</strong> {{ cita.descripcion }}</p>
+                <p class="card-text"><strong>Fecha_Creación:</strong> {{ cita.fecha_creacion }}</p>
+
+
+                <form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+                <form method="post" action="{% url 'editar_cita' codigo_cita=cita.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Editar</button>
+                </form>
+
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
