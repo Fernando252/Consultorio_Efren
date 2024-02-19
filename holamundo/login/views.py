@@ -170,17 +170,20 @@ def ver_cita(request, codigo_cita):
    c['cita'] =  get_object_or_404(Cita, pk=codigo_cita)
    return render(request, 'ver_cita.html', c)
 
+
 def editar_cita(request, codigo_cita):
+    c = {}
     cita = get_object_or_404(Cita, pk=codigo_cita)
     if request.method == 'POST':
-        form = CitaForm1(request.POST, instance=cita)
+        form = CitaForm1(request.POST, request.FILES, instance=cita)
         if form.is_valid():
             form.save()
-            return redirect('lista_citas') 
+            return redirect(cita.get_absolute_url())
     else:
         form = CitaForm1(instance=cita)
-    return render(request, 'editar_cita.html', {'form': form})
-
+    c['form'] = form
+    c['cita']= cita
+    return render(request, 'editar_cita.html', c)
 
 #calendario de citas
 
