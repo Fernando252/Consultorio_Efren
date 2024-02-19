@@ -11,6 +11,7 @@ urlpatterns = [
     path('ver_casos/', ver_casos, name='ver_casos'),
     path('registrar_cita/', registrar_cita, name='registrar_cita'),
     path('citas/', CitaListView.as_view(), name='citas_list'),
+    
     path('lista_citas/', citas_t,name="lista_citas"),
     path('cita/<int:codigo_cita>/', ver_cita, name='ver_cita'),
     path('eliminar_cita/<int:codigo_cita>/', eliminar_cita, name='eliminar_cita'),
