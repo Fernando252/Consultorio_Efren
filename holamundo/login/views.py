@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.hashers import make_password
 from django.db.models import Count
 from .models import Abogado, Casos, Clientes,Cita
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, CitaForm1
 from django.views.generic import ListView
-from django.http import JsonResponse
+
 
 
 
@@ -34,7 +32,7 @@ def registro_abogado(request):
         )
         
         # Realizar cualquier otra acción o redirigir a una página específica
-        return redirect('index.html')  
+        return redirect('dashboard.html')  
     return render(request, 'registro_abogado.html', {'ESPECIALIDAD_CHOICES': ESPECIALIDAD_CHOICES})
 
 # registo cliente
@@ -49,10 +47,6 @@ def registro_cliente(request):
         form = RegistroClienteForm()
 
     return render(request, 'registro_cliente.html', {'form': form})
-
-
-
-
 
 
 
@@ -81,11 +75,6 @@ def casos_abogado(request,codigo_abogado):
 
 #abogados
 
-def index(request):
-    
-    return render(request, 'index.html')
-
-
 def registrar_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
@@ -93,7 +82,7 @@ def registrar_cita(request):
             nueva_cita = form.save(commit=False)
             
             nueva_cita.save()
-            return redirect('index')  # Cambia 'index' con el nombre de tu vista principal
+            return redirect('dashboard')  # Cambia 'index' con el nombre de tu vista principal
     else:
         form = CitaForm()
 
@@ -109,7 +98,7 @@ def subir_documento(request):
         form = DocumentoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = DocumentoForm()
 
