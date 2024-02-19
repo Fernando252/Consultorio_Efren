@@ -28,9 +28,8 @@ urlpatterns = [
 
     path('citas/', CitaListView.as_view(), name='citas_list'),
     path('registrar_cita/', registrar_cita, name='registrar_cita'),
+
     path('editar_cita/<int:codigo_cita>/',editar_cita, name='editar_cita'),
-
-
     path('lista_citas/', citas_t,name="lista_citas"),
     path('cita/<int:codigo_cita>/', ver_cita, name='ver_cita'),
     path('eliminar_cita/<int:codigo_cita>/', eliminar_cita, name='eliminar_cita'),

@@ -37,7 +37,8 @@
                 <td>{{cita.fecha_cita}}</td>
                 <td>
                     <div>
-                        <a href='/editar_cita/{{cita.id}}' class="btn btn-primary">Ver Detalles</a>
+                        <a href="{% url 'ver_cita' codigo_cita=cita.id %}" class="btn btn-primary">Ver Detalles</a>
+                      
                     </div>
                   
 
