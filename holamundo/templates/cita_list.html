@@ -1,38 +1,25 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-{% block extra_css %}
-    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
-{% endblock  %}
+
 
 {% block content %}
 
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Crear Cita</title>
-
 
     <!-- Enlace al estilo de FullCalendar -->
     <link rel="stylesheet" href="{% static 'lib/main.css' %}">
 
 
-
     <!-- Enlace a FullCalendar -->
     <script src="{% static 'lib/main.js' %}"></script>
-
-    
-</head>
 
 <body>
     <div class="container mt-5">
        
         <!-- Calendario FullCalendar con diseño mejorado -->
-        <div id='calendar' class="card p-3">
+        <div id='calendar'>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
@@ -73,19 +60,17 @@
             calendar.render();
         });
     </script>
-</body>
 
-</html>
 {% endblock %}
 {% block extra_javascript %}
+       
 
-    <!-- Peity chart-->
-    <script src="{% static 'libs/peity/jquery.peity.min.js' %}"></script>
+        <!-- plugin js -->
+        <script src="{% static 'libs/moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'libs/jquery-ui-dist/jquery-ui.min.js' %}"></script>
+        <script src="{% static 'libs/fullcalendar/index.global.min.js' %}"></script>
 
-    <!-- Plugin Js-->
-    <script src="{% static 'libs/chartist/dist/chartist.min.js' %}"></script>
-    <script src="{% static 'libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
-
-    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
-
-{% endblock %}
+        <!-- Calendar init -->
+        <script src="{% static 'js/pages/calendar.init.js' %}"></script>
+      
+{% endblock %}                            
