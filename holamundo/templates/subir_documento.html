@@ -1,5 +1,9 @@
+{% extends 'partials/base.html' %}
 {% load static %}
 
+
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,15 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Subir Documentos</title>
 
-    <!-- Enlaces a los estilos de Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Asegúrate de cargar jQuery antes de los scripts de Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
     
-    <!-- Enlace al estilo de Tempus Dominus -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/css/tempusdominus-bootstrap-4.min.css">
 </head>
 
 <body>
@@ -58,8 +54,20 @@
         </div>
     </form>
 
-    <!-- Scripts de Bootstrap (Popper.js y Bootstrap JS) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
+{% endblock %}
+
+{% block extra_javascript %}
+       
+
+        <!-- plugin js -->
+        <script src="{% static 'libs/moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'libs/jquery-ui-dist/jquery-ui.min.js' %}"></script>
+        <script src="{% static 'libs/fullcalendar/index.global.min.js' %}"></script>
+
+        <!-- Calendar init -->
+        <script src="{% static 'js/pages/calendar.init.js' %}"></script>
+      
+{% endblock %}         

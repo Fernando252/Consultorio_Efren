@@ -14,6 +14,12 @@
                                 <a href="{% url 'dashboard' %}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
                                     <span key="Dashboard">Dashboard</span>
+                                    
+                                </a>
+                                <a href="{% url 'dashboard' %}" class="waves-effect">
+                                    <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
+                                    <span key="Dashboard">Abogado</span>
+                                    
                                 </a>
                             </li>
 
@@ -27,17 +33,52 @@
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ti-email"></i>
-                                    <span key="Email">Email</span>
+                                    <span key="Email">Documentos</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'email-inbox' %}" key="Inbox">Inbox</a></li>
-                                    <li><a href="{% url 'email-emailread' %}" key="Email_Read">Email Read</a></li>
+                                    <li><a href="{% url 'subir_documento' %}" key="Inbox">Subir Documento</a></li>
+                                    <li><a href="{% url 'email-emailread' %}" key="Email_Read">Ver Documento</a></li>
                                     <li><a href="{% url 'email-emailcompose' %}" key="Email_Compose">Email Compose</a></li>
                                 </ul>
                             </li>
-
-                            <li class="menu-title" key="Components">Components</li>
-
+                            
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-email"></i>
+                                    <span key="Email">Clientes</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{%url 'registro_cliente'%}" key="Inbox">Registro cliente</a></li>
+                                    <li><a href="{% url 'email-emailread' %}" key="Email_Read">Editar cliente</a></li>
+                                    <li><a href="{% url 'email-emailcompose' %}" key="Email_Compose">Email Compose</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-email"></i>
+                                    <span key="Email">Citas</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{%url 'registrar_cita'%}" key="Cita">Registro citas</a></li>
+                                    <li><a href="{% url 'citas_list' %}" key="Email_Read">Ver citas</a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="ti-email"></i>
+                                    <span key="Email">Casos</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'email-emailread' %}" key="Email_Read">Ver casos</a></li>
+                                    
+                                </ul>
+                            </li>
+                            <li class="menu-title" key="Components">Clientes</li>
+                            <ul class="sub-menu" aria-expanded="false">
+                                
+                                
+                            </ul>
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="ti-package"></i>

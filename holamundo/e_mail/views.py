@@ -5,10 +5,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class InboxView(LoginRequiredMixin,View):
     def get(self , request):
         greeting = {}
-        greeting['title'] = "Inbox"
+        greeting['title'] = "Documento"
         greeting['heading'] = "consultorio"
         greeting['subheading'] = "Email"
-        return render (request,'email/email-inbox.html',greeting)
+        return render (request,'subir_documento.html',greeting)
 
 class EmailReadView(LoginRequiredMixin,View):
     def get(self , request):
