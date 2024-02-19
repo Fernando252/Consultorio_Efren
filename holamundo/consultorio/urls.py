@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import ver_cita,citas_t,CitaListView,registrar_cita,index, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita
+from login.views import ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita
 from consultorio import views
 from django.contrib.auth.decorators import login_required
 from .views import MyPasswordChangeView, MyPasswordSetView
@@ -25,7 +25,7 @@ urlpatterns = [
     path('', views.DashboardView.as_view(), name='dashboard'),
     path('admin/', admin.site.urls),
 
-    path('index/', index, name='index'),
+
     path('citas/', CitaListView.as_view(), name='citas_list'),
     path('registrar_cita/', registrar_cita, name='registrar_cita'),
     path('editar_cita/<int:codigo_cita>/',editar_cita, name='editar_cita'),
