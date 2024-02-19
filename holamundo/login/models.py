@@ -51,12 +51,12 @@ class Cita(models.Model):
         return f'{self.pk} - {self.cliente}'
     
     def get_absolute_url(self):
-        return reverse('ver_cita', kwargs={'codigo_cita': self.id})
+        return reverse('ver_cita', kwargs={'codigo_cita': self.pk})
     def get_edit_url(self):
-        return reverse('editar_citas', kwargs={'codigo_cita': self.id})
+        return reverse('editar_cita', kwargs={'codigo_cita': self.pk})
     
     def get_delete_url(self):
-        return reverse('eliminar_cita', kwargs={'codigo_cita': self.id})
+        return reverse('eliminar_cita', kwargs={'codigo_cita': self.pk})
 
 
 class Casos(models.Model):

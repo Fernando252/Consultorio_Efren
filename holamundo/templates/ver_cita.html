@@ -49,15 +49,17 @@
                                 
                             </tr>
                             
-                                <td colspan="6"><form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
-                                    {% csrf_token %}
+                                <td colspan="6">
+                                    <form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
+                                    
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
-                                </form>
+                                    </form>
                                 </td>
-                                <td colspan="6"><form method="post" action="{{ cita.get_edit_url }}">
-                                    {% csrf_token %}
+                                <td colspan="6">
+                                    <form method="post" action="{{ cita.get_edit_url }}">
+                                    
                                     <button type="submit" class="btn btn-primary">Editar</button>
-                                </form>
+                                    </form>
                                 </td>
                             
                         </tbody>

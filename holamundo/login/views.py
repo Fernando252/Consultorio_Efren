@@ -146,7 +146,7 @@ def nueva_cita(request):
         contenido ['form'] = CitaForm(request.POST or None)
         if contenido ['form'].is_valid():
             contenido ['form'].save()
-            return redirect('lista_citas')
+            return redirect(contenido['form'].instance.get_absolute_url())
 
     contenido ['instancia_cita'] = Cita()
     contenido ['form'] = CitaForm(
@@ -175,15 +175,15 @@ def editar_cita(request, codigo_cita):
     c = {}
     cita = get_object_or_404(Cita, pk=codigo_cita)
     if request.method == 'POST':
-        form = CitaForm1(request.POST, request.FILES, instance=cita)
+        form = CitaForm(request.POST, request.FILES, instance=cita)
         if form.is_valid():
             form.save()
             return redirect(cita.get_absolute_url())
     else:
-        form = CitaForm1(instance=cita)
+        form = CitaForm(instance=cita)
     c['form'] = form
     c['cita']= cita
-    return render(request, 'editar_cita.html', c)
+    return render(request,'registrar_cita1.html', c)
 
 #calendario de citas
 
