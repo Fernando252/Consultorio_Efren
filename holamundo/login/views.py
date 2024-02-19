@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count
-from .models import Abogado, Casos, Clientes,Cita
+from .models import Abogado, Casos, Clientes,Cita, Documentos
 from django.contrib import messages
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, CitaForm1
 from django.views.generic import ListView
@@ -179,3 +179,54 @@ def editar_cita(request, codigo_cita):
 class CitaListView(ListView):
     model = Cita
     template_name = 'calendar.html'
+#Documentos 
+def ver_documentos(request):
+    documentos = Documentos.objects.all()
+    contenido = {
+        'documentos' : documentos
+    }
+    template = "lista_documentos.html"
+    return render(request, template, contenido)
+
+def ver_documento(request, codigo_documento):
+   c = {}
+   c['documento'] =  get_object_or_404(Documentos, pk=codigo_documento)
+   return render(request, 'ver_documento.html', c)
+
+def editar_documento(request, codigo_documento):
+    c = {}
+    documento = get_object_or_404(Documentos, pk=codigo_documento)
+    if request.method == 'POST':
+        form = DocumentoForm(request.POST, request.FILES, instance=documento)
+        if form.is_valid():
+            form.save()
+            return redirect(documento.get_absolute_url())
+    else:
+        form = DocumentoForm(instance=documento)
+    c['form'] = form
+    c['documento']= documento
+    return render(request,'edit_documento.html', c)
+
+def eliminar_documento(request, codigo_documento):
+    documento = get_object_or_404(Documentos, id=codigo_documento)
+
+    if request.method == 'POST':
+        documento.delete()
+        return redirect('lista_documentos')  
+    return render(request, 'ver_documento.html', {'documento': documento})
+
+def nueva_docu(request):
+    contenido = {}
+    if request.method == 'POST':
+        contenido ['form'] = DocumentoForm(request.POST or None)
+        if contenido ['form'].is_valid():
+            contenido ['form'].save()
+            return redirect(contenido['form'].instance.get_absolute_url())
+
+    contenido ['instancia_documento'] = Documentos()
+    contenido ['form'] = DocumentoForm(
+        request.POST or None,
+        instance = contenido['instancia_documento']
+    )
+    template = 'edit_documento.html'
+    return render(request, template, contenido)

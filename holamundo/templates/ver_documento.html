@@ -1,0 +1,69 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Detalle del documento</h4>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead class="text-center">
+                        
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">
+                            Caso<br>
+                            </th>
+                            <th scope="col">
+                            Tipo de documento<br>
+                            </th>
+                            <th scope="col">
+                            Descripción<br>
+                            </th>
+                            <th scope="col">
+                            Archivo adjunto<br>
+                            </th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <th class="text-nowrap" scope="row"></th>
+                                <td >{{ documento.caso }}</td>
+                                <td>{{ documento.tipo_documento }}</td>
+                                <td>{{ documento.descripcion_documento }}</td>
+                                <td>{{ documento.archivo_adjunto }}</td>
+                               
+                                
+                            </tr>
+
+                                <th colspan="6">
+                                    <form method="post" action="{documento.get_delete_url}">
+                                     
+                                        {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </th>
+                                <th colspan="6">
+                                    <td colspan="6">
+                                        <a href='/editar_documento/{{documento.id}}' class="btn btn-primary">Editar</a>
+                                        </form>
+                                    </td>
+                                </th>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+</div> <!-- end row -->
+
+{% endblock %}

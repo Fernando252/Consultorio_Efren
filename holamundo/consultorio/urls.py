@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita
+from login.views import editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita
 from consultorio import views
 from django.contrib.auth.decorators import login_required
 from .views import MyPasswordChangeView, MyPasswordSetView
@@ -41,7 +41,11 @@ urlpatterns = [
     path('registro_abogado/', registro_abogado, name='registro_abogado'),
 
     path('subir_documento/', subir_documento, name='subir_documento'),
-
+    path('lista_documentos/', ver_documentos,name="lista_documentos"),
+    path('documento/<int:codigo_documento>/', ver_documento, name='ver_documento'),
+    path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
+    path('edit_documento/', nueva_docu, name='nueva_docu'),
+    path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
 
     path('ver_casos/', ver_casos, name='ver_casos'),
     path('caso/<int:codigo_abogado>/', casos_abogado, name="detalle_casos"),
