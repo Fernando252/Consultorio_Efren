@@ -231,3 +231,12 @@ def nueva_docu(request):
     )
     template = 'edit_documento.html'
     return render(request, template, contenido)
+#Abogados 
+
+def ver_abogados(request):
+    abogados = Abogado.objects.all()
+    contenido = {
+        'abogados' : abogados
+    }
+    template = "lista_abogados.html"
+    return render(request, template, contenido)

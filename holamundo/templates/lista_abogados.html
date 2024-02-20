@@ -1,0 +1,66 @@
+
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+{% endblock  %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Abogados por caso</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Abogados</h1>
+        </div>
+        
+    </div>
+
+<div>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Abogado</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Correo</th>
+            </tr>
+        </thead>
+        {% for abogado in abogados %}
+        <tbody>
+            <tr>
+                <td>{{abogado.nombrea}}</td>
+                <td>{{abogado.apellido}}</td>
+                <td>{{abogado.correo}}</td>
+                <td>
+                    <div>
+                        <a href="/caso/{{ abogado.pk }}">Ver casos</a>
+                    </div>
+                  
+
+                </td>
+             
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>
+{% endblock %}
+{% block extra_javascript %}
+
+    <!-- Peity chart-->
+    <script src="{% static 'libs/peity/jquery.peity.min.js' %}"></script>
+
+    <!-- Plugin Js-->
+    <script src="{% static 'libs/chartist/dist/chartist.min.js' %}"></script>
+    <script src="{% static 'libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+{% endblock %}
