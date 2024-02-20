@@ -11,12 +11,12 @@
         <div class="col-md-4">
             <div class="card">
                 {% if abogado.foto %}
-                <img src="{{ abogado.foto.url }}" class="card-img-top" alt="{{ abogado.nombrea }}">
+                <img src="{{ abogado.foto.url }}" class="card-img-top mb-3" alt="{{ abogado.nombrea }}" style="max-height: 400px; object-fit: cover;">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{abogado.nombrea}}</h5>
                     <p class="card-text">{{abogado.apellido}}</p>
-                    <td><a href="/detalle_abogado/{{ abogado.pk }}">{{ abogado.pk }}</a></td>
+                    <td><a href="/detalle_abogado/{{ abogado.pk }}">Mas Información</a></td>
                     
                 </div>
             </div>
