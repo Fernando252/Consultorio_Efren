@@ -178,4 +178,4 @@ def editar_cita(request, codigo_cita):
 
 class CitaListView(ListView):
     model = Cita
-    template_name = 'calendar.html'
+    template_name = 'cita_list.html'

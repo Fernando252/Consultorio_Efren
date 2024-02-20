@@ -13,7 +13,6 @@
 
 
     <!-- Enlace a FullCalendar -->
-    <script src="{% static 'lib/main.js' %}"></script>
 
 <body>
     <div class="container mt-5">
@@ -46,13 +45,22 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar-inner');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+                },
+                initialView: 'dayGridMonth', // Vista inicial por defecto
+                views: {
+                    list: { buttonText: 'Lista' },
+                    dayGrid: { buttonText: 'Día' },
+                    timeGrid: { buttonText: 'Semana' }
+                },
                 events: [
                     {% for cita in object_list %}
                         {
                             title: '{{ cita.abogado.nombrea }}',
                             start: '{{ cita.fecha_cita|date:"Y-m-d\TH:i:s" }}',
-                            description: '{{ cita.descripcion }}'
                         }{% if not forloop.last %},{% endif %}
                     {% endfor %}
                 ],
@@ -71,6 +79,6 @@
         <script src="{% static 'libs/fullcalendar/index.global.min.js' %}"></script>
 
         <!-- Calendar init -->
-        <script src="{% static 'js/pages/calendar.init.js' %}"></script>
+ 
       
 {% endblock %}                            
