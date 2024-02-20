@@ -91,5 +91,13 @@ class Documentos(models.Model):
     def __str__(self) -> str:
         return f'Documento {self.tipo_documento} para el caso {self.caso.id}'
         
-
+    def get_absolute_url(self):
+        return reverse('ver_documento', kwargs={'codigo_documento': self.pk})
+    
+    def get_edit_url(self):
+        return reverse('editar_documento', kwargs={'codigo_documento': self.pk})
+    
+    def get_delete_url(self):
+        return reverse('eliminar_documento', kwargs={'codigo_documento': self.id})  
+    
         

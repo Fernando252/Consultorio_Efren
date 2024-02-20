@@ -1,0 +1,68 @@
+
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+{% endblock  %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentos</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Tus documentos son</h1>
+        </div>
+        <div class="col-sm-4">
+            <a href="{% url 'subir_documento'  %}" class="btn btn-primary">Nuevo</a>
+        </div>
+    </div>
+
+<div>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Caso</th>
+                <th scope="col">Tipo de documento</th>
+                <th scope="col">Descripción</th>
+            </tr>
+        </thead>
+        {% for documento in documentos %}
+        <tbody>
+            <tr>
+                <td>{{documento.caso}}</td>
+                <td>{{documento.tipo_documento}}</td>
+                <td>{{documento.descripcion_documento}}</td>
+                <td>
+                    <div>
+                        <a href="{% url 'ver_documento' codigo_documento=documento.id %}" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                  
+
+                </td>
+             
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>
+{% endblock %}
+{% block extra_javascript %}
+
+    <!-- Peity chart-->
+    <script src="{% static 'libs/peity/jquery.peity.min.js' %}"></script>
+
+    <!-- Plugin Js-->
+    <script src="{% static 'libs/chartist/dist/chartist.min.js' %}"></script>
+    <script src="{% static 'libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+{% endblock %}
