@@ -1,8 +1,14 @@
 from django.contrib import admin
-from .models import  Abogado, Clientes, Cita, Casos, Documentos, Info_Abogado
+from .models import  Abogado, Clientes, Cita, Casos, Documentos, Info_Abogado,Perfil_Usuario
+
 
 class Abogadoadmin(admin.ModelAdmin):
     list_display = ('id', 'nombre')
+
+@admin.register(Perfil_Usuario)
+class Perfil_UsuarioAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'celular', 'ubicacion', 'foto_usuario')
+    list_filter = ('user',)
 
 @admin.register(Abogado)
 class AbogadoAdmin(admin.ModelAdmin):

@@ -1,9 +1,16 @@
 from django.db import models
 from django.utils import timezone
-
 from django.urls import reverse
+from django.contrib.auth.models import User
 
-
+class Perfil_Usuario(models.Model):
+   user = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE)
+   celular = models.CharField(blank=True,null=True, max_length=255)
+   ubicacion = models.CharField(blank=True,null=True, max_length=255)
+   foto_usuario = models.FileField(
+      upload_to="foto_usuario/",
+      blank=True,
+   )
 
 
 class Abogado(models.Model):

@@ -3,7 +3,12 @@ from django.db.models import Count
 from .models import Abogado, Casos, Clientes,Cita, Documentos, Info_Abogado
 from django.contrib import messages
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, CitaForm1
+from django.contrib.auth.decorators import login_required
+from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario
+
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm
 from django.views.generic import ListView
+
 
 
 
@@ -159,7 +164,7 @@ def ver_cita(request, codigo_cita):
    c['cita'] =  get_object_or_404(Cita, pk=codigo_cita)
    return render(request, 'ver_cita.html', c)
 
-
+@login_required
 def editar_cita(request, codigo_cita):
     c = {}
     cita = get_object_or_404(Cita, pk=codigo_cita)
@@ -179,7 +184,7 @@ def editar_cita(request, codigo_cita):
 class CitaListView(ListView):
     model = Cita
     template_name = 'cita_list.html'
-    template_name = 'calendar.html'
+  
 #Documentos 
 def ver_documentos(request):
     documentos = Documentos.objects.all()
@@ -231,6 +236,28 @@ def nueva_docu(request):
     )
     template = 'edit_documento.html'
     return render(request, template, contenido)
+
+
+
+@login_required
+def ver_perfil_usuario(request):
+    contenido = {}
+    if hasattr(request.user, 'perfil'):
+        perfil = request.user.perfil
+    else:
+        perfil = Perfil_Usuario(user = request.user)
+    if request.method == 'POST':
+        form = Perfil_UsuarioForm(request.POST, request.FILES, instance=perfil)
+        if form.is_valid():
+            form.save()
+        
+    else:
+        form = Perfil_UsuarioForm(instance=perfil)
+    contenido['form'] = form
+    contenido['cliente'] = perfil
+
+    return render(request, 'perfil_usuario.html',contenido)
+
 #Abogados 
 
 def ver_abogados(request):

@@ -62,15 +62,17 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 
     'django.contrib.sites',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     'widget_tweaks',
     'imagekit',
     'rest_framework',
      
-    'allauth.socialaccount.providers.google',
+    
     
 
 ]
