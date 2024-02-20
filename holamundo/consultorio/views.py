@@ -5,8 +5,7 @@ from django.views import View
 from django.urls import reverse_lazy
 from allauth.account.views import PasswordChangeView, PasswordSetView
 from django.contrib.auth.mixins import LoginRequiredMixin 
-from login.views import Cita
-from django.views.generic import ListView
+
 
 
 class DashboardView(LoginRequiredMixin,View):
@@ -17,13 +16,12 @@ class DashboardView(LoginRequiredMixin,View):
         greeting['subheading'] = "Dashboard" 
         return render(request, 'dashboard.html',greeting)
 
-class CalendarView(LoginRequiredMixin,ListView):
+class CalendarView(LoginRequiredMixin,View):
     def get(self, request):
         greeting = {}
         greeting['title'] = "Dashboard"
         greeting['heading'] = "consultorio" 
         greeting['subheading'] = "Dashboard" 
-        model = Cita
         return render(request, 'calendar.html')
  
 class MyPasswordChangeView( PasswordChangeView):
