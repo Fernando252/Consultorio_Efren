@@ -260,7 +260,7 @@ def ver_perfil_usuario(request):
 
 #Abogados 
 
-def ver_abogados(request):
+def ver_abogados1(request):
     abogados = Abogado.objects.all()
     contenido = {
         'abogados' : abogados

@@ -15,7 +15,7 @@
                         <thead class="text-center">
                         
                         <tr>
-                            <th scope="col"></th>
+                            
                             <th scope="col">
                             Abogado<br>
                             </th>
@@ -39,7 +39,6 @@
                         <tbody>
                             
                             <tr>
-                                <th class="text-nowrap" scope="row"></th>
                                 <td >{{ cita.abogado }}</th>
                                 <td>{{ cita.cliente }}</td>
                                 <td>{{ cita.fecha_cita }}</td>
@@ -48,17 +47,19 @@
                                 <td>{{ cita.fecha_creacion }}</td>
                                 
                             </tr>
-
-                                <td colspan="6">
+                            <tr>
+                                <td colspan="3">
                                     <form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
                                       {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
                                 </td>
-                                <td colspan="6">
+                                <td colspan="3">
                                     <a href='/editar_cita/{{cita.id}}' class="btn btn-primary">Editar</a>
-                                    </form>
+                                    
                                 </td>
+                            </tr>
+                               
                             
                         </tbody>
                     </table>

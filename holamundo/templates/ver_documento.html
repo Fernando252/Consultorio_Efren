@@ -15,7 +15,6 @@
                         <thead class="text-center">
                         
                         <tr>
-                            <th scope="col"></th>
                             <th scope="col">
                             Caso<br>
                             </th>
@@ -25,37 +24,33 @@
                             <th scope="col">
                             Descripción<br>
                             </th>
-                            <th scope="col">
-                            Archivo adjunto<br>
-                            </th>
+                            
                             
                         </tr>
                         </thead>
                         <tbody>
                             
                             <tr>
-                                <th class="text-nowrap" scope="row"></th>
                                 <td >{{ documento.caso }}</td>
                                 <td>{{ documento.tipo_documento }}</td>
                                 <td>{{ documento.descripcion_documento }}</td>
-                                <td>{{ documento.archivo_adjunto }}</td>
+                                
                                
                                 
                             </tr>
-
-                                <th colspan="6">
+                            <tr>
+                                <td >
                                     <form method="post" action="{documento.get_delete_url}">
                                      
                                         {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
-                                </th>
-                                <th colspan="6">
-                                    <td colspan="6">
+                                </td>
+                                <td colspan="2">
+                                    
                                         <a href='/editar_documento/{{documento.id}}' class="btn btn-primary">Editar</a>
-                                        </form>
-                                    </td>
-                                </th>
+                                </td>
+                            </tr>
                             
                         </tbody>
                     </table>
