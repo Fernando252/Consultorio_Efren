@@ -233,7 +233,6 @@ def nueva_docu(request):
     )
     template = 'edit_documento.html'
     return render(request, template, contenido)
-<<<<<<< HEAD
 
 
 
@@ -256,7 +255,6 @@ def ver_perfil_usuario(request):
 
     return render(request, 'perfil_usuario.html',contenido)
 
-=======
 #Abogados 
 
 def ver_abogados(request):
@@ -266,4 +264,3 @@ def ver_abogados(request):
     }
     template = "lista_abogados.html"
     return render(request, template, contenido)
->>>>>>> 9df5c5659f762e91caf18569588ed7e9675cdf5f
