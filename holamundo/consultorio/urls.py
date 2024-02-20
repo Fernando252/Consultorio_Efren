@@ -26,10 +26,12 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.DashboardView.as_view(), name='dashboard'),
+  
     path('admin/', admin.site.urls),
+    path('', views.DashboardView.as_view(), name='dashboard'),
     path('mi_perfil/',ver_perfil_usuario,name='ver_perfil_usuario'),
-    path('accounts/profile',ver_perfil_usuario,name='ver_perfil_usuario'),
+    path('accounts/profile/', ver_perfil_usuario, name='profile'),
+  
 
     path('citas/', CitaListView.as_view(), name='citas_list'),
     path('registrar_cita/', registrar_cita, name='registrar_cita'),
