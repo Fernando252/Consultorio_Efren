@@ -1,6 +1,12 @@
-{% extends 'base.html' %}
+
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+{% endblock  %}
 
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +17,7 @@
 
     <table class="table table-striped"> 
         <tr>
-            <td>Id</td>
+            <td>N°</td>
             <td>Cliente</td>
             <td>Fecha de Apertura</td>
             <td>Estado</td>
@@ -20,7 +26,7 @@
         </tr>
         {% for caso in casos_abogado %}
             <tr>
-                <td><a href="/casos/{{ caso.pk }}">{{ caso.pk }}</a></td>
+                <td>{{ caso.pk }}</td>
                 <td>{{ caso.cliente }}</td>
                 <td>{{ caso.fecha_apertura }}</td>
                 <td>{{ caso.Estado }}</td>
@@ -31,4 +37,16 @@
     </table>
 </body>
 </html>
+{% endblock %}
+{% block extra_javascript %}
+
+    <!-- Peity chart-->
+    <script src="{% static 'libs/peity/jquery.peity.min.js' %}"></script>
+
+    <!-- Plugin Js-->
+    <script src="{% static 'libs/chartist/dist/chartist.min.js' %}"></script>
+    <script src="{% static 'libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
 {% endblock %}
