@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count
-from .models import Abogado, Casos, Clientes,Cita, Documentos
+from .models import Abogado, Casos, Clientes,Cita, Documentos, Info_Abogado
 from django.contrib import messages
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, CitaForm1
 from django.views.generic import ListView
@@ -240,3 +240,22 @@ def ver_abogados(request):
     }
     template = "lista_abogados.html"
     return render(request, template, contenido)
+
+#Abogado perfil
+def ver_abogados(request):
+    abogados = Abogado.objects.all()
+    contenido = {
+        'abogados' : abogados
+    }
+    template = "p_abogado.html"
+    return render(request, template, contenido)
+
+def detalle_abogado(request, codigo_abogado):
+    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
+    detalle_abogado = Info_Abogado.objects.filter(abogado=abogado)
+    contenido = {
+        'detalle' : detalle_abogado, 
+        'abogado' : abogado,
+    }
+    return render(request, 'detalle_abogado.html', contenido)
+

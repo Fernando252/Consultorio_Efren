@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+    <h1>Perfiles de los abogados</h1>
+    <div class="row">
+        {% for abogado in abogados %}
+        <div class="col-md-4">
+            <div class="card">
+                {% if abogado.foto %}
+                <img src="{{ abogado.foto.url }}" class="card-img-top" alt="{{ abogado.nombrea }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{abogado.nombrea}}</h5>
+                    <p class="card-text">{{abogado.apellido}}</p>
+                    <td><a href="/detalle_abogado/{{ abogado.pk }}">{{ abogado.pk }}</a></td>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

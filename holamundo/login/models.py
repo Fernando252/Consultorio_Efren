@@ -18,6 +18,14 @@ class Abogado(models.Model):
     celular = models.CharField(max_length=10, blank=False, null=False)
     correo = models.CharField(max_length=144, blank=False, null=False)
     tipos_especialidad = models.CharField(max_length=10, default='Penal', choices=ESPECIALIDAD_CHOICES)
+    foto = models.ImageField(
+        upload_to="media/", 
+        blank=True, 
+        null=True, 
+        verbose_name='foto',
+        help_text='foto.',
+
+    )
     
     def __str__(self) -> str:
         return f'{self.nombrea}'
@@ -104,4 +112,9 @@ class Documentos(models.Model):
     def get_delete_url(self):
         return reverse('eliminar_documento', kwargs={'codigo_documento': self.id})  
     
-        
+class Info_Abogado(models.Model):
+    abogado = models.ForeignKey(Abogado, related_name='info', on_delete=models.CASCADE, null=True,)
+    descripcion = models.TextField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.abogado.nombrea        

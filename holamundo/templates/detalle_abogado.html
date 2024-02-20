@@ -1,0 +1,19 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        
+        <div class="card-body">
+            <p class="card-text"><strong>Nombre:</strong> {{ abogado.nombrea }}</p>
+                <p class="card-text"><strong>Apellido:</strong> {{ abogado.apellido }}</p>
+                <p class="card-text"><strong>Celular:</strong> {{ abogado.celular }}</p>
+                <p class="card-text"><strong>Tipos_especialidad:</strong>{{ abogado.get_tipos_especialidad_display }}</p>
+                <p class="card-text"><strong>descripción:</strong>{{ detalle_abogado.descripcion }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

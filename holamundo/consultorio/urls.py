@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita
+from login.views import ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita, detalle_abogado
 from consultorio import views
 from django.contrib.auth.decorators import login_required
 from .views import MyPasswordChangeView, MyPasswordSetView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -52,7 +54,10 @@ urlpatterns = [
     path('caso/<int:codigo_abogado>/', casos_abogado, name="detalle_casos"),
        
 
-       
+    #Perfil abogado
+
+    path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
+
     path('calendar', views.CalendarView.as_view(), name='calendar'),
     # Email
     path("email/", include("e_mail.urls")),
@@ -75,6 +80,6 @@ urlpatterns = [
  
     path('accounts/', include('allauth.urls')),
    
-    
-
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
