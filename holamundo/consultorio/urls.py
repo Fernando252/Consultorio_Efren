@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from login.views import ver_documentos,registro_abogado
-from login.views import clientesviews, detalle_abogado, ver_perfil_usuario
-from login.views import abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado
+from login.views import ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita,registro_abogado, registro_cliente, subir_documento
+from login.views import clientesviews,nueva_cita, eliminar_cita, editar_cita, detalle_abogado, ver_perfil_usuario
+from login.views import abogados_por_cliente,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_casos_abogado
 
 
 from consultorio import views
@@ -33,26 +33,42 @@ urlpatterns = [
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
     
+
   
     path('admin/', admin.site.urls),
     path('', views.DashboardView.as_view(), name='dashboard'),
     path('mi_perfil/',ver_perfil_usuario,name='ver_perfil_usuario'),
     path('accounts/profile/', ver_perfil_usuario, name='profile'),
+  
+
+    path('citas/', CitaListView.as_view(), name='citas_list'),
+    path('registrar_cita/', registrar_cita, name='registrar_cita'),
+
+    path('editar_cita/<int:codigo_cita>/',editar_cita, name='editar_cita'),
+
+    path('lista_citas/', citas_t,name="lista_citas"),
+    path('cita/<int:codigo_cita>/', ver_cita, name='ver_cita'),
+    path('eliminar_cita/<int:codigo_cita>/', eliminar_cita, name='eliminar_cita'),
+  
+
+    path('registrar_cita1/', nueva_cita, name='registrar_cita1'),
+    path('registro_cliente/', registro_cliente, name='registro_cliente'),
     path('registro_abogado/', registro_abogado, name='registro_abogado'),
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
 
-
-
+    path('subir_documento/', subir_documento, name='subir_documento'),
     path('lista_documentos/', ver_documentos,name="lista_documentos"),
     path('documento/<int:codigo_documento>/', ver_documento, name='ver_documento'),
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
+<<<<<<< HEAD
+=======
+    path('edit_documento/', nueva_docu, name='nueva_docu'),
+>>>>>>> parent of 4314193 (elimar lo que no necesito)
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
-
-
-
-
     #Perfil abogado
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
+
+    path('calendar', views.CalendarView.as_view(), name='calendar'),
     # Email
     path("email/", include("e_mail.urls")),
     # Components
