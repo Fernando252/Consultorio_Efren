@@ -8,8 +8,8 @@ from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario
 
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm
 from django.views.generic import ListView
-
-
+from django.http import HttpResponse
+from .utils import extraer_clientes
 
 
 
@@ -309,3 +309,6 @@ def detalle_abogado(request, codigo_abogado):
     }
     return render(request, 'detalle_abogado.html', contenido)
 
+def clientesviews(request):
+    extraer_clientes()
+    return HttpResponse('Importado')
