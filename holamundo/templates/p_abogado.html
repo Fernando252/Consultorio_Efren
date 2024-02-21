@@ -14,10 +14,9 @@
                 <img src="{{ abogado.foto.url }}" class="card-img-top mb-3" alt="{{ abogado.nombrea }}" style="max-height: 400px; object-fit: cover;">
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{abogado.nombrea}}</h5>
-                    <p class="card-text">{{abogado.apellido}}</p>
+                    <h5 class="card-title">{{abogado.nombrea}} {{abogado.apellido}}</h5>
+                    <p class="card-text"><strong>Casos de Especialización:</strong>{{abogado.tipos_especialidad}}</p>
                     <td><a href="/detalle_abogado/{{ abogado.pk }}">Mas Información</a></td>
-                    
                 </div>
             </div>
         </div>

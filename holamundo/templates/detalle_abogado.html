@@ -5,15 +5,47 @@
 
 {% block content %}
 <div class="container">
-    <div class="card">
-        
-        <div class="card-body">
-            <p class="card-text"><strong>Nombre:</strong> {{ abogado.nombrea }}</p>
-                <p class="card-text"><strong>Apellido:</strong> {{ abogado.apellido }}</p>
-                <p class="card-text"><strong>Celular:</strong> {{ abogado.celular }}</p>
-                <p class="card-text"><strong>Tipos_especialidad:</strong>{{ abogado.get_tipos_especialidad_display }}</p>
-                <p class="card-text"><strong>descripción:</strong>{{ detalle_abogado.descripcion }}</p>
+
+      <div class="card text-center">
+        <div class="card-header">
+            <h5 class="card-title"><strong>Abogado: </strong>{{ abogado.nombrea }} {{ abogado.apellido }}</h5>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-sm-4">
+
+                <div class="card-body">
+                    {% if abogado.foto %}
+                    <img src="{{ abogado.foto.url }}" class="img-fluid rounded-start" alt=" " >
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+                <div class="card-body">
+                    <p class="card-text"><strong>Celular:</strong> {{ abogado.celular }}</p>
+                    <p class="card-text"><strong>Celular:</strong> {{ abogado.correo }}</p>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card-body">
+                    <p class="card-text"><strong>Tipos_especialidad:</strong>{{ abogado.get_tipos_especialidad_display }}</p>
+                    <p class="card-text"><strong>descripción:</strong>{{ detalle_abogado.descripcion }}</p>
+                </div>
+            </div>
+          </div>
+          <div class="card-footer text-muted">
+            <ul class="social-link list-unstyled m-t-40 m-b-10">
+                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
+            </ul>
+          </div>
+
+
+      </div>
+
+      
+
 </div>
 {% endblock %}

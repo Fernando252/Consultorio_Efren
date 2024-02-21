@@ -42,7 +42,7 @@ class Abogado(models.Model):
     correo = models.CharField(max_length=144, blank=False, null=False)
     tipos_especialidad = models.CharField(max_length=10, default='Penal', choices=ESPECIALIDAD_CHOICES)
     foto = models.ImageField(
-        upload_to="media/", 
+        upload_to="foto_abogados/", 
         blank=True, 
         null=True, 
         verbose_name='foto',
