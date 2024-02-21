@@ -101,7 +101,7 @@ def ver_casos_abogado(request, codigo_abogado):
     template = "caso.html"
     return render(request, template, contenido)
 
-
+@login_required
 def registrar_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
@@ -115,11 +115,10 @@ def registrar_cita(request):
 
     abogados = Abogado.objects.all()
     clientes = Clientes.objects.all()
-    return render(request, 'registrar_cita.html', {'form': form, 'abogados': abogados, 'clientes': clientes})
+    return render(request, 'registrar_cita1.html', {'form': form, 'abogados': abogados, 'clientes': clientes})
 
 
-
-
+@login_required
 def subir_documento(request):
     if request.method == 'POST':
         form = DocumentoForm(request.POST, request.FILES)
@@ -135,16 +134,20 @@ def subir_documento(request):
 
     
     
-
+@login_required
 def citas_t(request):
-    citas = Cita.objects.all()
-    contenido = {
-        'citas' : citas
-    }
-    template = "cita_general.html"
-    return render(request, template, contenido)
+    cliente_actual = request.user.perfil.cliente
+
+    # Filtrar las citas solo para el cliente actual
+    citas_cliente = Cita.objects.filter(cliente=cliente_actual)
+
+    # Renderizar la plantilla con las citas del cliente
+    return render(request, 'cita_general.html', {'citas_cliente': citas_cliente})
 
 
+
+
+@login_required
 def citas_clientes(request,codigo_cliente):
     cliente = Clientes.objects.get(pk=codigo_cliente)
     citas_cliente = Cita.objects.filter(cliente=cliente)
@@ -155,7 +158,7 @@ def citas_clientes(request,codigo_cliente):
     template = "cita_cliente.html"
     return render(request, template, contenido)
 
-
+@login_required
 def nueva_cita(request):
     contenido = {}
     if request.method == 'POST':
@@ -172,7 +175,7 @@ def nueva_cita(request):
     template = 'registrar_cita1.html'
     return render(request, template, contenido)
 
-
+@login_required
 def eliminar_cita(request, codigo_cita):
     cita = get_object_or_404(Cita, id=codigo_cita)
 
@@ -207,6 +210,7 @@ class CitaListView(ListView):
     model = Cita
     template_name = 'cita_list.html'
   
+  
 #Documentos 
 def ver_documentos(request):
     documentos = Documentos.objects.all()
@@ -214,6 +218,9 @@ def ver_documentos(request):
         'documentos' : documentos
     }
     template = "lista_documentos.html"
+
+
+
     return render(request, template, contenido)
 
 def ver_documento(request, codigo_documento):
