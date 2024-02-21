@@ -1,3 +1,4 @@
+
 {% extends 'partials/base.html' %}
 {% load static %}
 {% block extra_css %}
@@ -69,7 +70,7 @@
                             {{ form.descripcion }}
                         </div>
     
-                        <button type="submit" class="btn btn-primary">Registrar Cita</button>
+                        <input type="submit" class="mt-10 btn btn-primary" value="Submit">
                     </div>
                 </div>
             </div>
@@ -91,3 +92,4 @@
     <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
 
 {% endblock %}
+

@@ -16,13 +16,7 @@ class DashboardView(LoginRequiredMixin,View):
         greeting['subheading'] = "Dashboard" 
         return render(request, 'dashboard.html',greeting)
 
-class CalendarView(LoginRequiredMixin,View):
-    def get(self, request):
-        greeting = {}
-        greeting['title'] = "Dashboard"
-        greeting['heading'] = "consultorio" 
-        greeting['subheading'] = "Dashboard" 
-        return render(request, 'calendar.html')
+
  
 class MyPasswordChangeView( PasswordChangeView):
     success_url = reverse_lazy('dashboard')
