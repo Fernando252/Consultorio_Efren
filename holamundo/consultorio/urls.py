@@ -61,6 +61,10 @@ urlpatterns = [
     path('documento/<int:codigo_documento>/', ver_documento, name='ver_documento'),
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    path('edit_documento/', nueva_docu, name='nueva_docu'),
+>>>>>>> parent of 4314193 (elimar lo que no necesito)
 =======
     path('edit_documento/', nueva_docu, name='nueva_docu'),
 >>>>>>> parent of 4314193 (elimar lo que no necesito)
