@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import ver_abogados1,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita, detalle_abogado, ver_perfil_usuario
+from login.views import clientesviews,ver_abogados1,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita, detalle_abogado, ver_perfil_usuario
 
 
 from consultorio import views
@@ -84,6 +84,7 @@ urlpatterns = [
  
     path('accounts/', include('allauth.urls')),
    
+   path('extraer_clientes/', clientesviews, name='extraer_clientes')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
