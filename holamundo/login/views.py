@@ -6,8 +6,23 @@ from .forms import CitaForm, DocumentoForm, RegistroClienteForm
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario
 
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm, AbogadoForm
 from django.views.generic import ListView
+
+
+def editar_abogado(request, codigo_abogado):
+    c = {}
+    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
+    if request.method == 'POST':
+        form = AbogadoForm(request.POST, request.FILES, instance=abogado)
+        if form.is_valid():
+            form.save()
+            return redirect(abogado.get_absolute_url())
+    else:
+        form = CitaForm(instance=abogado)
+    c['form'] = form
+    c['abogado']= abogado
+    return render(request,'formulario_abogado.html', c)
 from django.http import HttpResponse
 from .utils import extraer_clientes
 

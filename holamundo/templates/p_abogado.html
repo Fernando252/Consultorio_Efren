@@ -5,22 +5,30 @@
 
 {% block content %}
 <div class="container">
-    <h1>Perfiles de los abogados</h1>
+
     <div class="row">
         {% for abogado in abogados %}
         <div class="col-md-4">
             <div class="card">
-                {% if abogado.foto %}
-                <img src="{{ abogado.foto.url }}" class="card-img-top mb-3" alt="{{ abogado.nombrea }}" style="max-height: 400px; object-fit: cover;">
-                {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{abogado.nombrea}} {{abogado.apellido}}</h5>
-                    <p class="card-text"><strong>Casos de Especialización:</strong>{{abogado.tipos_especialidad}}</p>
-                    <td><a href="/detalle_abogado/{{ abogado.pk }}">Mas Información</a></td>
+                  <div class="d-flex flex-column align-items-center text-center">
+                    {% if abogado.foto %}
+                    <img src="{{ abogado.foto.url }}" alt="Admin" class="rounded-circle" width="150">
+                    {% endif %}
+                    <div class="mt-3">
+                        <h5 class="card-title">{{abogado.nombrea}} {{abogado.apellido}}</h5>
+                        <p class="card-text"><strong>Casos de Especialización:</strong>{{abogado.tipos_especialidad}}</p>
+                        <td><a href="/detalle_abogado/{{ abogado.pk }}" class="btn btn-primary">Mas Información</a></td>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
 {% endblock %}
+
+
+

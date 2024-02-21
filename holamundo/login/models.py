@@ -36,25 +36,30 @@ class Abogado(models.Model):
         ('Civil', 'Civil'),  
     ]
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
-    nombrea = models.CharField(max_length=144, blank=False, null=False)
-    apellido = models.CharField(max_length=144, blank=False, null=False)
-    celular = models.CharField(max_length=10, blank=False, null=False)
-    correo = models.CharField(max_length=144, blank=False, null=False)
+    nombrea = models.CharField(max_length=144, blank=False, null=False,default='')
+    apellido = models.CharField(max_length=144, blank=False, null=False,default='')
+    celular = models.CharField(max_length=10, blank=False, null=False,default='')
+    correo = models.CharField(max_length=144, blank=False, null=False,default='')
+    experiencia = models.CharField(max_length=144, blank=False, null=False,default='')
+    facebook = models.CharField(max_length=144, blank=False, null=False,default='')
+    instagram = models.CharField(max_length=144, blank=False, null=False,default='')
+    twitter = models.CharField(max_length=144, blank=False, null=False,default='')
+    descripcion = models.TextField(blank=False, null=False, default='')
     tipos_especialidad = models.CharField(max_length=10, default='Penal', choices=ESPECIALIDAD_CHOICES)
+
     foto = models.ImageField(
         upload_to="foto_abogados/", 
         blank=True, 
         null=True, 
         verbose_name='foto',
         help_text='foto.',
-
     )
     
     def __str__(self) -> str:
         return f'{self.nombrea}'
     
     def get_absolute_url(self):
-        return reverse('ver_abogado', kwargs={'codigo_abogado': self.pk})
+        return reverse('editar_abogado', kwargs={'codigo_abogado': self.pk})
  
 class Cita(models.Model):
     abogado = models.ForeignKey(Abogado, related_name='citas', on_delete=models.CASCADE)
