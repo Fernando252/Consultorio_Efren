@@ -17,7 +17,7 @@ class RegistroClienteForm(forms.ModelForm):
         }
         
 class CitaForm(forms.ModelForm):
- class Meta:
+    class Meta:
         model = Cita
         fields = ['abogado', 'cliente', 'fecha_cita', 'lugar_cita', 'descripcion']
         widgets = {
@@ -27,7 +27,21 @@ class CitaForm(forms.ModelForm):
             'lugar_cita': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
         }
-        
+
+    def __init__(self, *args, **kwargs):
+        # Obtén el usuario logueado desde los argumentos del formulario
+        user = kwargs.pop('user', None)
+        super(CitaForm, self).__init__(*args, **kwargs)
+
+        # Filtra las opciones del campo 'cliente' para que solo muestre el cliente logueado
+        if user:
+            self.fields['cliente'].queryset = Clientes.objects.filter(perfil_usuarios__user=user)
+        else:
+            self.fields['cliente'].queryset = Clientes.objects.none()
+
+
+
+
 
 
 class DocumentoForm(forms.ModelForm):
@@ -42,11 +56,14 @@ class DocumentoForm(forms.ModelForm):
         }
 
 
+
+
 class Perfil_UsuarioForm(forms.ModelForm):
 
     class Meta:
         model = Perfil_Usuario
         fields = ['celular', 'ubicacion','foto_usuario']
+
 
 class AbogadoForm(forms.ModelForm):
     class Meta:
