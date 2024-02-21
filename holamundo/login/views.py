@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count
 from .models import Abogado, Casos, Clientes,Cita, Documentos, Info_Abogado
-from django.contrib import messages
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, CitaForm1
+
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario
 
@@ -53,10 +53,6 @@ def registro_cliente(request):
 
     return render(request, 'registro_cliente.html', {'form': form})
 
-
-
-#casos
-
 def ver_casos(request):
     casos_por_abogado = Abogado.objects.annotate(num_casos=Count('casos'))
     contenido = {
@@ -66,19 +62,45 @@ def ver_casos(request):
     return render(request, template, contenido)
 
 
+#casos
 
-def casos_abogado(request,codigo_abogado):
-    abogado = Abogado.objects.get(pk=codigo_abogado)
-    casos_abogado = Casos.objects.filter(abogado=abogado)
+@login_required
+def abogados_por_cliente(request):
+    # Obtén el cliente logueado
+    cliente_logueado = request.user.perfil.cliente
+
+    # Filtra los casos del cliente logueado
+    casos_cliente = Casos.objects.filter(cliente=cliente_logueado)
+
+    # Obtén los abogados asociados a los casos del cliente
+    abogados = Abogado.objects.filter(casos__in=casos_cliente).distinct()
+
     contenido = {
-        'casos_abogado' : casos_abogado, 
-        'abogado' : abogado,
+        'abogados': abogados,
+        'cliente': cliente_logueado,
+    }
 
+    return render(request, 'lista_abogados.html', contenido)
+
+@login_required
+def ver_casos_abogado(request, codigo_abogado):
+    # Recupera el abogado logueado
+    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
+
+    # Asegúrate de tener la relación correcta entre User, Perfil_Usuario y Clientes
+    perfil_usuario = get_object_or_404(Perfil_Usuario, user=request.user)
+    cliente_logueado = perfil_usuario.cliente
+
+    # Filtra los casos por el cliente logueado
+    casos_abogado = Casos.objects.filter(abogado=abogado, cliente=cliente_logueado)
+
+    contenido = {
+        'casos_abogado': casos_abogado,
+        'abogado': abogado,
     }
     template = "caso.html"
     return render(request, template, contenido)
 
-#abogados
 
 def registrar_cita(request):
     if request.method == 'POST':
@@ -260,13 +282,7 @@ def ver_perfil_usuario(request):
 
 #Abogados 
 
-def ver_abogados1(request):
-    abogados = Abogado.objects.all()
-    contenido = {
-        'abogados' : abogados
-    }
-    template = "lista_abogados.html"
-    return render(request, template, contenido)
+
 
 #Abogado perfil
 def ver_abogados(request):

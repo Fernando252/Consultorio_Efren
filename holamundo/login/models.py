@@ -3,21 +3,37 @@ from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+class Clientes(models.Model):
+    # Atributos del cliente
+    cedula = models.CharField(max_length=12, blank=False, null=True, default='')
+    nombrec = models.CharField(max_length=144, blank=False, null=False)
+    apellido = models.CharField(max_length=144, blank=False, null=False)
+    direccion = models.CharField(max_length=144, blank=False, null=False)
+    celular = models.CharField(max_length=10, blank=False, null=False)
+    correo = models.CharField(max_length=144, blank=False, null=False)
+
+    def __str__(self):
+        return f'{self.nombrec}' 
+    
 class Perfil_Usuario(models.Model):
    user = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE)
    celular = models.CharField(blank=True,null=True, max_length=255)
    ubicacion = models.CharField(blank=True,null=True, max_length=255)
+   cliente = models.ForeignKey(Clientes, related_name='perfil_usuarios', on_delete=models.CASCADE)
+
    foto_usuario = models.FileField(
       upload_to="foto_usuario/",
       blank=True,
    )
+def __str__(self):
+    return f'Perfil de {self.user.username}'
 
 
 class Abogado(models.Model):
     ESPECIALIDAD_CHOICES = [
         ('Penal', 'Penal'),
         ('Laboral', 'Laboral'),
-        ('Civil', 'Civil'),
+        ('Civil', 'Civil'),  
     ]
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
     nombrea = models.CharField(max_length=144, blank=False, null=False)
@@ -40,19 +56,6 @@ class Abogado(models.Model):
     def get_absolute_url(self):
         return reverse('ver_abogado', kwargs={'codigo_abogado': self.pk})
  
-class Clientes(models.Model):
-    # Atributos del cliente
-    cedula = models.CharField(max_length=12, blank=False, null=True, default='')
-    nombrec = models.CharField(max_length=144, blank=False, null=False)
-    apellido = models.CharField(max_length=144, blank=False, null=False)
-    direccion = models.CharField(max_length=144, blank=False, null=False)
-    celular = models.CharField(max_length=10, blank=False, null=False)
-    correo = models.CharField(max_length=144, blank=False, null=False)
-
-    def __str__(self):
-        return f'{self.nombrec}' 
-
-
 class Cita(models.Model):
     abogado = models.ForeignKey(Abogado, related_name='citas', on_delete=models.CASCADE)
     cliente = models.ForeignKey(Clientes, related_name='citas', on_delete=models.CASCADE)
@@ -77,25 +80,26 @@ class Cita(models.Model):
 
 
 class Casos(models.Model):
-        CASOS_CHOICES=[
+    CASOS_CHOICES = [
         ('Penal', 'Penal'),
-        ('laboral', 'Laboral'),
-        ('Civil','Civil'),
-        ]
-        ESTADO_CHOICES=[
+        ('Laboral', 'Laboral'),
+        ('Civil', 'Civil'),
+    ]
+    ESTADO_CHOICES = [
         ('Proceso', 'Proceso'),
         ('Cerrado', 'Cerrado'),
-        ]
-     # Atributos de los casos
-        abogado = models.ForeignKey(Abogado, related_name='casos', on_delete=models.CASCADE)
-        cliente = models.ForeignKey(Clientes, related_name='casos', on_delete=models.CASCADE)
-        tipos_casos = models.CharField(max_length=10, default='Penal', choices=CASOS_CHOICES)
-        Estado = models.CharField(max_length=10, default='Proceso', choices=ESTADO_CHOICES)
-        fecha_apertura = models.DateTimeField(default=timezone.now)
-        descripcion = models.TextField(blank=True, null=True)
+    ]
 
-        def __str__(self) -> str:
-            return f'El abogado {self.abogado.nombrea} trata al cliente {self.cliente.nombrec}'
+    # Atributos de los casos
+    abogado = models.ForeignKey(Abogado, related_name='casos', on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Clientes, related_name='casos', on_delete=models.CASCADE)
+    tipos_casos = models.CharField(max_length=10, default='Penal', choices=CASOS_CHOICES)
+    Estado = models.CharField(max_length=10, default='Proceso', choices=ESTADO_CHOICES)
+    fecha_apertura = models.DateTimeField(default=timezone.now)
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        return f'El abogado {self.abogado.nombrea} trata al cliente {self.cliente.nombrec}'
         
         
         

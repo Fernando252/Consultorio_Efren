@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from login.views import ver_abogados1,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita, ver_casos,casos_abogado,registro_abogado, registro_cliente, subir_documento, nueva_cita, eliminar_cita, editar_cita, detalle_abogado, ver_perfil_usuario
+from login.views import ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita,registro_abogado, registro_cliente, subir_documento
+from login.views import nueva_cita, eliminar_cita, editar_cita, detalle_abogado, ver_perfil_usuario
+from login.views import abogados_por_cliente,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_casos_abogado
 
 
 from consultorio import views
@@ -26,6 +28,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+
+    path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
+    path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
+    
+
   
     path('admin/', admin.site.urls),
     path('', views.DashboardView.as_view(), name='dashboard'),
@@ -47,7 +54,6 @@ urlpatterns = [
     path('registro_cliente/', registro_cliente, name='registro_cliente'),
     path('registro_abogado/', registro_abogado, name='registro_abogado'),
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
-    path('lista_abogados1/', ver_abogados1,name="lista_abogados1"),
 
     path('subir_documento/', subir_documento, name='subir_documento'),
     path('lista_documentos/', ver_documentos,name="lista_documentos"),
@@ -55,11 +61,6 @@ urlpatterns = [
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
     path('edit_documento/', nueva_docu, name='nueva_docu'),
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
-
-    path('ver_casos/', ver_casos, name='ver_casos'),
-    path('caso/<int:codigo_abogado>/', casos_abogado, name="detalle_casos"),
-       
-
     #Perfil abogado
 
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
