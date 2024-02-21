@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from pathlib import Path
 from django.contrib.messages import constants as messages
-
+import os
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
