@@ -17,7 +17,7 @@ class RegistroClienteForm(forms.ModelForm):
         }
         
 class CitaForm(forms.ModelForm):
-    class Meta:
+ class Meta:
         model = Cita
         fields = ['abogado', 'cliente', 'fecha_cita', 'lugar_cita', 'descripcion']
         widgets = {
@@ -27,6 +27,7 @@ class CitaForm(forms.ModelForm):
             'lugar_cita': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
         }
+        
 
 
 class DocumentoForm(forms.ModelForm):
@@ -40,10 +41,6 @@ class DocumentoForm(forms.ModelForm):
             'archivo_adjunto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
-class CitaForm1(forms.ModelForm):
-    class Meta:
-        model = Cita
-        fields = ['abogado', 'cliente', 'fecha_cita', 'lugar_cita', 'descripcion']
 
 class Perfil_UsuarioForm(forms.ModelForm):
 
