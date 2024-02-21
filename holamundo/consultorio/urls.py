@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from login.views import ver_documentos,ver_cita,citas_t,CitaListView,registrar_cita,registro_abogado, registro_cliente, subir_documento
 from login.views import nueva_cita, eliminar_cita, editar_cita, detalle_abogado, ver_perfil_usuario
-from login.views import abogados_por_cliente,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_casos_abogado
+from login.views import abogados_por_cliente,ver_abogados,editar_documento,nueva_docu,eliminar_documento,ver_documento,ver_casos_abogado, editar_abogado
 
 
 from consultorio import views
@@ -61,9 +61,10 @@ urlpatterns = [
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
     path('edit_documento/', nueva_docu, name='nueva_docu'),
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
+    
     #Perfil abogado
-
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
+    path('editar_abogado/<int:codigo_abogado>/',editar_abogado, name='editar_abogado'),
 
     path('calendar', views.CalendarView.as_view(), name='calendar'),
     # Email

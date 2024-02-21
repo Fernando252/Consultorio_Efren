@@ -1,6 +1,6 @@
 from django import forms
 from bootstrap_datepicker_plus.widgets import DateTimePickerInput
-from .models import Cita, Documentos, Clientes, Perfil_Usuario
+from .models import Cita, Documentos, Clientes, Perfil_Usuario, Abogado
 
 class RegistroClienteForm(forms.ModelForm):
    contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -50,3 +50,11 @@ class Perfil_UsuarioForm(forms.ModelForm):
     class Meta:
         model = Perfil_Usuario
         fields = ['celular', 'ubicacion','foto_usuario']
+
+class AbogadoForm(forms.ModelForm):
+    class Meta:
+        model = Abogado
+        fields = ['nombrea', 'apellido', 'celular', 'correo', 'experiencia','facebook', 'instagram', 'twitter', 'descripcion', 'tipos_especialidad', 'foto']
+    widgets = {   
+        'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+    }
