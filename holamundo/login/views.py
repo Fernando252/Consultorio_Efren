@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm
+from django.urls import reverse
 
 
 def editar_abogado(request, codigo_abogado):
@@ -64,31 +65,46 @@ def registro_cliente(request):
     return render(request, 'registro_cliente.html', {'form': form})
 
 
-
 #casos
 
 @login_required
 def abogados_por_cliente(request):
-    # Obtén el cliente logueado
-    cliente_logueado = request.user.perfil.cliente
+    cliente_actual = request.user.perfil
 
-    # Filtra los casos del cliente logueado
-    casos_cliente = Casos.objects.filter(cliente=cliente_logueado)
+    # Obtener los casos para el cliente actual
+    casos_cliente = Casos.objects.filter(cliente=cliente_actual)
 
-    # Obtén los abogados asociados a los casos del cliente
-    abogados = Abogado.objects.filter(casos__in=casos_cliente).distinct()
+    # Obtener la lista única de abogados asociados a esos casos
+    abogados_con_casos = set([caso.abogado for caso in casos_cliente])
 
-    contenido = {
-        'abogados': abogados,
-        'cliente': cliente_logueado,
-    }
+    # Renderizar la plantilla con la lista de abogados
+    return render(request, 'lista_abogados.html', {'abogados_con_casos': abogados_con_casos})
 
-    return render(request, 'lista_abogados.html', contenido)
+
+
+
+
 
 @login_required
-def ver_casos_abogado(request):
+def ver_casos_abogado(request,codigo_abogado):
+    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
 
-    return render(request)
+    # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
+    cliente_logueado = get_object_or_404(Clientes, user=request.user)
+
+    # Filtra los casos por el cliente logueado
+    casos_abogado = Casos.objects.filter(abogado=abogado, cliente=cliente_logueado)
+
+    contenido = {
+        'casos_abogado': casos_abogado,
+        'abogado': abogado,
+    }
+    template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
+    return render(request, template, contenido)
+
+
+
+
 
  # Citas
 @login_required
@@ -106,21 +122,14 @@ def registrar_cita(request):
 
     return render(request, 'registrar_cita1.html', {'form': form})
 
- 
+
+
 @login_required
 def citas_t(request):
- # Verificar que el usuario actual esté autenticado y tiene un perfil de cliente
-    if request.user.is_authenticated and hasattr(request.user, 'perfil') and hasattr(request.user.perfil, 'cliente'):
-        cliente_actual = request.user.perfil.cliente
+    cliente_actual = request.user.perfil  # Accede al perfil del usuario
+    citas_cliente = Cita.objects.filter(cliente=cliente_actual)
+    return render(request, 'cita_general.html', {'citas_cliente': citas_cliente})
 
-        # Obtener las citas del cliente actual
-        citas_cliente = Cita.objects.filter(cliente=cliente_actual)
-
-        # Obtener la lista de abogados asociados a las citas
-        abogados_con_citas = [cita.abogado for cita in citas_cliente]
-
-        # Renderizar la plantilla con las citas del cliente y la lista de abogados
-        return render(request, 'cita_general.html', {'citas_cliente': citas_cliente, 'abogados_con_citas': abogados_con_citas})
 
 
 @login_required
@@ -150,20 +159,23 @@ def ver_cita(request, codigo_cita):
    c['cita'] =  get_object_or_404(Cita, pk=codigo_cita)
    return render(request, 'ver_cita.html', c)
 
+
 @login_required
 def editar_cita(request, codigo_cita):
-    c = {}
     cita = get_object_or_404(Cita, pk=codigo_cita)
+
     if request.method == 'POST':
-        form = CitaForm(request.POST, request.FILES, instance=cita)
+        form = CitaForm(request.POST, instance=cita)
         if form.is_valid():
             form.save()
-            return redirect(cita.get_absolute_url())
+            # Utiliza reverse para obtener la URL de 'ver_cita' con el nuevo ID de la cita
+            url_ver_cita = reverse('ver_cita', kwargs={'codigo_cita': cita.pk})
+            return redirect(url_ver_cita)
     else:
         form = CitaForm(instance=cita)
-    c['form'] = form
-    c['cita']= cita
-    return render(request,'registrar_cita1.html', c)
+
+    return render(request, 'editar_cita.html', {'form': form, 'cita': cita})
+
 
 #calendario de citas
 

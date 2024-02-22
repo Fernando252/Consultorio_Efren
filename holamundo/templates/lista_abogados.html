@@ -30,7 +30,7 @@
                 <th></th>
             </tr>
         </thead>
-        {% for abogado in abogados %}
+        {%  for abogado in abogados_con_casos %}
         <tbody>
             <tr>
                 <td>{{abogado.nombrea}}</td>
@@ -38,7 +38,7 @@
                 <td>{{abogado.correo}}</td>
                 <td>
                     <div>
-                        <a href="/caso/{{ abogado.pk }}">Ver casos</a>
+                        <a href="/caso/{{ abogado.id }}">Ver casos</a>
                     </div>
                   
 
