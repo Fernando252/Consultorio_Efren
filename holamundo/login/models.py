@@ -21,7 +21,7 @@ class Abogado(models.Model):
         ('Laboral', 'Laboral'),
         ('Civil', 'Civil'),  
     ]
-   
+    
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
     nombrea = models.CharField(max_length=144, blank=False, null=False,default='')
     apellido = models.CharField(max_length=144, blank=False, null=False,default='')
