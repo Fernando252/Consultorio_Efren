@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Clientes(models.Model):
     # Atributos del cliente
+    user = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE,default=None)
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
     nombrec = models.CharField(max_length=144, blank=False, null=False)
     apellido = models.CharField(max_length=144, blank=False, null=False)
@@ -14,27 +15,13 @@ class Clientes(models.Model):
 
     def __str__(self):
         return f'{self.nombrec}' 
-    
-class Perfil_Usuario(models.Model):
-   user = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE)
-   celular = models.CharField(blank=True,null=True, max_length=255)
-   ubicacion = models.CharField(blank=True,null=True, max_length=255)
-   cliente = models.ForeignKey(Clientes, related_name='perfil_usuarios', on_delete=models.CASCADE)
-
-   foto_usuario = models.FileField(
-      upload_to="foto_usuario/",
-      blank=True,
-   )
-def __str__(self):
-    return f'Perfil de {self.user.username}'
-
-
 class Abogado(models.Model):
     ESPECIALIDAD_CHOICES = [
         ('Penal', 'Penal'),
         ('Laboral', 'Laboral'),
         ('Civil', 'Civil'),  
     ]
+   
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
     nombrea = models.CharField(max_length=144, blank=False, null=False,default='')
     apellido = models.CharField(max_length=144, blank=False, null=False,default='')
@@ -118,7 +105,6 @@ class Documentos(models.Model):
 
     def __str__(self) -> str:
         return f'Documento {self.tipo_documento} para el caso {self.caso.id}'
-        
     def get_absolute_url(self):
         return reverse('ver_documento', kwargs={'codigo_documento': self.pk})
     

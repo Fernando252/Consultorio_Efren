@@ -1,12 +1,14 @@
 from django import forms
 from bootstrap_datepicker_plus.widgets import DateTimePickerInput
-from .models import Cita, Documentos, Clientes, Perfil_Usuario, Abogado
+from .models import Cita, Documentos, Clientes, Abogado
+
 
 class RegistroClienteForm(forms.ModelForm):
+   
    contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
    class Meta:
         model = Clientes
-        fields = ['cedula', 'nombrec', 'apellido', 'direccion', 'celular', 'correo']
+        fields = ['cedula', 'nombrec', 'apellido', 'direccion', 'celular', 'correo','user']
         widgets = {
             'cedula': forms.TextInput(attrs={'class': 'form-control'}),
             'nombrec': forms.TextInput(attrs={'class': 'form-control'}),
@@ -19,29 +21,16 @@ class RegistroClienteForm(forms.ModelForm):
 class CitaForm(forms.ModelForm):
     class Meta:
         model = Cita
-        fields = ['abogado', 'cliente', 'fecha_cita', 'lugar_cita', 'descripcion']
+        fields = ['abogado', 'fecha_cita', 'lugar_cita', 'descripcion']
         widgets = {
             'abogado': forms.Select(attrs={'class': 'form-control'}),
-            'cliente': forms.Select(attrs={'class': 'form-control'}),
             'fecha_cita': DateTimePickerInput(attrs={'class': 'form-control datetimepicker-input'}),
             'lugar_cita': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        # Obtén el usuario logueado desde los argumentos del formulario
-        user = kwargs.pop('user', None)
-        super(CitaForm, self).__init__(*args, **kwargs)
-
-        # Filtra las opciones del campo 'cliente' para que solo muestre el cliente logueado
-        if user:
-            self.fields['cliente'].queryset = Clientes.objects.filter(perfil_usuarios__user=user)
-        else:
-            self.fields['cliente'].queryset = Clientes.objects.none()
-
-
-
-
+        def __init__(self, *args, **kwargs):
+            super(CitaForm, self).__init__(*args, **kwargs)
+            self.fields['abogado'].queryset = Abogado.objects.all()
 
 
 class DocumentoForm(forms.ModelForm):
@@ -55,16 +44,6 @@ class DocumentoForm(forms.ModelForm):
             'archivo_adjunto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
-
-
-
-class Perfil_UsuarioForm(forms.ModelForm):
-
-    class Meta:
-        model = Perfil_Usuario
-        fields = ['celular', 'ubicacion','foto_usuario']
-
-
 class AbogadoForm(forms.ModelForm):
     class Meta:
         model = Abogado
@@ -72,3 +51,4 @@ class AbogadoForm(forms.ModelForm):
     widgets = {   
         'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
     }
+

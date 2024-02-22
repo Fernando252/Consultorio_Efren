@@ -1,35 +1,10 @@
-{% extends 'partials/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-        <div class="card">
-        <h5 class="card-title">Perfil de: {{request.user}}</h5>
-                <div class="card-header">
-
-                        <h5 class="card-title">Empleados</h5>
-
-                </div>
-
-                <form action="" method="post">
-                    {% csrf_token %}
-
-                    {% for field in form %}
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">{{ field.label_tag }}</label>
-
-                        {{ field }}
-                    </div>
-
-                    {% endfor %}
-
-                    <input type="submit" class="mt-10 btn btn-primary" value="Submit">
-
-
-            </form>
-
-
-</div>
-</div>
-
+  <h2>Llenar Datos del Cliente</h2>
+  <form method="post" action="{% url 'ver_perfil_usuario' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
 {% endblock %}

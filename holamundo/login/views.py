@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
-from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario,Info_Abogado
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm, AbogadoForm
+from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm
 
 
 def editar_abogado(request, codigo_abogado):
@@ -86,56 +86,41 @@ def abogados_por_cliente(request):
     return render(request, 'lista_abogados.html', contenido)
 
 @login_required
-def ver_casos_abogado(request, codigo_abogado):
-    # Recupera el abogado logueado
-    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
+def ver_casos_abogado(request):
 
-    # Asegúrate de tener la relación correcta entre User, Perfil_Usuario y Clientes
-    perfil_usuario = get_object_or_404(Perfil_Usuario, user=request.user)
-    cliente_logueado = perfil_usuario.cliente
-
-    # Filtra los casos por el cliente logueado
-    casos_abogado = Casos.objects.filter(abogado=abogado, cliente=cliente_logueado)
-
-    contenido = {
-        'casos_abogado': casos_abogado,
-        'abogado': abogado,
-    }
-    template = "caso.html"
-    return render(request, template, contenido)
+    return render(request)
 
  # Citas
 @login_required
 def registrar_cita(request):
-    perfil_usuario = Perfil_Usuario.objects.get(user=request.user)
-    print("Perfil usuario:", perfil_usuario)  # Depuración
-    cliente = perfil_usuario.cliente
-    print("Cliente:", cliente)  # Depuración
-
     if request.method == 'POST':
-        form = CitaForm(request.POST, user=request.user)
+        form = CitaForm(request.POST)
         if form.is_valid():
-            nueva_cita = form.save(commit=False)
-            nueva_cita.cliente = cliente
-            nueva_cita.save()
-            return redirect('dashboard')
-        else:
-            print("Errores del formulario:", form.errors)  # Muestra errores del formulario
+            # Asigna el cliente asociado al usuario actual
+            cita = form.save(commit=False)
+            cita.cliente = request.user.perfil  # Ajusta según tu lógica de relación con el cliente
+            cita.save()
+            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
     else:
-        form = CitaForm(user=request.user)
+        form = CitaForm()
 
     return render(request, 'registrar_cita1.html', {'form': form})
 
  
 @login_required
 def citas_t(request):
-    cliente_actual = request.user.perfil.cliente
+ # Verificar que el usuario actual esté autenticado y tiene un perfil de cliente
+    if request.user.is_authenticated and hasattr(request.user, 'perfil') and hasattr(request.user.perfil, 'cliente'):
+        cliente_actual = request.user.perfil.cliente
 
-    # Filtrar las citas solo para el cliente actual
-    citas_cliente = Cita.objects.filter(cliente=cliente_actual)
+        # Obtener las citas del cliente actual
+        citas_cliente = Cita.objects.filter(cliente=cliente_actual)
 
-    # Renderizar la plantilla con las citas del cliente
-    return render(request, 'cita_general.html', {'citas_cliente': citas_cliente})
+        # Obtener la lista de abogados asociados a las citas
+        abogados_con_citas = [cita.abogado for cita in citas_cliente]
+
+        # Renderizar la plantilla con las citas del cliente y la lista de abogados
+        return render(request, 'cita_general.html', {'citas_cliente': citas_cliente, 'abogados_con_citas': abogados_con_citas})
 
 
 @login_required
@@ -241,26 +226,19 @@ def subir_documento(request):
     return render(request, 'subir_documento.html', {'form': form})
 
 
-#cliente perfil
-@login_required
 def ver_perfil_usuario(request):
-    contenido = {}
-    if hasattr(request.user, 'perfil'):
-        perfil = request.user.perfil
-    else:
-        perfil = Perfil_Usuario(user = request.user)
     if request.method == 'POST':
-        form = Perfil_UsuarioForm(request.POST, request.FILES, instance=perfil)
+        form = RegistroClienteForm(request.POST)
         if form.is_valid():
-            form.save()
-        
+            # Guarda los datos del cliente asociados al usuario actual
+            cliente = form.save(commit=False)
+            cliente.user = request.user
+            cliente.save()
+            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
     else:
-        form = Perfil_UsuarioForm(instance=perfil)
-    contenido['form'] = form
-    contenido['cliente'] = perfil
+        form = RegistroClienteForm()
 
-    return render(request, 'perfil_usuario.html',contenido)
-
+    return render(request, 'perfil_usuario.html', {'form': form})
 
 
 
