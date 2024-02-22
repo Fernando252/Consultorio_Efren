@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from login.views import ver_documentos,registro_abogado
 from login.views import clientesviews, detalle_abogado, ver_perfil_usuario
-from login.views import abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado
+from login.views import abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado,editar_abogado
 
 
 from consultorio import views
@@ -37,7 +37,7 @@ urlpatterns = [
     path('', views.DashboardView.as_view(), name='dashboard'),
     path('registro_abogado/', registro_abogado, name='registro_abogado'),
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
-
+    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
 
@@ -46,11 +46,9 @@ urlpatterns = [
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
 
-
-
-
     #Perfil abogado
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
+    
     # Email
     path("email/", include("e_mail.urls")),
     # Components

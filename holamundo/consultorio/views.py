@@ -1,6 +1,5 @@
-from django.http import request
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+
+from django.shortcuts import  render
 from django.views import View
 from django.urls import reverse_lazy
 from allauth.account.views import PasswordChangeView, PasswordSetView
