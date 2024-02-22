@@ -15,6 +15,7 @@ class Clientes(models.Model):
 
     def __str__(self):
         return f'{self.nombrec}' 
+    
 class Abogado(models.Model):
     ESPECIALIDAD_CHOICES = [
         ('Penal', 'Penal'),

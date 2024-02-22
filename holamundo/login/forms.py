@@ -5,10 +5,11 @@ from .models import Cita, Documentos, Clientes, Abogado
 
 class RegistroClienteForm(forms.ModelForm):
    
-   contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+   
    class Meta:
         model = Clientes
-        fields = ['cedula', 'nombrec', 'apellido', 'direccion', 'celular', 'correo','user']
+        fields = ['cedula', 'nombrec', 'apellido', 'direccion', 'celular', 'correo', ]
         widgets = {
             'cedula': forms.TextInput(attrs={'class': 'form-control'}),
             'nombrec': forms.TextInput(attrs={'class': 'form-control'}),
@@ -17,7 +18,12 @@ class RegistroClienteForm(forms.ModelForm):
             'celular': forms.TextInput(attrs={'class': 'form-control'}),
             'correo': forms.TextInput(attrs={'class': 'form-control'}),
         }
-        
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['correo'].widget.attrs['readonly'] = True 
+
+
+
 class CitaForm(forms.ModelForm):
     class Meta:
         model = Cita

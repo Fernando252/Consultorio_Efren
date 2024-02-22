@@ -238,28 +238,28 @@ def subir_documento(request):
 @login_required
 def ver_perfil_usuario(request):
     try:
-        # Intenta obtener el perfil del usuario actual
-        cliente = Clientes.objects.get(user=request.user)
-        # Si ya tiene datos en el perfil, redirige al dashboard
-        return redirect('dashboard')
+        cliente = request.user.perfil
     except Clientes.DoesNotExist:
-        pass  # Continúa si no hay datos en el perfil del usuario
+        cliente = None
 
     if request.method == 'POST':
-        form = RegistroClienteForm(request.POST)
+        # Si es una solicitud POST, procesar el formulario
+        form = RegistroClienteForm(request.POST, instance=cliente)
         if form.is_valid():
-            # Guarda los datos del cliente asociados al usuario actual
+            # Guardar los datos actualizados del formulario
             cliente = form.save(commit=False)
             cliente.user = request.user
             cliente.save()
-            # Después de guardar, redirige al dashboard
-            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
+            return redirect('dashboard')  # Redirigir a una página exitosa
     else:
-        form = RegistroClienteForm()
+        if cliente is not None:
+            # Si el cliente ya ha completado el perfil, redirigir al dashboard
+            return redirect('dashboard')
+        # Si es una solicitud GET, mostrar el formulario
+        initial_data = {'correo': request.user.email} if cliente is None else None
+        form = RegistroClienteForm(instance=cliente, initial=initial_data)
 
     return render(request, 'perfil_usuario.html', {'form': form})
-
-
 
 #Abogado perfil
 def ver_abogados(request):

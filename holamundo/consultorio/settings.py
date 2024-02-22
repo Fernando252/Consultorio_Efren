@@ -246,13 +246,13 @@ ACCOUNT_FORMS = {
     
 }
 # SMTP Configure
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = "smtp.mailtrap.io"
-EMAIL_PORT = 2525
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "1f37cfc80405c5"
-EMAIL_HOST_PASSWORD = "5f7e38f28ae814"
-DEFAULT_FROM_EMAIL = "1f37cfc80405c5"
+EMAIL_HOST_USER = "jonathan.cayo12@gmail.com"
+EMAIL_HOST_PASSWORD = "wevsyskcswflekxz"
+DEFAULT_FROM_EMAIL = "jonathan.cayo12@gmail.com"
 
 
 SITE_ID = 1

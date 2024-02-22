@@ -15,21 +15,11 @@
 
 <h1>Perfil de Usuario</h1>
 
-{% if user_has_profile %}
-    <p>Ya has completado tu perfil. Serás redirigido al dashboard.</p>
-    <script>
-        setTimeout(function() {
-            window.location.href = "{% url 'dashboard' %}";
-        }, 3000);  // Redirige después de 3 segundos
-    </script>
-{% else %}
     <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Guardar</button>
     </form>
-{% endif %}
-
 </body>
 </html>
 {% endblock %}                            
