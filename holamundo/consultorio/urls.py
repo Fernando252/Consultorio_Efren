@@ -30,18 +30,16 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-    path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
-    path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
     
   
     path('admin/', admin.site.urls),
-    path('', views.DashboardView.as_view(), name='dashboard'),
-    path('mi_perfil/',ver_perfil_usuario,name='ver_perfil_usuario'),
     path('accounts/profile/', ver_perfil_usuario, name='profile'),
+    path('', views.DashboardView.as_view(), name='dashboard'),
     path('registro_abogado/', registro_abogado, name='registro_abogado'),
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
 
-
+    path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
+    path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
 
     path('lista_documentos/', ver_documentos,name="lista_documentos"),
     path('documento/<int:codigo_documento>/', ver_documento, name='ver_documento'),

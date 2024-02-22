@@ -80,11 +80,6 @@ def abogados_por_cliente(request):
     # Renderizar la plantilla con la lista de abogados
     return render(request, 'lista_abogados.html', {'abogados_con_casos': abogados_con_casos})
 
-
-
-
-
-
 @login_required
 def ver_casos_abogado(request,codigo_abogado):
     abogado = get_object_or_404(Abogado, pk=codigo_abogado)
@@ -101,9 +96,6 @@ def ver_casos_abogado(request,codigo_abogado):
     }
     template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
     return render(request, template, contenido)
-
-
-
 
 
  # Citas
@@ -186,9 +178,13 @@ class CitaListView(ListView):
   
 #Documentos 
 def ver_documentos(request):
-    documentos = Documentos.objects.all()
+    cliente_logueado = Clientes.objects.get(user=request.user)
+
+    # Filtrar los documentos por el cliente logueado
+    documentos = Documentos.objects.filter(caso__cliente=cliente_logueado)
+
     contenido = {
-        'documentos' : documentos
+        'documentos': documentos,
     }
     template = "lista_documentos.html"
     return render(request, template, contenido)
@@ -238,7 +234,17 @@ def subir_documento(request):
     return render(request, 'subir_documento.html', {'form': form})
 
 
+#cliente perfil
+@login_required
 def ver_perfil_usuario(request):
+    try:
+        # Intenta obtener el perfil del usuario actual
+        cliente = Clientes.objects.get(user=request.user)
+        # Si ya tiene datos en el perfil, redirige al dashboard
+        return redirect('dashboard')
+    except Clientes.DoesNotExist:
+        pass  # Continúa si no hay datos en el perfil del usuario
+
     if request.method == 'POST':
         form = RegistroClienteForm(request.POST)
         if form.is_valid():
@@ -246,6 +252,7 @@ def ver_perfil_usuario(request):
             cliente = form.save(commit=False)
             cliente.user = request.user
             cliente.save()
+            # Después de guardar, redirige al dashboard
             return redirect('dashboard')  # Redirige a la página de inicio o donde desees
     else:
         form = RegistroClienteForm()

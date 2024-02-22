@@ -223,7 +223,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 
 #  All Auth Configurations
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/accounts/profile/"
 LOGIN_URL = "account_login"
 ACCOUNT_LOGOUT_ON_GET = False
 ACCOUNT_EMAIL_REQUIRED = True

@@ -1,10 +1,35 @@
-{% extends 'base.html' %}
+{% extends 'partials/base.html' %}
+{% load static %}
+
 
 {% block content %}
-  <h2>Llenar Datos del Cliente</h2>
-  <form method="post" action="{% url 'ver_perfil_usuario' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+
+<h1>Perfil de Usuario</h1>
+
+{% if user_has_profile %}
+    <p>Ya has completado tu perfil. Serás redirigido al dashboard.</p>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'dashboard' %}";
+        }, 3000);  // Redirige después de 3 segundos
+    </script>
+{% else %}
+    <form method="post" action="{% url 'profile' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}                            
