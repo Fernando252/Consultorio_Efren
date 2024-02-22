@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Count
-from .models import Abogado, Casos, Clientes,Cita, Documentos, Info_Abogado
-
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm
-from django.contrib.auth.decorators import login_required
-from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario
-
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm, AbogadoForm
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
+from .models import Abogado, Casos, Clientes,Cita, Documentos,Perfil_Usuario,Info_Abogado
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, Perfil_UsuarioForm, AbogadoForm
 
 
 def editar_abogado(request, codigo_abogado):
