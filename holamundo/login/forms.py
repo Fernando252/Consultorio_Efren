@@ -4,9 +4,6 @@ from .models import Cita, Documentos, Clientes, Abogado, Casos
 
 
 class RegistroClienteForm(forms.ModelForm):
-   
-
-   
    class Meta:
         model = Clientes
         fields = ['cedula', 'nombrec', 'apellido', 'direccion', 'celular', 'correo', ]
@@ -57,6 +54,7 @@ class AbogadoForm(forms.ModelForm):
     widgets = {   
         'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
     }
+    
 
 class CasosForm(forms.ModelForm):
     class Meta:

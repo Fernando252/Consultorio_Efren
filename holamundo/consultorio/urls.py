@@ -14,10 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-
+from django.urls import path, include 
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario
-from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documentos,ver_casos_abogado, editar_abogado
+from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documentos,ver_casos_abogado, editar_abogado, ver_abogado
 
 
 from consultorio import views
@@ -42,21 +41,27 @@ urlpatterns = [
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
 
     #casos 
-    path('lista_abogados/', ver_abogados,name="lista_abogados"),
-
-    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+ 
 
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
     
     #Perfil abogado
+    path('lista_abogados/', ver_abogados,name="lista_abogados"),
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
-    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+    
 
     #Casos
     path('registrar_caso/', registrar_caso, name='registrar_caso'),
 
-    
+    #abogados 
+    #Perfil abogado
+    path('ver_abogado/', ver_abogado, name='ver_abogado'),
+    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+    #Documentos 
+
+
+
     # Email
     path("email/", include("e_mail.urls")),
     # Components

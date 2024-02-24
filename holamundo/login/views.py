@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
@@ -41,17 +42,6 @@ def registro_abogado(request):
     return render(request, 'registro_abogado.html', {'ESPECIALIDAD_CHOICES': ESPECIALIDAD_CHOICES})
 
 # registo cliente
-def registro_cliente(request):
-    if request.method == 'POST':
-        form = RegistroClienteForm(request.POST)
-        if form.is_valid():
-            cliente = form.save(commit=False)
-            cliente.save()
-            return redirect('dashboard')  # Cambia 'login_cliente.html' con la URL correcta
-    else:
-        form = RegistroClienteForm()
-
-    return render(request, 'registro_cliente.html', {'form': form})
 
 
 #casos
@@ -327,6 +317,7 @@ def ver_abogados(request):
     template = "p_abogado.html"
     return render(request, template, contenido)
 
+
 def detalle_abogado(request, codigo_abogado):
     abogado = get_object_or_404(Abogado, pk=codigo_abogado)
     detalle_abogado = Info_Abogado.objects.filter(abogado=abogado)
@@ -336,22 +327,110 @@ def detalle_abogado(request, codigo_abogado):
     }
     return render(request, 'detalle_abogado.html', contenido)
 
+
 def clientesviews(request):
     extraer_clientes()
     return HttpResponse('Importado')
 #______________________________________________________________________________
 
+
 #abogados 
+#Ver abogado 
+def ver_abogado(request):
+    if not request.user.is_authenticated or not hasattr(request.user, 'abogado'):
+        return render(request, 'error.html', {'mensaje': 'No tienes permiso para ver este perfil'})
+
+    abogado = request.user.abogado
+
+    if request.method == 'POST':
+        form = AbogadoForm(request.POST, request.FILES, instance=abogado)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Información actualizada exitosamente.')
+            return redirect('ver_abogado')
+        else:
+            messages.error(request, 'Error al actualizar la información. Por favor, revisa los campos.')
+    else:
+        form = AbogadoForm(instance=abogado)
+
+    contenido = {
+        'abogado': abogado,
+        'form': form,
+    }
+    return render(request, 'abogado_detalle.html', contenido)
 #Editar abogado 
-def editar_abogado(request, abogado_id):
-    abogado = get_object_or_404(Abogado, pk=abogado_id)   
+def editar_abogado(request, codigo_abogado):
+    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
+
     if request.method == 'POST':
         form = AbogadoForm(request.POST, instance=abogado)
         if form.is_valid():
             form.save()
-            return redirect('detalle_abogado', abogado_id=abogado.id)
+            return redirect('ver_abogado')
+        else:
+            return render(request, 'editar_abogado.html', {'form': form, 'abogado': abogado})
     else:
         form = AbogadoForm(instance=abogado)
+        return render(request, 'abogado_editar.html', {'form': form, 'abogado': abogado})
+    
+#______________________________________________________________________________
+    
+#Documento_abogados 
+def ver_documentos(request):
+    cliente_logueado = Clientes.objects.get(user=request.user)
 
-    return render(request, 'editar_abogado.html', {'form': form, 'abogado': abogado})
+    # Filtrar los documentos por el cliente logueado
+    documentos = Documentos.objects.filter(caso__cliente=cliente_logueado)
 
+    contenido = {
+        'documentos': documentos,
+    }
+    template = "lista_documentos.html"
+    return render(request, template, contenido)
+
+#______________________________________________________________________________
+
+def ver_documento(request, codigo_documento):
+   c = {}
+   c['documento'] =  get_object_or_404(Documentos, pk=codigo_documento)
+   return render(request, 'ver_documento.html', c)
+#______________________________________________________________________________
+
+
+def editar_documento(request, codigo_documento):
+    c = {}
+    documento = get_object_or_404(Documentos, pk=codigo_documento)
+    if request.method == 'POST':
+        form = DocumentoForm(request.POST, request.FILES, instance=documento)
+        if form.is_valid():
+            form.save()
+            return redirect(documento.get_absolute_url())
+    else:
+        form = DocumentoForm(instance=documento)
+    c['form'] = form
+    c['documento']= documento
+    return render(request,'edit_documento.html', c)
+#______________________________________________________________________________
+
+
+def eliminar_documento(request, codigo_documento):
+    documento = get_object_or_404(Documentos, id=codigo_documento)
+
+    if request.method == 'POST':
+        documento.delete()
+        return redirect('lista_documentos')  
+    return render(request, 'ver_documento.html', {'documento': documento})
+
+#______________________________________________________________________________
+
+@login_required
+def subir_documento(request):
+    if request.method == 'POST':
+        form = DocumentoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = DocumentoForm()
+
+    return render(request, 'subir_documento.html', {'form': form})
