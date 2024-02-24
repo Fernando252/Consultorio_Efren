@@ -59,11 +59,10 @@ class ADocumentoForm(forms.ModelForm):
         }
 
     def __init__(self, abogado, *args, **kwargs):
-        super(DocumentoForm, self).__init__(*args, **kwargs)
+        super(ADocumentoForm, self).__init__(*args, **kwargs)
 
         # Filtrar los casos relacionados con el abogado logueado
         self.fields['caso'].queryset = abogado.casos.all()
-
 
 
 

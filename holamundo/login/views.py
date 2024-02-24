@@ -416,15 +416,17 @@ def abogado_subir_documento(request):
     # Verifica la autenticación y el rol del usuario
     if not hasattr(request.user, 'abogado'):
         return render(request, 'error.html', {'mensaje': 'No tienes permiso para acceder a esta página'})
+    
     abogado = request.user.abogado
-    if request.method == 'POST':     
-        form = ADocumentoForm(abogado, request.POST, request.FILES)        
-        if form.is_valid():  
+    
+    if request.method == 'POST':
+        form = ADocumentoForm(abogado, request.POST, request.FILES)
+        
+        if form.is_valid():
             documento = form.save(commit=False)
             documento.save()
-      
             return redirect('dashboard')
     else:
-        form = DocumentoForm(abogado)
+        form = ADocumentoForm(abogado)
+    
     return render(request, 'abogado_subir_documento.html', {'form': form})
-

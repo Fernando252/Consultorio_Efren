@@ -93,9 +93,7 @@ class Casos(models.Model):
 
     def __str__(self) -> str:
         return f'El abogado {self.abogado.nombrea} trata al cliente {self.cliente.nombrec}'
-        
-    def __str__(self) -> str:
-        return f'{self.pk} - {self.cliente}'   
+
     def get_absolute_url(self):
         return reverse('ver_caso', kwargs={'codigo_caso': self.pk})
     def get_edit_url(self):
@@ -113,7 +111,6 @@ class Documentos(models.Model):
     archivo_adjunto = models.FileField(upload_to='documentos/', blank=True, )
 
     def __str__(self) -> str:
-       def __str__(self) -> str:
         return f'Documento {self.tipo_documento} - Abogado: {self.caso.abogado.nombrea} - Cliente: {self.caso.cliente.nombrec}'
     
 
