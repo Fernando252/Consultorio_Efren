@@ -71,7 +71,7 @@ def registro_cliente(request):
 
 @login_required
 def abogados_por_cliente(request):
-    cliente_actual = request.user.perfil
+    cliente_actual = request.user.cliente
 
     # Obtener los casos para el cliente actual
     casos_cliente = Casos.objects.filter(cliente=cliente_actual)
@@ -112,7 +112,7 @@ def registrar_cita(request):
         if form.is_valid():
             # Asigna el cliente asociado al usuario actual
             cita = form.save(commit=False)
-            cita.cliente = request.user.perfil  # Ajusta según tu lógica de relación con el cliente
+            cita.cliente = request.user.cliente  # Ajusta según tu lógica de relación con el cliente
             cita.save()
             return redirect('dashboard')  # Redirige a la página de inicio o donde desees
     else:
@@ -124,7 +124,7 @@ def registrar_cita(request):
 
 @login_required
 def citas_t(request):
-    cliente_actual = request.user.perfil  # Accede al perfil del usuario
+    cliente_actual = request.user.cliente  # Accede al cliente del usuario
     citas_cliente = Cita.objects.filter(cliente=cliente_actual)
     return render(request, 'cita_general.html', {'citas_cliente': citas_cliente})
 
@@ -240,9 +240,9 @@ def subir_documento(request):
     return render(request, 'subir_documento.html', {'form': form})
 
 
-#cliente perfil
+#cliente cliente
 @login_required
-def ver_perfil_usuario(request):
+def ver_cliente_usuario(request):
     
     if hasattr(request.user, 'abogado'):
         #return redirect('detalle_casos', request.user.abogado.id)
@@ -266,15 +266,15 @@ def ver_perfil_usuario(request):
             return redirect('dashboard')  # Redirigir a una página exitosa
     else:
         if cliente is not None:
-            # Si el cliente ya ha completado el perfil, redirigir al dashboard
+            # Si el cliente ya ha completado el cliente, redirigir al dashboard
             return redirect('dashboard')
         # Si es una solicitud GET, mostrar el formulario
         initial_data = {'correo': request.user.email} if cliente is None else None
         form = RegistroClienteForm(instance=cliente, initial=initial_data)
 
-    return render(request, 'perfil_usuario.html', {'form': form})
+    return render(request, 'cliente_usuario.html', {'form': form})
 
-#Abogado perfil
+#Abogado cliente
 def ver_abogados(request):
     abogados = Abogado.objects.all()
     contenido = {

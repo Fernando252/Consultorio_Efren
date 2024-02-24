@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from login.views import ver_documentos,registro_abogado
-from login.views import clientesviews, detalle_abogado, ver_perfil_usuario
+from login.views import clientesviews, detalle_abogado, ver_cliente_usuario
 from login.views import abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado, editar_abogado
 
 
@@ -33,7 +33,7 @@ urlpatterns = [
     
   
     path('admin/', admin.site.urls),
-    path('accounts/profile/', ver_perfil_usuario, name='profile'),
+    path('accounts/profile/', ver_cliente_usuario, name='profile'),
     path('', views.DashboardView.as_view(), name='dashboard'),
     path('registro_abogado/', registro_abogado, name='registro_abogado'),
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
