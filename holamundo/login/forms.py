@@ -66,11 +66,6 @@ class ADocumentoForm(forms.ModelForm):
 
 
 
-
-
-
-
-
 class AbogadoForm(forms.ModelForm):
     class Meta:
         model = Abogado

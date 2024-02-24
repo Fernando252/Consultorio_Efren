@@ -13,62 +13,27 @@ from django.contrib import messages
 
 #Views Clientes
 
-
-
-def registro_abogado(request):
-    ESPECIALIDAD_CHOICES = Abogado.ESPECIALIDAD_CHOICES
-    if request.method == 'POST':
-        cedula = request.POST['cedula']
-        nombrea = request.POST['nombrea']
-        apellido = request.POST['apellido']
-        celular = request.POST['celular']
-        correo = request.POST['correo']
-        tipos_especialidad = request.POST['tipos_especialidad']
-
-
-        # Crear una instancia de Abogado y guardarla en la base de datos
-        abogado = Abogado.objects.create(
-            cedula=cedula,
-            nombrea=nombrea,
-            apellido=apellido,
-            celular=celular,
-            correo=correo,
-            tipos_especialidad=tipos_especialidad,
-    
-        )
-        
-        # Realizar cualquier otra acción o redirigir a una página específica
-        return redirect('dashboard.html')  
-    return render(request, 'registro_abogado.html', {'ESPECIALIDAD_CHOICES': ESPECIALIDAD_CHOICES})
-
-# registo cliente
-
-
+#________________________________________________________________________________________________
 #casos
-
 @login_required
 def cliente_por_abogado(request):
     abogado_actual = request.user.abogado
 
-    # Obtener los casos para el cliente actual
     casos_abogado = Casos.objects.filter(abogado=abogado_actual)
 
-    # Obtener la lista única de abogados asociados a esos casos
+ 
     clientes_con_casos = set([caso.cliente for caso in casos_abogado])
 
-    # Renderizar la plantilla con la lista de abogados
     return render(request, 'lista_clientes.html', {'clientes_con_casos': clientes_con_casos})
+
 @login_required
 def abogados_por_cliente(request):
     cliente_actual = request.user.cliente
 
-    # Obtener los casos para el cliente actual
     casos_cliente = Casos.objects.filter(cliente=cliente_actual)
 
-    # Obtener la lista única de abogados asociados a esos casos
     abogados_con_casos = set([caso.abogado for caso in casos_cliente])
 
-    # Renderizar la plantilla con la lista de abogados
     return render(request, 'lista_abogados.html', {'abogados_con_casos': abogados_con_casos})
 
 @login_required
@@ -84,15 +49,13 @@ def ver_casos_abogado(request,codigo_abogado):
   
     # Filtra los casos por el cliente logueado
     casos_abogado = Casos.objects.filter(abogado=abogado)
-
+    
     contenido = {
         'casos_abogado': casos_abogado,
         'abogado': abogado,
     }
     template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
     return render(request, template, contenido)
-
-
 
 
 # Citas
@@ -277,9 +240,9 @@ def subir_documento(request):
 def ver_cliente_usuario(request):
     
     if hasattr(request.user, 'abogado'):
-        #return redirect('detalle_casos', request.user.abogado.id)
     
-        url = reverse('detalle_casos', kwargs={'codigo_abogado': request.user.abogado.pk})
+    
+        url = reverse('ver_abogado')
         return redirect(url)
     
     try:
@@ -396,6 +359,7 @@ def abogado_subir_documento(request):
     
     return render(request, 'abogado_subir_documento.html', {'form': form})
 
+#_________________________________________________________________________
 #Casos para abogado
 def registrar_caso(request):
     if request.method == 'POST':
