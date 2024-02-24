@@ -38,13 +38,10 @@ urlpatterns = [
 
     #documentos 
     path('lista_documentos/', ver_documentos,name="lista_documentos"),
-    path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
 
     #casos 
- 
-
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
     
@@ -52,6 +49,7 @@ urlpatterns = [
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
     
+
     #abogados 
 #______________________________________________________________________________________
     # Ver casos por cliente
@@ -64,6 +62,7 @@ urlpatterns = [
     #Perfil abogado
     path('ver_abogado/', ver_abogado, name='ver_abogado'),
     path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+#______________________________________________________________________________________
     #Documentos 
     path('subir_documento/', abogado_subir_documento, name='abogado_subir_documento'),
 
