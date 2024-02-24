@@ -129,7 +129,15 @@ def ver_casos_cliente(request,codigo_cliente):
     template = "casosC.html"  # Asegúrate de que la plantilla tenga el formato correcto
     return render(request, template, contenido)
 
-
+#Ver caso por separado
+def ver_caso(request, codigo_caso):
+   c = {}
+   c['caso'] =  get_object_or_404(Casos, pk=codigo_caso)
+   return render(request, 'ver_caso.html', c)
+def list_clientes(request):
+    abogado_actual = request.user.abogado  # Accede al abogado del usuario
+    casos_abogado = Casos.objects.filter(abogado=abogado_actual)
+    return render(request, 'casos_vista_abogado.html', {'casos_abogado': casos_abogado})
 # Citas
 #________________________________________________________________________________________
 @login_required
