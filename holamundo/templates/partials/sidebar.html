@@ -15,21 +15,25 @@
                             <li class="menu-title" key="Main">No es abogado</li>
                         {% endif %}
                             <li>
+
+
                                 <a href="{% url 'dashboard' %}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
                                     <span key="Dashboard">Dashboard</span>
                                     
                                 </a>
+                                {% if user.cliente %}
                                 <a href="{% url 'lista_abogados' %}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
                                     <span key="Dashboard">Abogado</span>
+                                {% endif %}
+
                                 {% if user.abogado %}    
-                                </a>
-                                <a href='/editar_abogado/{{abogado.id}}' class="waves-effect">
+                                <a href="{% url 'ver_abogado' %}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
-                                    <span key="Dashboard">Editar Abogado</span>
-                                    
+                                    <span key="Dashboard">Abogado</span>
                                 </a>
+                
                                 {% endif %}
                             </li>
                             {% if user.abogado %}

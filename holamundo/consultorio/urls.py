@@ -19,6 +19,9 @@ from django.urls import path, include
 from login.views import ver_documentos,cliente_por_abogado
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,ver_casos_cliente
 from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado, editar_abogado
+from django.urls import path, include 
+from login.views import clientesviews, detalle_abogado, ver_cliente_usuario
+from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documentos,ver_casos_abogado, editar_abogado, ver_abogado
 
 
 from consultorio import views
@@ -43,22 +46,30 @@ urlpatterns = [
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
 
     #casos 
-    path('lista_abogados/', ver_abogados,name="lista_abogados"),
-
-    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+ 
 
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
     
     #Perfil abogado
+    path('lista_abogados/', ver_abogados,name="lista_abogados"),
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
-    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+    
 
     # Registrar Casos
     path('registrar_caso/', registrar_caso, name='registrar_caso'),
     # Ver casos por cliente
     path('casoC/<int:codigo_cliente>/', ver_casos_cliente, name="casos_cliente"),
     path('cliente_por_abogado/', cliente_por_abogado, name='cliente_por_abogado'),
+
+    #abogados 
+    #Perfil abogado
+    path('ver_abogado/', ver_abogado, name='ver_abogado'),
+    path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
+    #Documentos 
+
+
+
     # Email
     path("email/", include("e_mail.urls")),
     # Components
