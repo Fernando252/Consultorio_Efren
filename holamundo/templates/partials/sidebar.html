@@ -32,7 +32,20 @@
                                 </a>
                                 {% endif %}
                             </li>
-
+                            {% if user.abogado %}
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="mdi mdi-file-document"></i>
+                                    <span key="DocumentosA">Documentos</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{}" key="subir_documento">Subir Documento</a></li>
+                                    <li><a href="{}" key="ver_documento">Ver Documento</a></li>
+                                    
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% if user.cliente %}
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-file-document"></i>
@@ -44,6 +57,7 @@
                                     
                                 </ul>
                             </li>
+                            {% endif %}
                             {% if user.cliente %}
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -57,6 +71,7 @@
                                 </ul>
                             </li>
                             {% endif %}
+                            {% if user.cliente %}
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-clipboard-file-outline"></i>
@@ -69,10 +84,38 @@
                                     
                                 </ul>
                             </li>
+                            {% endif %}
+                            {% if user.abogado %}
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="mdi mdi-clipboard-file-outline"></i>
+                                    <span key="CitasA">Citas</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{}" key="Cita">Registro citas</a></li>
+                                    <li><a href="{}" key="Email_Read">Ver citas</a></li>
+                                    <li><a href="{}" key="Email_Read">Historial citas</a></li>
+                                    
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% if user.cliente %}
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-file-find"></i>
                                     <span key="Casos">Casos</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'abogados_por_cliente' %}" key="casos">Ver casos</a></li>
+                                    
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% if user.abogado %}
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="mdi mdi-file-find"></i>
+                                    <span key="CasosA">Casos</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{% url 'abogados_por_cliente' %}" key="casos">Ver casos</a></li>
@@ -83,6 +126,7 @@
                                     
                                 </ul>
                             </li>
+                            {% endif %}
                             <li class="menu-title" key="Components">Clientes</li>
                             <ul class="sub-menu" aria-expanded="false">
                                 
