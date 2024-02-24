@@ -61,9 +61,9 @@ class AbogadoForm(forms.ModelForm):
 class CasosForm(forms.ModelForm):
     class Meta:
         model=Casos
-        fields= ['abogado','cliente','tipos_casos','Estado','descripcion']
+        fields= ['cliente','tipos_casos','Estado','descripcion']
         widgets = {
-        'abogado':forms.Select(attrs={'class': 'form-control'}),
+        
         'cliente':forms.Select(attrs={'class': 'form-control'}),
         'tipos_casos': forms.Select(attrs={'class': 'form-control'}),
         'Estado':forms.Select(attrs={'class': 'form-control'}),

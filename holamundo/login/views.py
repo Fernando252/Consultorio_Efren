@@ -71,6 +71,18 @@ def registro_cliente(request):
 #casos
 
 @login_required
+def cliente_por_abogado(request):
+    abogado_actual = request.user.abogado
+
+    # Obtener los casos para el cliente actual
+    casos_abogado = Casos.objects.filter(abogado=abogado_actual)
+
+    # Obtener la lista única de abogados asociados a esos casos
+    clientes_con_casos = set([caso.cliente for caso in casos_abogado])
+
+    # Renderizar la plantilla con la lista de abogados
+    return render(request, 'lista_clientes.html', {'clientes_con_casos': clientes_con_casos})
+@login_required
 def abogados_por_cliente(request):
     cliente_actual = request.user.cliente
 
@@ -104,7 +116,8 @@ def ver_casos_abogado(request,codigo_abogado):
     template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
     return render(request, template, contenido)
 
-@login_required
+
+
 def registrar_caso(request):
     if request.method == 'POST':
         form = CasosForm(request.POST)
@@ -118,8 +131,28 @@ def registrar_caso(request):
         form = CasosForm()
 
     return render(request, 'registrar_caso.html', {'form': form})
+#Vista de casos por cliente
+@login_required
+def ver_casos_cliente(request,codigo_cliente):
+    
+    if not es_cliente(request.user):
+        messages.error(request, 'Acceso no permitido a panel de cliente')
+        return HttpResponse('Acceso no permitido')
+    
+    cliente = get_object_or_404(Clientes, pk=codigo_cliente)
 
- # Citas
+    # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
+  
+    # Filtra los casos por el cliente logueado
+    casos_cliente = Casos.objects.filter(cliente=cliente)
+
+    contenido = {
+        'casos_cliente': casos_cliente,
+        'cliente': cliente,
+    }
+    template = "casosC.html"  # Asegúrate de que la plantilla tenga el formato correcto
+    return render(request, template, contenido)
+
 # Citas
 #________________________________________________________________________________________
 @login_required
