@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado
 from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm
 from django.urls import reverse
+from .utils import *
+from django.contrib import messages
 
 
 def editar_abogado(request, codigo_abogado):
@@ -82,13 +84,17 @@ def abogados_por_cliente(request):
 
 @login_required
 def ver_casos_abogado(request,codigo_abogado):
+    
+    if not es_abogado(request.user):
+        messages.error(request, 'Acceso no permitido a panel de abogado')
+        return HttpResponse('Acceso no permitido')
+    
     abogado = get_object_or_404(Abogado, pk=codigo_abogado)
 
     # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
-    cliente_logueado = get_object_or_404(Clientes, user=request.user)
-
+  
     # Filtra los casos por el cliente logueado
-    casos_abogado = Casos.objects.filter(abogado=abogado, cliente=cliente_logueado)
+    casos_abogado = Casos.objects.filter(abogado=abogado)
 
     contenido = {
         'casos_abogado': casos_abogado,
@@ -237,8 +243,15 @@ def subir_documento(request):
 #cliente perfil
 @login_required
 def ver_perfil_usuario(request):
+    
+    if hasattr(request.user, 'abogado'):
+        #return redirect('detalle_casos', request.user.abogado.id)
+    
+        url = reverse('detalle_casos', kwargs={'codigo_abogado': request.user.abogado.pk})
+        return redirect(url)
+    
     try:
-        cliente = request.user.perfil
+        cliente = request.user.cliente
     except Clientes.DoesNotExist:
         cliente = None
 

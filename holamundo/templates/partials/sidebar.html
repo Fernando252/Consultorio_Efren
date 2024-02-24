@@ -9,7 +9,11 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title" key="Main">Menu</li>
-
+                        {% if user.abogado %}
+                            <li class="menu-title" key="Main">Es abogado</li>
+                        {% else %}
+                            <li class="menu-title" key="Main">No es abogado</li>
+                        {% endif %}
                             <li>
                                 <a href="{% url 'dashboard' %}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>

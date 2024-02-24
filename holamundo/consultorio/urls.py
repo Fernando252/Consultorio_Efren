@@ -39,6 +39,7 @@ urlpatterns = [
     path('lista_abogados/', ver_abogados,name="lista_abogados"),
     path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
+    
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),
 
     path('lista_documentos/', ver_documentos,name="lista_documentos"),

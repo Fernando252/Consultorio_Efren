@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Clientes(models.Model):
     # Atributos del cliente
-    user = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE,default=None)
+    user = models.OneToOneField(User, related_name='cliente', on_delete=models.CASCADE,default=None)
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
     nombrec = models.CharField(max_length=144, blank=False, null=False)
     apellido = models.CharField(max_length=144, blank=False, null=False)
@@ -22,7 +22,7 @@ class Abogado(models.Model):
         ('Laboral', 'Laboral'),
         ('Civil', 'Civil'),  
     ]
-    
+    user = models.OneToOneField(User, related_name='abogado', on_delete=models.CASCADE,default=None)
     cedula = models.CharField(max_length=12, blank=False, null=True, default='')
     nombrea = models.CharField(max_length=144, blank=False, null=False,default='')
     apellido = models.CharField(max_length=144, blank=False, null=False,default='')
