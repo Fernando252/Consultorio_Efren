@@ -22,6 +22,7 @@
                     <th scope="col">Tipo de Documento</th>
                     <th scope="col">Fecha de Creación</th>
                     <th scope="col">Descripción</th>
+                    <th scope="col">Archivo</th>
                     <!-- Puedes agregar más encabezados según tus necesidades -->
                 </tr>
             </thead>
@@ -31,6 +32,13 @@
                         <td>{{ documento.tipo_documento }}</td>
                         <td>{{ documento.fecha_creacion }}</td>
                         <td>{{ documento.descripcion_documento }}</td>
+                        <td>
+                            {% if documento.archivo_adjunto %}
+                                <a href="{{ documento.archivo_adjunto.url }}" download>Descargar</a>
+                            {% else %}
+                                No disponible
+                            {% endif %}
+                        </td>
                         <!-- Puedes agregar más columnas según tus necesidades -->
                     </tr>
                 {% endfor %}

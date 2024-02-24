@@ -240,8 +240,7 @@ def subir_documento(request):
 def ver_cliente_usuario(request):
     
     if hasattr(request.user, 'abogado'):
-    
-    
+
         url = reverse('ver_abogado')
         return redirect(url)
     
