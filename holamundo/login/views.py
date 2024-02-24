@@ -354,3 +354,5 @@ def clientesviews(request):
     extraer_clientes()
     return HttpResponse('Importado')
 #______________________________________________________________________________
+
+#Abogado cliente
