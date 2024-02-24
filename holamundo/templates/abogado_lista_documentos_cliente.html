@@ -11,33 +11,19 @@
 <body>
     <div class="row">
         <div class="col-sm-12">
-            <h1>Documentos de {{ cliente.nombrec }} {{ cliente.apellido }}</h1>
+            <h1>Documentos del Clientes: {{ cliente.nombrec }} {{ cliente.apellido }}</h1>
         </div>
     </div>
 
     <div>
-        <table class="table">
-            <thead class="table-light">
-                <tr>
-                    <th scope="col">Tipo de Documento</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Fecha de Creación</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for documento in documentos %}
-                    <tr>
-                        <td>{{ documento.tipo_documento }}</td>
-                        <td>{{ documento.descripcion_documento }}</td>
-                        <td>{{ documento.fecha_creacion }}</td>
-                        <td>
-                            <a href="{}" class="btn btn-primary">Ver Detalles</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h2>Casos del Cliente</h2>
+        <ul>
+            {% for caso in casos_clientes %}
+                <li>{{ caso.nombre }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Agrega aquí la sección para mostrar los documentos relacionados con el caso seleccionado -->
     </div>
 
 </body>

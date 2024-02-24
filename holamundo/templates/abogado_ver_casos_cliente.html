@@ -1,0 +1,48 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Casos del Cliente: {{ cliente.nombrec }}</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Casos del Cliente: {{ cliente.nombrec }}</h1>
+        </div>
+    </div>
+
+    {% if casos_cliente_abogado %}
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Nombre del Caso</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de Apertura</th>
+                    <th scope="col">Descripción</th>
+                    <!-- Puedes agregar más encabezados según tus necesidades -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for caso in casos_cliente_abogado %}
+                    <tr>
+                        <td>{{ caso.nombre }}</td>
+                        <td>{{ caso.Estado }}</td>
+                        <td>{{ caso.fecha_apertura }}</td>
+                        <td>{{ caso.descripcion }}</td>
+                        <!-- Puedes agregar más columnas según tus necesidades -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay casos para este cliente con el abogado logueado.</p>
+    {% endif %}
+
+</body>
+</html>
+
+{% endblock %}

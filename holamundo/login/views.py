@@ -373,19 +373,26 @@ def abogado_ver_documentos(request):
     template = "abogado_lista_doc.html"
     return render(request, template, contenido)
 
-#Ver Documento_abogados 
-def abogado_ver_documentos_cliente(request, codigo_cliente):
-    cliente = get_object_or_404(Clientes, pk=codigo_cliente)
+#Ver casos_Documento_abogados 
+def abogado_ver_casos_cliente(request, cliente_id):
+    abogado_logueado = request.user.abogado
 
-    # Filtrar los documentos por el cliente específico
-    documentos = Documentos.objects.filter(caso__cliente=cliente)
+    # Obtener el cliente seleccionado
+    cliente_seleccionado = get_object_or_404(Clientes, id=cliente_id)
+
+    # Filtrar los casos del cliente con el abogado logueado
+    casos_cliente_abogado = Casos.objects.filter(cliente=cliente_seleccionado, abogado=abogado_logueado)
 
     contenido = {
-        'documentos': documentos,
-        'cliente': cliente,
+        'cliente': cliente_seleccionado,
+        'casos_cliente_abogado': casos_cliente_abogado,
     }
-    template = "abogado_lista_documentos_cliente.html"
+    template = "abogado_ver_casos_cliente.html"
     return render(request, template, contenido)
+
+
+
+
 
 #_________________________________________________________________________
 #Casos para abogado
