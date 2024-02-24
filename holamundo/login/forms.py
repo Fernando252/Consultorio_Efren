@@ -47,11 +47,30 @@ class DocumentoForm(forms.ModelForm):
             'archivo_adjunto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
+class ADocumentoForm(forms.ModelForm):
+    class Meta:
+        model = Documentos
+        fields = ['caso', 'tipo_documento', 'descripcion_documento', 'archivo_adjunto',]
+        widgets = {
+            'caso': forms.Select(attrs={'class': 'form-control'}),
+            'tipo_documento': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion_documento': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'archivo_adjunto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+
     def __init__(self, abogado, *args, **kwargs):
         super(DocumentoForm, self).__init__(*args, **kwargs)
 
         # Filtrar los casos relacionados con el abogado logueado
         self.fields['caso'].queryset = abogado.casos.all()
+
+
+
+
+
+
+
+
 
 class AbogadoForm(forms.ModelForm):
     class Meta:

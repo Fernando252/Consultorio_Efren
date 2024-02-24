@@ -113,7 +113,11 @@ class Documentos(models.Model):
     archivo_adjunto = models.FileField(upload_to='documentos/', blank=True, )
 
     def __str__(self) -> str:
-        return f'Documento {self.tipo_documento} para el caso {self.caso.id}'
+       def __str__(self) -> str:
+        return f'Documento {self.tipo_documento} - Abogado: {self.caso.abogado.nombrea} - Cliente: {self.caso.cliente.nombrec}'
+    
+
+
     def get_absolute_url(self):
         return reverse('ver_documento', kwargs={'codigo_documento': self.pk})
     
@@ -122,6 +126,9 @@ class Documentos(models.Model):
     
     def get_delete_url(self):
         return reverse('eliminar_documento', kwargs={'codigo_documento': self.id})  
+    
+
+
     
 class Info_Abogado(models.Model):
     abogado = models.ForeignKey(Abogado, related_name='info', on_delete=models.CASCADE, null=True,)
