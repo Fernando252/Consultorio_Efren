@@ -94,50 +94,7 @@ def ver_casos_abogado(request,codigo_abogado):
 
 
 
-def registrar_caso(request):
-    if request.method == 'POST':
-        form = CasosForm(request.POST)
-        if form.is_valid():
-            # Asigna el abogadp asociado al usuario actual
-            caso = form.save(commit=False)
-            caso.abogado = request.user.abogado  # Ajusta según tu lógica de relación con el abogado
-            caso.save()
-            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
-    else:
-        form = CasosForm()
 
-    return render(request, 'registrar_caso.html', {'form': form})
-#Vista de casos por cliente
-@login_required
-def ver_casos_cliente(request,codigo_cliente):
-    
-    if not es_cliente(request.user):
-        messages.error(request, 'Acceso no permitido a panel de cliente')
-        return HttpResponse('Acceso no permitido')
-    
-    cliente = get_object_or_404(Clientes, pk=codigo_cliente)
-
-    # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
-  
-    # Filtra los casos por el cliente logueado
-    casos_cliente = Casos.objects.filter(cliente=cliente)
-
-    contenido = {
-        'casos_cliente': casos_cliente,
-        'cliente': cliente,
-    }
-    template = "casosC.html"  # Asegúrate de que la plantilla tenga el formato correcto
-    return render(request, template, contenido)
-
-#Ver caso por separado
-def ver_caso(request, codigo_caso):
-   c = {}
-   c['caso'] =  get_object_or_404(Casos, pk=codigo_caso)
-   return render(request, 'ver_caso.html', c)
-def list_clientes(request):
-    abogado_actual = request.user.abogado  # Accede al abogado del usuario
-    casos_abogado = Casos.objects.filter(abogado=abogado_actual)
-    return render(request, 'casos_vista_abogado.html', {'casos_abogado': casos_abogado})
 # Citas
 #________________________________________________________________________________________
 @login_required
@@ -438,3 +395,49 @@ def abogado_subir_documento(request):
         form = ADocumentoForm(abogado)
     
     return render(request, 'abogado_subir_documento.html', {'form': form})
+
+#Casos para abogado
+def registrar_caso(request):
+    if request.method == 'POST':
+        form = CasosForm(request.POST)
+        if form.is_valid():
+            # Asigna el abogadp asociado al usuario actual
+            caso = form.save(commit=False)
+            caso.abogado = request.user.abogado  # Ajusta según tu lógica de relación con el abogado
+            caso.save()
+            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
+    else:
+        form = CasosForm()
+
+    return render(request, 'registrar_caso.html', {'form': form})
+#Vista de casos por cliente
+@login_required
+def ver_casos_cliente(request,codigo_cliente):
+    
+    if not es_cliente(request.user):
+        messages.error(request, 'Acceso no permitido a panel de cliente')
+        return HttpResponse('Acceso no permitido')
+    
+    cliente = get_object_or_404(Clientes, pk=codigo_cliente)
+
+    # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
+  
+    # Filtra los casos por el cliente logueado
+    casos_cliente = Casos.objects.filter(cliente=cliente)
+
+    contenido = {
+        'casos_cliente': casos_cliente,
+        'cliente': cliente,
+    }
+    template = "casosC.html"  # Asegúrate de que la plantilla tenga el formato correcto
+    return render(request, template, contenido)
+
+#Ver caso por separado
+def ver_caso(request, codigo_caso):
+   c = {}
+   c['caso'] =  get_object_or_404(Casos, pk=codigo_caso)
+   return render(request, 'ver_caso.html', c)
+def list_clientes(request):
+    abogado_actual = request.user.abogado  # Accede al abogado del usuario
+    casos_abogado = Casos.objects.filter(abogado=abogado_actual)
+    return render(request, 'casos_vista_abogado.html', {'casos_abogado': casos_abogado})
