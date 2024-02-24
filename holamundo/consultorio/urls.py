@@ -16,9 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from login.views import ver_documentos
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario
-from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado, editar_abogado
+from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documentos,ver_casos_abogado, editar_abogado
 
 
 from consultorio import views

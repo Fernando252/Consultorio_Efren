@@ -8,21 +8,7 @@ from .utils import *
 from django.contrib import messages
 
 
-def editar_abogado(request, codigo_abogado):
-    c = {}
-    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
-    if request.method == 'POST':
-        form = AbogadoForm(request.POST, request.FILES, instance=abogado)
-        if form.is_valid():
-            form.save()
-            return redirect(abogado.get_absolute_url())
-    else:
-        form = CitaForm(instance=abogado)
-    c['form'] = form
-    c['abogado']= abogado
-    return render(request,'formulario_abogado.html', c)
-from django.http import HttpResponse
-from .utils import extraer_clientes
+
 
 #Views Clientes
 
@@ -119,7 +105,7 @@ def registrar_caso(request):
 
     return render(request, 'registrar_caso.html', {'form': form})
 
- # Citas
+
 # Citas
 #________________________________________________________________________________________
 @login_required
@@ -355,4 +341,17 @@ def clientesviews(request):
     return HttpResponse('Importado')
 #______________________________________________________________________________
 
-#Abogado cliente
+#abogados 
+#Editar abogado 
+def editar_abogado(request, abogado_id):
+    abogado = get_object_or_404(Abogado, pk=abogado_id)   
+    if request.method == 'POST':
+        form = AbogadoForm(request.POST, instance=abogado)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_abogado', abogado_id=abogado.id)
+    else:
+        form = AbogadoForm(instance=abogado)
+
+    return render(request, 'editar_abogado.html', {'form': form, 'abogado': abogado})
+
