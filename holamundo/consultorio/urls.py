@@ -67,8 +67,7 @@ urlpatterns = [
 #______________________________________________________________________________________
     #Documentos 
     path('subir_documento/', abogado_subir_documento, name='abogado_subir_documento'),
-
-
+    
 
 
 

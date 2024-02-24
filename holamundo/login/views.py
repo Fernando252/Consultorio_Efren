@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm
 from django.urls import reverse
 from .utils import *
 from django.contrib import messages
@@ -424,23 +424,15 @@ def abogado_subir_documento(request):
     # Verifica la autenticación y el rol del usuario
     if not hasattr(request.user, 'abogado'):
         return render(request, 'error.html', {'mensaje': 'No tienes permiso para acceder a esta página'})
-
-    # Obtiene el objeto Abogado asociado al usuario autenticado
     abogado = request.user.abogado
-
-    if request.method == 'POST':
-        # Maneja la solicitud POST, crea una instancia del formulario con el objeto abogado y los datos de la solicitud
-        form = DocumentoForm(abogado, request.POST, request.FILES)
-        
-        if form.is_valid():
-            # Si el formulario es válido, guarda el documento asociándolo al abogado
+    if request.method == 'POST':     
+        form = ADocumentoForm(abogado, request.POST, request.FILES)        
+        if form.is_valid():  
             documento = form.save(commit=False)
             documento.save()
-            # Redirige al usuario al "dashboard" o a la página que desees
+      
             return redirect('dashboard')
     else:
-        # Si la solicitud no es POST, crea una instancia del formulario con el objeto abogado
         form = DocumentoForm(abogado)
-
-    # Renderiza la plantilla con el formulario
     return render(request, 'abogado_subir_documento.html', {'form': form})
+
