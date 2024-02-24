@@ -1,160 +1,215 @@
 {% load static %} 
 {% block sidebar %}
-            <div class="vertical-menu">
+{% if user.abogado %}
+<!-- Menu de abogados -->
+    <div class="vertical-menu">
 
-                <div data-simplebar class="h-100">
+        <div data-simplebar class="h-100">
 
-                    <!--- Sidemenu -->
-                    <div id="sidebar-menu">
-                        <!-- Left Menu Start -->
-                        <ul class="metismenu list-unstyled" id="side-menu">
-                            <li class="menu-title" key="Main">Menu</li>
-                        {% if user.abogado %}
-                            <li class="menu-title" key="Main">Es abogado</li>
-                        {% else %}
-                            <li class="menu-title" key="Main">No es abogado</li>
-                        {% endif %}
-                            <li>
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title" key="Main">Menu</li>
+                {% if user.abogado %}
+                    <li class="menu-title" key="Main">Es abogado</li>
+                {% else %}
+                    <li class="menu-title" key="Main">No es abogado</li>
+                {% endif %}
+                <li>
 
 
-                                <a href="{% url 'dashboard' %}" class="waves-effect">
-                                    <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
-                                    <span key="Dashboard">Dashboard</span>
-                                    
-                                </a>
-                                {% if user.cliente %}
-                                <a href="{% url 'lista_abogados' %}" class="waves-effect">
-                                    <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
-                                    <span key="Dashboard">Abogado</span>
-                                {% endif %}
-
-                                {% if user.abogado %}    
-                                <a href="{% url 'ver_abogado' %}" class="waves-effect">
-                                    <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
-                                    <span key="Dashboard">Abogado</span>
-                                </a>
+                    <a href="{% url 'dashboard' %}" class="waves-effect">
+                        <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
+                        <span key="Dashboard">Dashboard</span>
+                        
+                    </a>
+   
+                    <a href="{% url 'ver_abogado' %}" class="waves-effect">
+                        <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
+                        <span key="Dashboard">Abogado</span>
+                    </a>
+    
+                </li>
                 
-                                {% endif %}
-                            </li>
-                            {% if user.abogado %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-file-document"></i>
-                                    <span key="DocumentosA">Documentos</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'abogado_subir_documento' %}" key="subir_documento">Subir Documento</a></li>
-                                    <li><a href="{}" key="ver_documento">Ver Documento</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% if user.cliente %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-file-document"></i>
-                                    <span key="Documentos">Documentos</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'subir_documento' %}" key="subir_documento">Subir Documento</a></li>
-                                    <li><a href="{% url 'lista_documentos' %}" key="ver_documento">Ver Documento</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% if user.cliente %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-account-multiple"></i>
-                                    <span key="Clientes">Clientes</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    
-                                    <li><a href="{% url 'email-emailread' %}" key="Email_Read">Editar cliente</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% if user.cliente %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-clipboard-file-outline"></i>
-                                    <span key="Citas">Citas</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{%url 'registrar_cita1'%}" key="Cita">Registro citas</a></li>
-                                    <li><a href="{% url 'citas_list' %}" key="Email_Read">Ver citas</a></li>
-                                    <li><a href="{% url 'lista_citas' %}" key="Email_Read">Historial citas</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% if user.abogado %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-clipboard-file-outline"></i>
-                                    <span key="CitasA">Citas</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{}" key="Cita">Registro citas</a></li>
-                                    <li><a href="{}" key="Email_Read">Ver citas</a></li>
-                                    <li><a href="{}" key="Email_Read">Historial citas</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% if user.cliente %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-file-find"></i>
-                                    <span key="Casos">Casos</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'abogados_por_cliente' %}" key="casos">Ver casos</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% if user.abogado %}
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-file-find"></i>
-                                    <span key="CasosA">Casos</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'cliente_por_abogado' %}" key="vercasos">Ver casos</a></li>
-                                    
-                                </ul>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'registrar_caso' %}" key="crudcasos">Editar casos</a></li>
-                                    
-                                </ul>
-                            </li>
-                            {% endif %}
-                            <li class="menu-title" key="Components">Clientes</li>
-                            <ul class="sub-menu" aria-expanded="false">
-                                
-                                
-                            </ul>
-                         
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-file-document"></i>
+                        <span key="DocumentosA">Documentos</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{% url 'abogado_subir_documento' %}" key="subir_documento">Subir Documento</a></li>
+                        <li><a href="{}" key="ver_documento">Ver Documento</a></li>
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-clipboard-file-outline"></i>
+                        <span key="CitasA">Citas</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{}" key="Cita">Registro citas</a></li>
+                        <li><a href="{}" key="Email_Read">Ver citas</a></li>
+                        <li><a href="{}" key="Email_Read">Historial citas</a></li>
+                        
+                    </ul>
+                </li>
+               
+                
+               
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-file-find"></i>
+                        <span key="CasosA">Casos</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{% url 'casos_vista_abogado' %}" key="vercasos">Ver casos</a></li>
+                        
+                    </ul>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{% url 'registrar_caso' %}" key="crudcasos">Editar casos</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="menu-title" key="Components">Abogados</li>
+                <ul class="sub-menu" aria-expanded="false">
+                    
+                    
+                </ul>
+             
 
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect">
-                                    <i class="ti-location-pin"></i>
-                                    <span class="badge rounded-pill bg-danger float-end">2</span>
-                                    <span key="Maps">Maps</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{% url 'maps-googlemaps' %}" key="Google_Map"> Google Maps</a></li>
-                                    <li><a href="{% url 'maps-vectormaps' %}" key="Vector_Map"> Vector Maps</a></li>
-                                </ul>
-                            </li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="ti-location-pin"></i>
+                        <span class="badge rounded-pill bg-danger float-end">2</span>
+                        <span key="Maps">Maps</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{% url 'maps-googlemaps' %}" key="Google_Map"> Google Maps</a></li>
+                        <li><a href="{% url 'maps-vectormaps' %}" key="Vector_Map"> Vector Maps</a></li>
+                    </ul>
+                </li>
 
 
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+     <!-- Menu de clientes -->
+     {% else %}
+     <div class="vertical-menu">
+
+        <div data-simplebar class="h-100">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title" key="Main">Menu</li>
+                {% if user.abogado %}
+                    <li class="menu-title" key="Main">Es abogado</li>
+                {% else %}
+                    <li class="menu-title" key="Main">No es abogado</li>
+                {% endif %}
+                    <li>
+
+
+                        <a href="{% url 'dashboard' %}" class="waves-effect">
+                            <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
+                            <span key="Dashboard">Dashboard</span>
+                            
+                        </a>
+                        
+                        <a href="{% url 'lista_abogados' %}" class="waves-effect">
+                            <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
+                            <span key="Dashboard">Abogado</span>
+                        
+
+                       
+                    </li>
+                 
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-file-document"></i>
+                            <span key="Documentos">Documentos</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{% url 'subir_documento' %}" key="subir_documento">Subir Documento</a></li>
+                            <li><a href="{% url 'lista_documentos' %}" key="ver_documento">Ver Documento</a></li>
+                            
                         </ul>
-                    </div>
-                    <!-- Sidebar -->
-                </div>
-            </div>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-account-multiple"></i>
+                            <span key="Clientes">Clientes</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            
+                            <li><a href="{% url 'email-emailread' %}" key="Email_Read">Editar cliente</a></li>
+                            
+                        </ul>
+                    </li>
+                   
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-clipboard-file-outline"></i>
+                            <span key="Citas">Citas</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{%url 'registrar_cita1'%}" key="Cita">Registro citas</a></li>
+                            <li><a href="{% url 'citas_list' %}" key="Email_Read">Ver citas</a></li>
+                            <li><a href="{% url 'lista_citas' %}" key="Email_Read">Historial citas</a></li>
+                            
+                        </ul>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-file-find"></i>
+                            <span key="Casos">Casos</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{% url 'abogados_por_cliente' %}" key="casos">Ver casos</a></li>
+                            
+                        </ul>
+                    </li>
+                    
+                   
+                    <li class="menu-title" key="Components">Clientes</li>
+                    <ul class="sub-menu" aria-expanded="false">
+                        
+                        
+                    </ul>
+                 
 
+                    <li>
+                        <a href="javascript: void(0);" class="waves-effect">
+                            <i class="ti-location-pin"></i>
+                            <span class="badge rounded-pill bg-danger float-end">2</span>
+                            <span key="Maps">Maps</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{% url 'maps-googlemaps' %}" key="Google_Map"> Google Maps</a></li>
+                            <li><a href="{% url 'maps-vectormaps' %}" key="Vector_Map"> Vector Maps</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+            <!-- Sidebar -->
+        </div>
+    </div>
+              
+    {% endif %}
+            
 {% endblock %}
