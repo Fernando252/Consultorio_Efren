@@ -1,0 +1,46 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Clientes con Casos</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Clientes con Casos</h1>
+        </div>
+    </div>
+
+    {% if clientes_con_casos %}
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes_con_casos %}
+                    <tr>
+                        <td>{{ cliente.nombrec }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.cedula }}</td>
+                        <td><a href="{% url 'ver_casos_cliente' cliente_id=cliente.id %}"class="btn btn-primary">Ver Detalles</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay clientes con casos gestionados por el abogado logueado.</p>
+    {% endif %}
+
+</body>
+</html>
+
+{% endblock %}

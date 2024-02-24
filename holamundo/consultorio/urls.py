@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from login.views import ver_documentos,ver_caso,list_clientes,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente
+from login.views import ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente
 from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_casos_abogado, editar_abogado, ver_abogado
 
@@ -53,12 +53,10 @@ urlpatterns = [
     #abogados 
 #______________________________________________________________________________________
     # Ver casos por cliente
-    #path('casoC/<int:codigo_cliente>/', ver_casos_cliente, name="casos_cliente"),
-    path('ver_caso/<int:codigo_cliente>/', ver_caso, name="ver_caso"),
-    #path('cliente_por_abogado/', cliente_por_abogado, name='cliente_por_abogado'),
-    path('casos_vista_abogado/', list_clientes,name="casos_vista_abogado"),
-    # Registrar Casos
+ 
     path('registrar_caso/', registrar_caso, name='registrar_caso'),
+    path('clientes_con_casos/', clientes_con_casos, name='clientes_con_casos'),
+    path('ver_casos_cliente/<int:cliente_id>/', ver_casos_cliente, name='ver_casos_cliente'),
 #______________________________________________________________________________________
 
     #Perfil abogado
@@ -68,7 +66,7 @@ urlpatterns = [
     #Documentos 
     path('subir_documento/', abogado_subir_documento, name='abogado_subir_documento'),
     path('ver_documentos_abogado/', abogado_ver_documentos, name='ver_documentos_abogado'),
-    path('ver_casos_cliente/<int:cliente_id>/', abogado_ver_casos_cliente, name='ver_casos_cliente'),
+    path('ver_casos_cliente/<int:cliente_id>/', abogado_ver_casos_cliente, name='documento_casos_cliente'),
 
 
 
