@@ -1,0 +1,44 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Clientes con Documentos</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Clientes con Documentos</h1>
+        </div>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes_con_documentos %}
+                    <tr>
+                        <td>{{ cliente.nombrec }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.cedula }}</td>
+                        <td><a href="{% url 'ver_documentos_cliente' codigo_cliente=cliente.id %}"class="btn btn-primary">Ver Detalles</a></td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+{% endblock %}

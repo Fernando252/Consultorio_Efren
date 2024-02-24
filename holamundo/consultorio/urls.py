@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from login.views import ver_documentos,cliente_por_abogado,ver_caso,list_clientes,ver_documento
+from login.views import ver_documentos,cliente_por_abogado,ver_caso,list_clientes,ver_documento,abogado_ver_documentos,abogado_ver_documentos_cliente
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente
 from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_casos_abogado, editar_abogado, ver_abogado
 
@@ -67,8 +67,8 @@ urlpatterns = [
 #______________________________________________________________________________________
     #Documentos 
     path('subir_documento/', abogado_subir_documento, name='abogado_subir_documento'),
-    
-
+    path('ver_documentos_abogado/', abogado_ver_documentos, name='ver_documentos_abogado'),
+    path('ver_documentos_cliente/<int:codigo_cliente>/', abogado_ver_documentos_cliente, name='ver_documentos_cliente'),
 
 
 

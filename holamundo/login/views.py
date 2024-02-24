@@ -341,7 +341,7 @@ def editar_abogado(request, codigo_abogado):
     
 #Documento_abogados 
 def abogado_subir_documento(request):
-    # Verifica la autenticación y el rol del usuario
+
     if not hasattr(request.user, 'abogado'):
         return render(request, 'error.html', {'mensaje': 'No tienes permiso para acceder a esta página'})
     
@@ -358,6 +358,34 @@ def abogado_subir_documento(request):
         form = ADocumentoForm(abogado)
     
     return render(request, 'abogado_subir_documento.html', {'form': form})
+
+
+#Ver Documento_abogados 
+def abogado_ver_documentos(request):
+    abogado_logueado = request.user.abogado
+
+    # Obtener la lista de clientes que tienen al menos un documento con el abogado logueado
+    clientes_con_documentos = Clientes.objects.filter(casos__abogado=abogado_logueado, casos__documentos__isnull=False).distinct()
+
+    contenido = {
+        'clientes_con_documentos': clientes_con_documentos,
+    }
+    template = "abogado_lista_doc.html"
+    return render(request, template, contenido)
+
+#Ver Documento_abogados 
+def abogado_ver_documentos_cliente(request, codigo_cliente):
+    cliente = get_object_or_404(Clientes, pk=codigo_cliente)
+
+    # Filtrar los documentos por el cliente específico
+    documentos = Documentos.objects.filter(caso__cliente=cliente)
+
+    contenido = {
+        'documentos': documentos,
+        'cliente': cliente,
+    }
+    template = "abogado_lista_documentos_cliente.html"
+    return render(request, template, contenido)
 
 #_________________________________________________________________________
 #Casos para abogado

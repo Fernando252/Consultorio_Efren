@@ -86,13 +86,14 @@ class Casos(models.Model):
     # Atributos de los casos
     abogado = models.ForeignKey(Abogado, related_name='casos', on_delete=models.CASCADE)
     cliente = models.ForeignKey(Clientes, related_name='casos', on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
     tipos_casos = models.CharField(max_length=10, default='Penal', choices=CASOS_CHOICES)
     Estado = models.CharField(max_length=10, default='Proceso', choices=ESTADO_CHOICES)
     fecha_apertura = models.DateTimeField(default=timezone.now)
     descripcion = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:
-        return f'El abogado {self.abogado.nombrea} trata al cliente {self.cliente.nombrec}'
+        return f'Caso: {self.nombre} - Abogado: {self.abogado.nombrea} - Cliente: {self.cliente.nombrec}'
 
     def get_absolute_url(self):
         return reverse('ver_caso', kwargs={'codigo_caso': self.pk})
