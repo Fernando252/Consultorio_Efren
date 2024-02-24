@@ -250,19 +250,18 @@ def ver_cliente_usuario(request):
         cliente = None
 
     if request.method == 'POST':
-        # Si es una solicitud POST, procesar el formulario
+ 
         form = RegistroClienteForm(request.POST, instance=cliente)
         if form.is_valid():
-            # Guardar los datos actualizados del formulario
+        
             cliente = form.save(commit=False)
             cliente.user = request.user
             cliente.save()
-            return redirect('dashboard')  # Redirigir a una página exitosa
+            return redirect('dashboard')  
     else:
         if cliente is not None:
-            # Si el cliente ya ha completado el cliente, redirigir al dashboard
             return redirect('dashboard')
-        # Si es una solicitud GET, mostrar el formulario
+     
         initial_data = {'correo': request.user.email} if cliente is None else None
         form = RegistroClienteForm(instance=cliente, initial=initial_data)
 
