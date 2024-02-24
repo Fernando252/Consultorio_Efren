@@ -358,6 +358,8 @@ def ver_abogado(request):
         'form': form,
     }
     return render(request, 'abogado_detalle.html', contenido)
+
+
 #Editar abogado 
 def editar_abogado(request, codigo_abogado):
     abogado = get_object_or_404(Abogado, pk=codigo_abogado)
@@ -376,61 +378,27 @@ def editar_abogado(request, codigo_abogado):
 #______________________________________________________________________________
     
 #Documento_abogados 
-def ver_documentos(request):
-    cliente_logueado = Clientes.objects.get(user=request.user)
+def abogado_subir_documento(request):
+    # Verifica la autenticación y el rol del usuario
+    if not hasattr(request.user, 'abogado'):
+        return render(request, 'error.html', {'mensaje': 'No tienes permiso para acceder a esta página'})
 
-    # Filtrar los documentos por el cliente logueado
-    documentos = Documentos.objects.filter(caso__cliente=cliente_logueado)
+    # Obtiene el objeto Abogado asociado al usuario autenticado
+    abogado = request.user.abogado
 
-    contenido = {
-        'documentos': documentos,
-    }
-    template = "lista_documentos.html"
-    return render(request, template, contenido)
-
-#______________________________________________________________________________
-
-def ver_documento(request, codigo_documento):
-   c = {}
-   c['documento'] =  get_object_or_404(Documentos, pk=codigo_documento)
-   return render(request, 'ver_documento.html', c)
-#______________________________________________________________________________
-
-
-def editar_documento(request, codigo_documento):
-    c = {}
-    documento = get_object_or_404(Documentos, pk=codigo_documento)
     if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES, instance=documento)
+        # Maneja la solicitud POST, crea una instancia del formulario con el objeto abogado y los datos de la solicitud
+        form = DocumentoForm(abogado, request.POST, request.FILES)
+        
         if form.is_valid():
-            form.save()
-            return redirect(documento.get_absolute_url())
-    else:
-        form = DocumentoForm(instance=documento)
-    c['form'] = form
-    c['documento']= documento
-    return render(request,'edit_documento.html', c)
-#______________________________________________________________________________
-
-
-def eliminar_documento(request, codigo_documento):
-    documento = get_object_or_404(Documentos, id=codigo_documento)
-
-    if request.method == 'POST':
-        documento.delete()
-        return redirect('lista_documentos')  
-    return render(request, 'ver_documento.html', {'documento': documento})
-
-#______________________________________________________________________________
-
-@login_required
-def subir_documento(request):
-    if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+            # Si el formulario es válido, guarda el documento asociándolo al abogado
+            documento = form.save(commit=False)
+            documento.save()
+            # Redirige al usuario al "dashboard" o a la página que desees
             return redirect('dashboard')
     else:
-        form = DocumentoForm()
+        # Si la solicitud no es POST, crea una instancia del formulario con el objeto abogado
+        form = DocumentoForm(abogado)
 
-    return render(request, 'subir_documento.html', {'form': form})
+    # Renderiza la plantilla con el formulario
+    return render(request, 'abogado_subir_documento.html', {'form': form})
