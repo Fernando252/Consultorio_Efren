@@ -94,7 +94,15 @@ class Casos(models.Model):
     def __str__(self) -> str:
         return f'El abogado {self.abogado.nombrea} trata al cliente {self.cliente.nombrec}'
         
-        
+    def __str__(self) -> str:
+        return f'{self.pk} - {self.cliente}'   
+    def get_absolute_url(self):
+        return reverse('ver_caso', kwargs={'codigo_caso': self.pk})
+    def get_edit_url(self):
+        return reverse('editar_caso', kwargs={'codigo_caso': self.pk})
+    
+    def get_delete_url(self):
+        return reverse('eliminar_caso', kwargs={'codigo_caso': self.pk})
         
 class Documentos(models.Model):
     # Atributos del documento
