@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from login.views import ver_documentos,registro_abogado
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario
-from login.views import abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado, editar_abogado
+from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_documento,ver_casos_abogado, editar_abogado
 
 
 from consultorio import views
@@ -51,7 +51,8 @@ urlpatterns = [
     path('detalle_abogado/<int:codigo_abogado>/', detalle_abogado, name='detalle_abogado'),
     path('editar_abogado/<int:codigo_abogado>/', editar_abogado, name='editar_abogado'),
 
-    
+    #Casos
+    path('registrar_caso/', registrar_caso, name='registrar_caso'),
     # Email
     path("email/", include("e_mail.urls")),
     # Components

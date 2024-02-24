@@ -23,13 +23,14 @@
                                 <a href="{% url 'lista_abogados' %}" class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
                                     <span key="Dashboard">Abogado</span>
-                                    
+                                {% if user.abogado %}    
                                 </a>
                                 <a href='/editar_abogado/{{abogado.id}}' class="waves-effect">
                                     <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
                                     <span key="Dashboard">Editar Abogado</span>
                                     
                                 </a>
+                                {% endif %}
                             </li>
 
                             <li>
@@ -43,7 +44,7 @@
                                     
                                 </ul>
                             </li>
-                            
+                            {% if user.cliente %}
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-account-multiple"></i>
@@ -55,6 +56,7 @@
                                     
                                 </ul>
                             </li>
+                            {% endif %}
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-clipboard-file-outline"></i>
@@ -74,6 +76,10 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{% url 'abogados_por_cliente' %}" key="casos">Ver casos</a></li>
+                                    
+                                </ul>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{% url 'registrar_caso' %}" key="crudcasos">Editar casos</a></li>
                                     
                                 </ul>
                             </li>

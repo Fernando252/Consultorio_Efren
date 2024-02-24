@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm
 from django.urls import reverse
 from .utils import *
 from django.contrib import messages
@@ -103,6 +103,20 @@ def ver_casos_abogado(request,codigo_abogado):
     template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
     return render(request, template, contenido)
 
+@login_required
+def registrar_caso(request):
+    if request.method == 'POST':
+        form = CasosForm(request.POST)
+        if form.is_valid():
+            # Asigna el abogadp asociado al usuario actual
+            caso = form.save(commit=False)
+            caso.abogado = request.user.abogado  # Ajusta según tu lógica de relación con el abogado
+            caso.save()
+            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
+    else:
+        form = CasosForm()
+
+    return render(request, 'registrar_caso.html', {'form': form})
 
  # Citas
 @login_required

@@ -1,0 +1,75 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+{% endblock  %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registro de Casos</title>
+
+   
+</head>
+
+<body>
+
+    <form method="post" action="{% url 'registrar_caso' %}" class="container">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Ingrese sus datos</h2>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Registro de Casos</h5>
+    
+                        <div class="form-group">
+                            <label for="id_abogado" class="font-weight-bold">Abogado:</label>
+                            {{ form.abogado }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_fecha_cita" class="font-weight-bold">Cliente:</label>
+                            {{ form.cliente }}
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="id_lugar_cita" class="font-weight-bold">Tipo de caso:</label>
+                            {{ form.tipos_caso }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_lugar_cita" class="font-weight-bold">Estado:</label>
+                            {{ form.Estado }}
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="id_descripcion" class="font-weight-bold">Descripción:</label>
+                            {{ form.descripcion }}
+                        </div>
+    
+                        <button type="submit" class="btn btn-primary">Registrar Cita</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+   
+</body> 
+</html>
+{% endblock %}
+{% block extra_javascript %}
+
+    <!-- Peity chart-->
+    <script src="{% static 'libs/peity/jquery.peity.min.js' %}"></script>
+
+    <!-- Plugin Js-->
+    <script src="{% static 'libs/chartist/dist/chartist.min.js' %}"></script>
+    <script src="{% static 'libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+{% endblock %}
