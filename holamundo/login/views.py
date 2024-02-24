@@ -24,6 +24,7 @@ def editar_abogado(request, codigo_abogado):
 from django.http import HttpResponse
 from .utils import extraer_clientes
 
+#Views Clientes
 
 
 
@@ -119,6 +120,8 @@ def registrar_caso(request):
     return render(request, 'registrar_caso.html', {'form': form})
 
  # Citas
+# Citas
+#________________________________________________________________________________________
 @login_required
 def registrar_cita(request):
     if request.method == 'POST':
@@ -126,23 +129,22 @@ def registrar_cita(request):
         if form.is_valid():
             # Asigna el cliente asociado al usuario actual
             cita = form.save(commit=False)
-            cita.cliente = request.user.cliente  # Ajusta según tu lógica de relación con el cliente
+            cita.cliente = request.user.cliente 
             cita.save()
-            return redirect('dashboard')  # Redirige a la página de inicio o donde desees
+            return redirect('dashboard')  
     else:
         form = CitaForm()
 
     return render(request, 'registrar_cita1.html', {'form': form})
 
-
+#________________________________________________________________________________________
 
 @login_required
 def citas_t(request):
     cliente_actual = request.user.cliente  # Accede al cliente del usuario
     citas_cliente = Cita.objects.filter(cliente=cliente_actual)
     return render(request, 'cita_general.html', {'citas_cliente': citas_cliente})
-
-
+#________________________________________________________________________________________
 
 @login_required
 def citas_clientes(request,codigo_cliente):
@@ -154,8 +156,7 @@ def citas_clientes(request,codigo_cliente):
     }
     template = "cita_cliente.html"
     return render(request, template, contenido)
-
-
+#________________________________________________________________________________________
 
 @login_required
 def eliminar_cita(request, codigo_cita):
@@ -171,6 +172,7 @@ def ver_cita(request, codigo_cita):
    c['cita'] =  get_object_or_404(Cita, pk=codigo_cita)
    return render(request, 'ver_cita.html', c)
 
+#________________________________________________________________________________________
 
 @login_required
 def editar_cita(request, codigo_cita):
@@ -187,6 +189,7 @@ def editar_cita(request, codigo_cita):
         form = CitaForm(instance=cita)
 
     return render(request, 'editar_cita.html', {'form': form, 'cita': cita})
+#________________________________________________________________________________________
 
 
 #calendario de citas
@@ -194,8 +197,44 @@ def editar_cita(request, codigo_cita):
 class CitaListView(ListView):
     model = Cita
     template_name = 'cita_list.html'
-  
-  
+
+#______________________________________________________________________________
+
+
+#Casos
+
+@login_required
+def abogados_por_cliente(request):
+    cliente_actual = request.user.cliente
+
+    # Obtener los casos para el cliente actual
+    casos_cliente = Casos.objects.filter(cliente=cliente_actual)
+
+    # Obtener la lista única de abogados asociados a esos casos
+    abogados_con_casos = set([caso.abogado for caso in casos_cliente])
+
+    # Renderizar la plantilla con la lista de abogados
+    return render(request, 'lista_abogados.html', {'abogados_con_casos': abogados_con_casos})
+
+@login_required
+def ver_casos_abogado(request,codigo_abogado):
+    abogado = get_object_or_404(Abogado, pk=codigo_abogado)
+
+    # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
+    cliente_logueado = get_object_or_404(Clientes, user=request.user)
+
+    # Filtra los casos por el cliente logueado
+    casos_abogado = Casos.objects.filter(abogado=abogado, cliente=cliente_logueado)
+
+    contenido = {
+        'casos_abogado': casos_abogado,
+        'abogado': abogado,
+    }
+    template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
+    return render(request, template, contenido)
+#______________________________________________________________________________
+
+
 #Documentos 
 def ver_documentos(request):
     cliente_logueado = Clientes.objects.get(user=request.user)
@@ -209,11 +248,13 @@ def ver_documentos(request):
     template = "lista_documentos.html"
     return render(request, template, contenido)
 
+#______________________________________________________________________________
 
 def ver_documento(request, codigo_documento):
    c = {}
    c['documento'] =  get_object_or_404(Documentos, pk=codigo_documento)
    return render(request, 'ver_documento.html', c)
+#______________________________________________________________________________
 
 
 def editar_documento(request, codigo_documento):
@@ -229,6 +270,7 @@ def editar_documento(request, codigo_documento):
     c['form'] = form
     c['documento']= documento
     return render(request,'edit_documento.html', c)
+#______________________________________________________________________________
 
 
 def eliminar_documento(request, codigo_documento):
@@ -239,7 +281,7 @@ def eliminar_documento(request, codigo_documento):
         return redirect('lista_documentos')  
     return render(request, 'ver_documento.html', {'documento': documento})
 
-
+#______________________________________________________________________________
 
 @login_required
 def subir_documento(request):
@@ -252,9 +294,10 @@ def subir_documento(request):
         form = DocumentoForm()
 
     return render(request, 'subir_documento.html', {'form': form})
+#______________________________________________________________________________
 
 
-#cliente cliente
+#perfil
 @login_required
 def ver_cliente_usuario(request):
     
@@ -286,7 +329,8 @@ def ver_cliente_usuario(request):
         initial_data = {'correo': request.user.email} if cliente is None else None
         form = RegistroClienteForm(instance=cliente, initial=initial_data)
 
-    return render(request, 'cliente_usuario.html', {'form': form})
+    return render(request, 'perfil_usuario.html', {'form': form})
+#______________________________________________________________________________
 
 #Abogado cliente
 def ver_abogados(request):
@@ -309,3 +353,4 @@ def detalle_abogado(request, codigo_abogado):
 def clientesviews(request):
     extraer_clientes()
     return HttpResponse('Importado')
+#______________________________________________________________________________
