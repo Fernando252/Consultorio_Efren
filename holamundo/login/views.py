@@ -372,7 +372,7 @@ def abogado_ver_documentos(request):
     template = "abogado_lista_doc.html"
     return render(request, template, contenido)
 
-#Ver casos_Documento_abogados 
+#Ver los casos que tiene el cliente
 def abogado_ver_casos_cliente(request, cliente_id):
     abogado_logueado = request.user.abogado
 
@@ -387,6 +387,24 @@ def abogado_ver_casos_cliente(request, cliente_id):
     }
     template = "abogado_ver_casos_cliente.html"
     return render(request, template, contenido)
+
+#Ver casos_Documento_abogados 
+def ver_documentos_caso(request, caso_id):
+    abogado_logueado = request.user.abogado
+
+
+    caso_seleccionado = get_object_or_404(Casos, id=caso_id, abogado=abogado_logueado)
+    documentos_caso = Documentos.objects.filter(caso=caso_seleccionado)
+
+    contenido = {
+        'caso': caso_seleccionado,
+        'documentos_caso': documentos_caso,
+    }
+    template = "abogado_ver_doc_caso.html"
+    return render(request, template, contenido)
+
+
+
 
 #casos
 #______________________________________

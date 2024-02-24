@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from login.views import ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
-from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente
+from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente,ver_documentos_caso
 from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_casos_abogado, editar_abogado, ver_abogado
 
 
@@ -65,8 +65,9 @@ urlpatterns = [
 #______________________________________________________________________________________
     #Documentos 
     path('subir_documento/', abogado_subir_documento, name='abogado_subir_documento'),
-    path('ver_documentos_abogado/', abogado_ver_documentos, name='ver_documentos_abogado'),
-    path('ver_casos_cliente/<int:cliente_id>/', abogado_ver_casos_cliente, name='documento_casos_cliente'),
+    path('lista_clientes/', abogado_ver_documentos, name='ver_documentos_abogado'),
+    path('casos_cliente/<int:cliente_id>/', abogado_ver_casos_cliente, name='documento_casos_cliente'),
+    path('ver_documentos_caso/<int:caso_id>/', ver_documentos_caso, name='ver_documentos_caso'),
 
 
 

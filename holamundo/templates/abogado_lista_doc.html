@@ -31,7 +31,7 @@
                         <td>{{ cliente.nombrec }}</td>
                         <td>{{ cliente.apellido }}</td>
                         <td>{{ cliente.cedula }}</td>
-                        <td><a href="{% url 'ver_casos_cliente' cliente_id=cliente.id %}"class="btn btn-primary">Ver Detalles</a></td>
+                        <td><a href="{% url 'documento_casos_cliente' cliente_id=cliente.id %}"class="btn btn-primary">Ver Detalles</a></td>
                         
                     </tr>
                 {% endfor %}
