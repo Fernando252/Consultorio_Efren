@@ -64,7 +64,7 @@ urlpatterns = [
     #Editar vista abogado caso
     path('editar_caso_abogado/<int:codigo_caso>/', editar_caso_abogado, name='editar_caso_abogado'),
     #Eliminar caso vista abogado
-    path('eliminar_caso/<int:codigo_caso>/', eliminar_caso, name='eliminar_caso'),
+   path('eliminar_caso/<int:codigo_caso>/', eliminar_caso, name='eliminar_caso'),
 #______________________________________________________________________________________
 
     #Perfil abogado
