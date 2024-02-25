@@ -488,23 +488,7 @@ def eliminar_caso(request, codigo_caso):
     return redirect('clientes_con_casos')
 
 #Editar documentos abogados
-'''
-def editar_documento_abogado(request, codigo_documento):
-    documento = get_object_or_404(Documentos, pk=codigo_documento)
 
-    if request.method == 'POST':
-        form = DocumentoForm(request.POST, instance=documento)
-        if form.is_valid():
-            form.save()
-             # Utiliza reverse para obtener la URL de 'ver_cita' con el nuevo ID de la cita
-            url_ver_documento = reverse('ver_documentos_abogado', kwargs={'codigo_caso': documento.pk})
-            return redirect(url_ver_documento)
-        else:
-            return render(request, 'abogado_editar_documento.html', {'form': form, 'documento': documento})
-    else:
-        form = DocumentoForm(instance=documento)
-        return render(request, 'abogado_editar_documento.html', {'form': form, 'documento': documento})
-'''
 def editar_documento_abogado(request, codigo_documento):
     c = {}
     documento = get_object_or_404(Documentos, pk=codigo_documento)
@@ -519,11 +503,15 @@ def editar_documento_abogado(request, codigo_documento):
     c['documento']= documento
     return render(request,'abogado_editar_documento.html', c)
     
-def eliminar_documento_abogado(request, codigo_documento):
-    documento = get_object_or_404(Documentos, id=codigo_documento)
 
-    if request.method == 'POST':
-        documento.delete()
-        return redirect('lista_documentos')  
-    return render(request, 'ver_documento.html', {'documento': documento})
     
+@login_required
+def eliminar_documento_abogado(request, codigo_documento):
+    abogado_logueado = request.user.abogado
+
+    # Obtener el caso a eliminar
+    documento_a_eliminar = get_object_or_404(Casos, id=codigo_documento, abogado=abogado_logueado)
+
+    # Eliminar el caso
+    documento_a_eliminar.delete()
+    return redirect('subir_documento')
