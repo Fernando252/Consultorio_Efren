@@ -1,0 +1,54 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Documentos del Caso: {{ caso.nombre }}</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Documentos del Caso: {{ caso.nombre }}</h1>
+        </div>
+    </div>
+
+    {% if documentos_caso %}
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Tipo de Documento</th>
+                    <th scope="col">Fecha de Creación</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Archivo</th>
+                    <!-- Puedes agregar más encabezados según tus necesidades -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for documento in documentos_caso %}
+                    <tr>
+                        <td>{{ documento.tipo_documento }}</td>
+                        <td>{{ documento.fecha_creacion }}</td>
+                        <td>{{ documento.descripcion_documento }}</td>
+                        <td>
+                            {% if documento.archivo_adjunto %}
+                                <a href="{{ documento.archivo_adjunto.url }}" download>Descargar</a>
+                            {% else %}
+                                No disponible
+                            {% endif %}
+                        </td>
+                        <!-- Puedes agregar más columnas según tus necesidades -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay documentos para este caso.</p>
+    {% endif %}
+
+</body>
+</html>
+
+{% endblock %}

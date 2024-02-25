@@ -240,8 +240,7 @@ def subir_documento(request):
 def ver_cliente_usuario(request):
     
     if hasattr(request.user, 'abogado'):
-    
-    
+
         url = reverse('ver_abogado')
         return redirect(url)
     
@@ -251,19 +250,18 @@ def ver_cliente_usuario(request):
         cliente = None
 
     if request.method == 'POST':
-        # Si es una solicitud POST, procesar el formulario
+ 
         form = RegistroClienteForm(request.POST, instance=cliente)
         if form.is_valid():
-            # Guardar los datos actualizados del formulario
+        
             cliente = form.save(commit=False)
             cliente.user = request.user
             cliente.save()
-            return redirect('dashboard')  # Redirigir a una página exitosa
+            return redirect('dashboard')  
     else:
         if cliente is not None:
-            # Si el cliente ya ha completado el cliente, redirigir al dashboard
             return redirect('dashboard')
-        # Si es una solicitud GET, mostrar el formulario
+     
         initial_data = {'correo': request.user.email} if cliente is None else None
         form = RegistroClienteForm(instance=cliente, initial=initial_data)
 
@@ -372,7 +370,7 @@ def abogado_ver_documentos(request):
     template = "abogado_lista_doc.html"
     return render(request, template, contenido)
 
-#Ver casos_Documento_abogados 
+#Ver los casos que tiene el cliente
 def abogado_ver_casos_cliente(request, cliente_id):
     abogado_logueado = request.user.abogado
 
@@ -387,6 +385,24 @@ def abogado_ver_casos_cliente(request, cliente_id):
     }
     template = "abogado_ver_casos_cliente.html"
     return render(request, template, contenido)
+
+#Ver casos_Documento_abogados 
+def ver_documentos_caso(request, caso_id):
+    abogado_logueado = request.user.abogado
+
+
+    caso_seleccionado = get_object_or_404(Casos, id=caso_id, abogado=abogado_logueado)
+    documentos_caso = Documentos.objects.filter(caso=caso_seleccionado)
+
+    contenido = {
+        'caso': caso_seleccionado,
+        'documentos_caso': documentos_caso,
+    }
+    template = "abogado_ver_doc_caso.html"
+    return render(request, template, contenido)
+
+
+
 
 #casos
 #______________________________________
