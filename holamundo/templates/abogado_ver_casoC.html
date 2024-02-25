@@ -44,7 +44,7 @@
                             </tr>
                             <tr>
                                 <td >
-                                    <form method="post" action="{caso.get_delete_url}">
+                                    <form method="post" action="{% url 'eliminar_caso' codigo_caso=caso.id %}">
                                       {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>

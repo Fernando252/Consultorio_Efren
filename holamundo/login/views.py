@@ -175,8 +175,8 @@ def ver_casos_abogado(request,codigo_abogado):
 
 #Documentos 
 def ver_documentos(request):
-    cliente_logueado = Clientes.objects.get(user=request.user)
-
+    # Obtener el cliente logueado
+    cliente_logueado = request.user.cliente
     # Filtrar los documentos por el cliente logueado
     documentos = Documentos.objects.filter(caso__cliente=cliente_logueado)
 
@@ -185,7 +185,6 @@ def ver_documentos(request):
     }
     template = "lista_documentos.html"
     return render(request, template, contenido)
-
 #______________________________________________________________________________
 
 def ver_documento(request, codigo_documento):
@@ -221,15 +220,19 @@ def eliminar_documento(request, codigo_documento):
 
 #______________________________________________________________________________
 
-@login_required
 def subir_documento(request):
+    cliente_logueado = request.user.cliente
+
     if request.method == 'POST':
         form = DocumentoForm(request.POST, request.FILES)
+        form.fields['caso'].queryset = Casos.objects.filter(cliente=cliente_logueado)
+
         if form.is_valid():
             form.save()
             return redirect('dashboard')
     else:
         form = DocumentoForm()
+        form.fields['caso'].queryset = Casos.objects.filter(cliente=cliente_logueado)
 
     return render(request, 'subir_documento.html', {'form': form})
 #______________________________________________________________________________
@@ -471,14 +474,18 @@ def editar_caso_abogado(request, codigo_caso):
         form = CasosForm(instance=caso)
         return render(request, 'Abogado_editar_caso.html', {'form': form, 'caso': caso})
     
+    
+    
 @login_required
 def eliminar_caso(request, codigo_caso):
-    caso = get_object_or_404(Casos, id=codigo_caso)
+    abogado_logueado = request.user.abogado
 
-    if request.method == 'POST':
-        caso.delete()
-        return redirect('abogado_casos_cliente')  
-    return render(request, 'abogado_ver_casoC.html', {'caso': caso})
+    # Obtener el caso a eliminar
+    caso_a_eliminar = get_object_or_404(Casos, id=codigo_caso, abogado=abogado_logueado)
+
+    # Eliminar el caso
+    caso_a_eliminar.delete()
+    return redirect('clientes_con_casos')
 
 #Editar documentos abogados
 '''
@@ -519,3 +526,4 @@ def eliminar_documento_abogado(request, codigo_documento):
         documento.delete()
         return redirect('lista_documentos')  
     return render(request, 'ver_documento.html', {'documento': documento})
+    
