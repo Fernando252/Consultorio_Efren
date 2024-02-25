@@ -23,6 +23,7 @@
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha de Apertura</th>
                     <th scope="col">Descripción</th>
+                    <th scope="col">Opciones</th>
                     <!-- Puedes agregar más encabezados según tus necesidades -->
                 </tr>
             </thead>
@@ -33,9 +34,13 @@
                         <td>{{ caso.Estado }}</td>
                         <td>{{ caso.fecha_apertura }}</td>
                         <td>{{ caso.descripcion }}</td>
+                        <td>
+                            <a href="{% url 'abogado_ver_caso' codigo_caso=caso.id %}" class="btn btn-primary">Ver Detalles</a>
+                        </td>
                         <!-- Puedes agregar más columnas según tus necesidades -->
                     </tr>
                 {% endfor %}
+                    
             </tbody>
         </table>
     {% else %}

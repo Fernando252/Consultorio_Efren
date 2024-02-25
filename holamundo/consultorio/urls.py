@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from login.views import ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
+from login.views import eliminar_caso,editar_caso_abogado,abogado_ver_caso,ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente
 from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_casos_abogado, editar_abogado, ver_abogado
 
@@ -52,11 +52,17 @@ urlpatterns = [
 
     #abogados 
 #______________________________________________________________________________________
-    # Ver casos por cliente
+    # Ver casos por cliente en vista abogado
  
     path('registrar_caso/', registrar_caso, name='registrar_caso'),
     path('clientes_con_casos/', clientes_con_casos, name='clientes_con_casos'),
     path('ver_casos_cliente/<int:cliente_id>/', ver_casos_cliente, name='ver_casos_cliente'),
+    #Mas detalle 
+    path('abogado_caso_cliente/<int:codigo_caso>/', abogado_ver_caso, name='abogado_ver_caso'),
+    #Editar vista abogado caso
+    path('editar_caso_abogado/<int:codigo_caso>/', editar_caso_abogado, name='editar_caso_abogado'),
+    #Eliminar caso vista abogado
+    path('eliminar_caso/<int:codigo_caso>/', eliminar_caso, name='eliminar_caso'),
 #______________________________________________________________________________________
 
     #Perfil abogado

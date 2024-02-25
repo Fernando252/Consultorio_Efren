@@ -1,0 +1,96 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+{% endblock  %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registro de Casos</title>
+
+   
+
+    <!-- Asegúrate de cargar jQuery antes de los scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Enlace al widget DateTimePicker -->
+    {{ form.media.css }}
+    {{ form.media.js }}
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script>
+        $(function () {
+            $('#id_fecha_cita').datetimepicker();
+        });
+    </script>
+    <!-- Enlace al estilo de Tempus Dominus -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/css/tempusdominus-bootstrap-4.min.css">
+</head>
+
+
+<body>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+    
+                    <h4 class="card-title">Editar Casos</h4>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <h2 class="mb-0">Ingrese sus datos</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Registro de Casos</h5>
+                    
+                                        <div class="form-group">
+                                            <label for="id_abogado" class="font-weight-bold">Cliente:</label>
+                                            {{ form.cliente }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_fecha_cita" class="font-weight-bold">Nombre:</label>
+                                            {{ form.nombre }}
+                                        </div>
+                    
+                                        <div class="form-group">
+                                            <label for="id_lugar_cita" class="font-weight-bold">Tipo de casos:</label>
+                                            {{ form.tipos_casos }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_descripcion" class="font-weight-bold">Estado:</label>
+                                            {{ form.Estado }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_descripcion" class="font-weight-bold">Descripción:</label>
+                                            {{ form.descripcion }}
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <a href="{% url 'abogado_ver_caso' codigo_caso=caso.id %}" class="btn btn-secondary">Volver a Detalles</a>
+                            </div>
+                            
+                        </div>
+                        
+                    </form>
+                    
+                   
+                </div>
+            </div>
+        </div> <!-- end col -->
+    
+    </div> <!-- end row -->
+
+</body>
+
+
+{% endblock %}

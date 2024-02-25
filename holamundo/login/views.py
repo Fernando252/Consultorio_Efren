@@ -432,3 +432,34 @@ def ver_casos_cliente(request, cliente_id):
     }
     template = "abogado_casos_cliente.html"
     return render(request, template, contenido)
+#Ver un solo caso de abogado por cliente
+def abogado_ver_caso(request, codigo_caso):
+   c = {}
+   c['caso'] =  get_object_or_404(Casos, pk=codigo_caso)
+   return render(request, 'abogado_ver_casoC.html', c)
+
+#Abogado editar caso-cliente
+def editar_caso_abogado(request, codigo_caso):
+    caso = get_object_or_404(Casos, pk=codigo_caso)
+
+    if request.method == 'POST':
+        form = CasosForm(request.POST, instance=caso)
+        if form.is_valid():
+            form.save()
+             # Utiliza reverse para obtener la URL de 'ver_cita' con el nuevo ID de la cita
+            url_ver_caso = reverse('abogado_ver_caso', kwargs={'codigo_caso': caso.pk})
+            return redirect(url_ver_caso)
+        else:
+            return render(request, 'Abogado_editar_caso.html', {'form': form, 'caso': caso})
+    else:
+        form = CasosForm(instance=caso)
+        return render(request, 'Abogado_editar_caso.html', {'form': form, 'caso': caso})
+    
+@login_required
+def eliminar_caso(request, codigo_caso):
+    caso = get_object_or_404(Casos, id=codigo_caso)
+
+    if request.method == 'POST':
+        caso.delete()
+        return redirect('abogado_casos_cliente')  
+    return render(request, 'abogado_ver_casoC.html', {'caso': caso})

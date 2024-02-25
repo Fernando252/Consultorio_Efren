@@ -101,7 +101,7 @@ class Casos(models.Model):
         return reverse('editar_caso', kwargs={'codigo_caso': self.pk})
     
     def get_delete_url(self):
-        return reverse('eliminar_caso', kwargs={'codigo_caso': self.pk})
+        return reverse('eliminar_caso', kwargs={'codigo_caso': self.pk})  
         
 class Documentos(models.Model):
     # Atributos del documento

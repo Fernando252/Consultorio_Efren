@@ -1,0 +1,68 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Detalle del caso</h4>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead class="text-center">
+                        
+                        <tr>
+                            <th scope="col">
+                            Nombre caso<br>
+                            </th>
+                            <th scope="col">
+                                Cliente<br>
+                                </th>
+                            <th scope="col">
+                            Estado<br>
+                            </th>
+                            <th scope="col">
+                            Descripción<br>
+                            </th>
+                            
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td >{{ caso.nombre }}</td>
+                                <td >{{ caso.cliente }}</td>
+                                <td>{{ caso.Estado }}</td>
+                                <td>{{ caso.descripcion }}</td>
+                                
+                               
+                                
+                            </tr>
+                            <tr>
+                                <td >
+                                    <form method="post" action="{caso.get_delete_url}">
+                                      {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                                <td colspan="2">
+                                    
+                                        <a href='/editar_caso_abogado/{{caso.id}}' class="btn btn-primary">Editar</a>
+                                </td>
+                                <a href="{% url 'clientes_con_casos' %}" class="btn btn-secondary">Volver </a>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+</div> <!-- end row -->
+
+{% endblock %}
