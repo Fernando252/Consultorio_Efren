@@ -1,0 +1,78 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link href="{% static 'libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+{% endblock  %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Editar Documento vista abogado</title>
+
+   
+
+</head>
+
+
+<body>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+    
+                    <h4 class="card-title">Editar Documento</h4>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <h2 class="mb-0">Ingrese sus datos</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Registro de Documentos</h5>
+                    
+                                        <div class="form-group">
+                                            <label for="id_caso" class="font-weight-bold">Caso:</label>
+                                            {{ form.caso }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_tipo_documento" class="font-weight-bold">Tipo de documento:</label>
+                                            {{ form.tipo_documento }}
+                                        </div>
+                    
+                                        <div class="form-group">
+                                            <label for="id_archivo_adjunto" class="font-weight-bold">Archivo adjunto:</label>
+                                            {{ form.archivo_adjunto }}
+                                        </div>
+                    
+                                        <div class="form-group">
+                                            <label for="id_descripcion" class="font-weight-bold">Descripción:</label>
+                                            {{ form.descripcion_documento }}
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <a href="{}" class="btn btn-secondary">Volver a Detalles</a> 
+                            </div>
+                            
+                        </div>
+                        
+                    </form>
+                    
+                   
+                </div>
+            </div>
+        </div> <!-- end col -->
+    
+    </div> <!-- end row -->
+
+</body>
+
+
+{% endblock %}

@@ -23,6 +23,8 @@
                     <th scope="col">Fecha de Creación</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Archivo</th>
+                    <th scope="col">Opcion1</th>
+                    <th scope="col">Opcion2</th>
                     <!-- Puedes agregar más encabezados según tus necesidades -->
                 </tr>
             </thead>
@@ -39,6 +41,17 @@
                                 No disponible
                             {% endif %}
                         </td>
+                        
+                        <td>
+                            <a href="{% url 'editar_documento_abogado' codigo_documento=documento.id %}" class="btn btn-primary">Editar</a>
+                        </td>
+                        <td>
+                            <form method="post" action="{}">
+                                {% csrf_token %}
+                              <button type="submit" class="btn btn-danger">Eliminar</button>
+                              </form>
+                        </td>
+                        
                         <!-- Puedes agregar más columnas según tus necesidades -->
                     </tr>
                 {% endfor %}
