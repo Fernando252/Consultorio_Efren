@@ -46,7 +46,7 @@
                             <a href="{% url 'editar_documento_abogado' codigo_documento=documento.id %}" class="btn btn-primary">Editar</a>
                         </td>
                         <td>
-                            <form method="post" action="{% url 'eliminar_documento' codigo_documento=documento.id %}">
+                            <form method="post" action="{% url 'eliminar_documento_abogado' codigo_documento=documento.id %}">
                                 {% csrf_token %}
                               <button type="submit" class="btn btn-danger">Eliminar</button>
                               </form>

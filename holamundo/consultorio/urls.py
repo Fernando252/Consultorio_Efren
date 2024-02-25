@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from login.views import editar_documento_abogado,editar_documento_abogado,eliminar_caso,editar_caso_abogado,abogado_ver_caso,ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
-from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente
-from login.views import ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
+
+from login.views import editar_documento_abogado,eliminar_caso,editar_caso_abogado,abogado_ver_caso,ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
 from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente,ver_documentos_caso
+
 from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_casos_abogado, editar_abogado, ver_abogado
 
 
@@ -77,7 +77,7 @@ urlpatterns = [
     path('casos_cliente/<int:cliente_id>/', abogado_ver_casos_cliente, name='documento_casos_cliente'),
     path('ver_documentos_caso/<int:caso_id>/', ver_documentos_caso, name='ver_documentos_caso'),
     path('editar_documento_abogado/<int:codigo_documento>/',editar_documento_abogado, name='editar_documento_abogado'),
-    path('eliminar_documento_abogado/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
+    path('eliminar_documento_abogado/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento_abogado'),
 
 
     # Email

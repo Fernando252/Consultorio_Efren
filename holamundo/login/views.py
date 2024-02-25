@@ -145,46 +145,43 @@ class CitaListView(ListView):
 def abogados_por_cliente(request):
     cliente_actual = request.user.cliente
 
-    # Obtener los casos para el cliente actual
+   
     casos_cliente = Casos.objects.filter(cliente=cliente_actual)
 
-    # Obtener la lista única de abogados asociados a esos casos
     abogados_con_casos = set([caso.abogado for caso in casos_cliente])
 
-    # Renderizar la plantilla con la lista de abogados
     return render(request, 'lista_abogados.html', {'abogados_con_casos': abogados_con_casos})
 
 @login_required
 def ver_casos_abogado(request,codigo_abogado):
     abogado = get_object_or_404(Abogado, pk=codigo_abogado)
 
-    # Asegúrate de tener la relación correcta entre User, Clientes, y Abogado
     cliente_logueado = get_object_or_404(Clientes, user=request.user)
 
-    # Filtra los casos por el cliente logueado
     casos_abogado = Casos.objects.filter(abogado=abogado, cliente=cliente_logueado)
 
     contenido = {
         'casos_abogado': casos_abogado,
         'abogado': abogado,
     }
-    template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
+    template = "caso.html"  
     return render(request, template, contenido)
 #______________________________________________________________________________
-
-
 #Documentos 
 def ver_documentos(request):
-    # Obtener el cliente logueado
-    cliente_logueado = request.user.cliente
-    # Filtrar los documentos por el cliente logueado
+    # Intentar obtener el cliente logueado
+    try:
+        cliente_logueado = request.user.cliente
+    except AttributeError:
+
+        return redirect('dashboard')  
+
     documentos = Documentos.objects.filter(caso__cliente=cliente_logueado)
 
     contenido = {
         'documentos': documentos,
     }
-    template = "lista_documentos.html"
-    return render(request, template, contenido)
+    return render(request, 'lista_documentos.html', contenido)
 #______________________________________________________________________________
 
 def ver_documento(request, codigo_documento):
@@ -363,6 +360,9 @@ def abogado_subir_documento(request):
 
 #Ver Documento_abogados 
 def abogado_ver_documentos(request):
+    if not hasattr(request.user, 'abogado'):
+        return render(request, 'error.html', {'mensaje': 'No tienes permiso para acceder a esta página'})
+
     abogado_logueado = request.user.abogado
 
     clientes_con_documentos = Clientes.objects.filter(casos__abogado=abogado_logueado, casos__documentos__isnull=False).distinct()
@@ -404,7 +404,36 @@ def ver_documentos_caso(request, caso_id):
     template = "abogado_ver_doc_caso.html"
     return render(request, template, contenido)
 
+#Editar documentos abogados
 
+def editar_documento_abogado(request, codigo_documento):
+    c = {}
+    documento = get_object_or_404(Documentos, pk=codigo_documento)
+    if request.method == 'POST':
+        form = DocumentoForm(request.POST, request.FILES, instance=documento)
+        if form.is_valid():
+            form.save()
+            return redirect(documento.get_absolute_url())
+    else:
+        form = DocumentoForm(instance=documento)
+    c['form'] = form
+    c['documento']= documento
+    return render(request,'abogado_editar_documento.html', c)
+    
+
+    
+@login_required
+def eliminar_documento_abogado(request, codigo_documento):
+    abogado_logueado = request.user.abogado
+
+    # Obtener el documento a eliminar
+    documento_a_eliminar = get_object_or_404(Documentos, id=codigo_documento, caso__abogado=abogado_logueado)
+
+    # Eliminar el documento
+    documento_a_eliminar.delete()
+
+    # Redirigir a la vista 'subir_documento' u otra vista adecuada
+    return redirect('dashboard')
 
 
 #casos
@@ -451,6 +480,7 @@ def ver_casos_cliente(request, cliente_id):
     }
     template = "abogado_casos_cliente.html"
     return render(request, template, contenido)
+
 #Ver un solo caso de abogado por cliente
 def abogado_ver_caso(request, codigo_caso):
    c = {}
@@ -475,7 +505,6 @@ def editar_caso_abogado(request, codigo_caso):
         return render(request, 'Abogado_editar_caso.html', {'form': form, 'caso': caso})
     
     
-    
 @login_required
 def eliminar_caso(request, codigo_caso):
     abogado_logueado = request.user.abogado
@@ -487,31 +516,4 @@ def eliminar_caso(request, codigo_caso):
     caso_a_eliminar.delete()
     return redirect('clientes_con_casos')
 
-#Editar documentos abogados
-
-def editar_documento_abogado(request, codigo_documento):
-    c = {}
-    documento = get_object_or_404(Documentos, pk=codigo_documento)
-    if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES, instance=documento)
-        if form.is_valid():
-            form.save()
-            return redirect(documento.get_absolute_url())
-    else:
-        form = DocumentoForm(instance=documento)
-    c['form'] = form
-    c['documento']= documento
-    return render(request,'abogado_editar_documento.html', c)
-    
-
-    
-@login_required
-def eliminar_documento_abogado(request, codigo_documento):
-    abogado_logueado = request.user.abogado
-
-    # Obtener el caso a eliminar
-    documento_a_eliminar = get_object_or_404(Casos, id=codigo_documento, abogado=abogado_logueado)
-
-    # Eliminar el caso
-    documento_a_eliminar.delete()
-    return redirect('subir_documento')
+#__________________________________________________________________________________________
