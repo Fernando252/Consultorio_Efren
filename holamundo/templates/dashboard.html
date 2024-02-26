@@ -18,6 +18,7 @@
 </head>
 
 <body class="bg-light">
+   
     <div class="container mt-5">
         <h1 class="text-center">Bienvenido a la Página de Inicio</h1>
         
@@ -28,7 +29,8 @@
             {% endfor %}   
             </ul>
         {% endif %}
-
+         <!-- Menu de Clientes -->
+        {% if user.cliente %}
         <div class="card-deck mt-5">
             <div class="card">
                 <div class="card-body">
@@ -64,8 +66,50 @@
                 
             </div>
         </div>
+        {% endif %}
+        <!-- Menu de abogados -->
+        {% if user.abogado %}
+        <div class="card-deck mt-5">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <h5 class="card-title">Lista de citas</h5>
+                    <p class="card-text">Explora la agenda de los abogados y agenda una cita.</p>
+                    <a href="{% url 'citas_list' %}" class="btn btn-primary">Ir</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Subir documentos</h5>
+                    <p class="card-text">Suba los documentos del caso que desee
+                    </p>
+                    <a href="{%  url 'abogado_subir_documento' %}" class="btn btn-primary">Ir</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Lista de Casos</h5>
+                    <p class="card-text">Consulta la lista de casos atendidos por los abogados.</p>
+                    <a href="{% url 'clientes_con_casos' %}" class="btn btn-primary">Ir</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Citas</h5>
+                    <p class="card-text">Lista de citas .</p>
+                    <!--- Poner el url de lista de citas de abogado--->
+                    <a href="{}" class="btn btn-primary">Ir</a>
+                </div>
+                
+            </div>
+        </div>
+        
+        {% endif %}
     </div>
-  
+    
 </body>
 
 </html>
