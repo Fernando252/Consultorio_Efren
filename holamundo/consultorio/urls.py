@@ -16,11 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-
-from login.views import editar_documento_abogado,eliminar_caso,editar_caso_abogado,abogado_ver_caso,ver_documentos,ver_documento,abogado_ver_documentos,abogado_ver_casos_cliente,clientes_con_casos
-from login.views import clientesviews, detalle_abogado, ver_cliente_usuario,abogado_subir_documento,ver_casos_cliente,ver_documentos_caso
-
-from login.views import registrar_caso,abogados_por_cliente,ver_abogados,editar_documento,eliminar_documento,ver_casos_abogado, editar_abogado, ver_abogado
+#clientes_documentos
+from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento
+#clientes_casos
+from login.views import abogados_por_cliente,ver_casos_abogado
+#Perfil_abogado
+from login.views import ver_abogados,detalle_abogado,ver_cliente_usuario,clientesviews
+#________________________________________________________________________________________________
+#abogados_casos
+from login.views import registrar_caso, clientes_con_casos, ver_casos_cliente, abogado_ver_caso, editar_caso_abogado,eliminar_caso
+#abogados_documentos
+from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_ver_casos_cliente, ver_documentos_caso,editar_documento_abogado,eliminar_documento_abogado
+#Perfil abogado
+from login.views import ver_abogado,editar_abogado
+#Citas
+from login.views import registrar_horario
 
 
 from consultorio import views
@@ -54,8 +64,7 @@ urlpatterns = [
 
     #abogados 
 #______________________________________________________________________________________
-    # Ver casos por cliente en vista abogado
- 
+    # Ver casos por cliente en vista abogado    
     path('registrar_caso/', registrar_caso, name='registrar_caso'),
     path('clientes_con_casos/', clientes_con_casos, name='clientes_con_casos'),
     path('ver_casos_cliente/<int:cliente_id>/', ver_casos_cliente, name='ver_casos_cliente'),
@@ -77,7 +86,10 @@ urlpatterns = [
     path('casos_cliente/<int:cliente_id>/', abogado_ver_casos_cliente, name='documento_casos_cliente'),
     path('ver_documentos_caso/<int:caso_id>/', ver_documentos_caso, name='ver_documentos_caso'),
     path('editar_documento_abogado/<int:codigo_documento>/',editar_documento_abogado, name='editar_documento_abogado'),
-    path('eliminar_documento_abogado/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento_abogado'),
+    path('eliminar_documento_abogado/<int:codigo_documento>/', eliminar_documento_abogado, name='eliminar_documento_abogado'),
+#______________________________________________________________________________________
+    #Citas
+    path('registrar_horario/', registrar_horario, name='registrar_horario'),
 
 
     # Email

@@ -517,3 +517,17 @@ def eliminar_caso(request, codigo_caso):
     return redirect('clientes_con_casos')
 
 #__________________________________________________________________________________________
+#citas_Abogado
+#______________________________________
+def registrar_horario(request):
+    if request.method == 'POST':
+        form = CitaForm(request.POST)
+        if form.is_valid():
+            cita = form.save(commit=False)
+            cita.abogado = request.user
+            cita.save()
+            return redirect('ver_horarios')  # Reemplaza 'ver_horarios' con el nombre de la vista para ver horarios
+    else:
+        form = CitaForm()
+
+    return render(request, 'registrar_horario.html', {'form': form})
