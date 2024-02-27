@@ -49,6 +49,40 @@ class Abogado(models.Model):
     def get_absolute_url(self):
         return reverse('editar_abogado', kwargs={'codigo_abogado': self.pk})
  
+
+class Horario_atencion(models.Model):
+    HORAS_CHOICES = [
+        ("08:00 a 09:00", "08:00 a 09:00"),
+        ("09:00 a 10:00", "09:00 a 10:00"),
+        ("10:00 a 11:00", "10:00 a 11:00"),
+        ("11:00 a 12:00", "11:00 a 12:00"),
+        ("14:00 a 15:00", "14:00 a 15:00"),
+        ("15:00 a 16:00", "15:00 a 16:00"),
+        ("16:00 a 17:00", "16:00 a 17:00"),
+    ]
+
+    abogado = models.ForeignKey(Abogado, related_name='horarios_atencion', on_delete=models.CASCADE)
+    fecha = models.DateField()
+    hora = models.CharField(max_length=50, choices=HORAS_CHOICES)
+
+
+    def __str__(self):
+        return f'{self.abogado.nombrea} - {self.fecha} - {self.hora}'
+
+    
+class Cita1(models.Model):
+    cliente = models.ForeignKey(Clientes,related_name='cita1', on_delete=models.CASCADE)
+    abogado = models.ForeignKey(Abogado, related_name='cita1',on_delete=models.CASCADE)
+    horario_atencion = models.ForeignKey(Horario_atencion, on_delete=models.CASCADE)
+    fecha_agendada = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Cita para {self.cliente.user} - {self.horario_atencion.fecha} - {self.horario_atencion.hora}'
+
+
+
+    
+
 class Cita(models.Model):
     abogado = models.ForeignKey(Abogado, related_name='citas', on_delete=models.CASCADE)
     cliente = models.ForeignKey(Clientes, related_name='citas', on_delete=models.CASCADE)

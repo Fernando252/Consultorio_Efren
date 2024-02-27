@@ -1,0 +1,14 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Seleccionar Abogado</h2>
+
+  <form method="post" action="{% url 'seleccionar_abogado' %}">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <button type="submit">Continuar</button>
+  </form>
+  
+{% endblock %}

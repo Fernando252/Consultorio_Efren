@@ -1,0 +1,23 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <h2>Lista de Fechas de Horarios</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fecha in fechas_horarios %}
+        <tr>
+          <td>{{ fecha }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

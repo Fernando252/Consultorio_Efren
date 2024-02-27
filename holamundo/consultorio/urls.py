@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 #clientes_documentos
-from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento
+from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento,lista_abogados_con_horario,registrar_cita
 #clientes_casos
 from login.views import abogados_por_cliente,ver_casos_abogado
 #Perfil_abogado
@@ -30,7 +30,7 @@ from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_v
 #Perfil abogado
 from login.views import ver_abogado,editar_abogado
 #Citas
-from login.views import registrar_horario
+from login.views import registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado
 
 
 from consultorio import views
@@ -90,7 +90,11 @@ urlpatterns = [
 #______________________________________________________________________________________
     #Citas
     path('registrar_horario/', registrar_horario, name='registrar_horario'),
-
+    path('abogados_con_horario/', lista_abogados_con_horario, name='abogados_con_horario'),
+    path('registrar_cita_abogado/<int:abogado_id>/', registrar_cita, name='registrar_cita_abogado'),
+    path('lista_clientes_citas_abogado/', lista_clientes_citas_abogado, name='lista_clientes_citas_abogado'),
+    path('citas_cliente_con_abogado/<int:abogado_id>/', citas_cliente_con_abogado, name='citas_cliente_con_abogado'),
+    path('lista_fechas_horarios_abogado/', lista_fechas_horarios_abogado, name='lista_fechas_horarios_abogado'),
 
     # Email
     path("email/", include("e_mail.urls")),

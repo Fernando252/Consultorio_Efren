@@ -1,0 +1,35 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Abogados con Horario de Atención</h2>
+  
+  {% if abogados_con_horario %}
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Especialidad</th>
+          <th scope="col">Agendar cita</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for abogado in abogados_con_horario %}
+          <tr>
+            <td>{{ abogado.nombrea }}</td>
+            <td>{{ abogado.apellido }}</td>
+            <td>{{ abogado.tipos_especialidad }}</td>
+            <td>
+                <a href="{% url 'registrar_cita_abogado' abogado_id=abogado.id %}" class="btn btn-info btn-sm">Registrar Cita</a>
+              </td>
+           
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-info">No hay abogados con horario de atención.</p>
+  {% endif %}
+{% endblock %}
