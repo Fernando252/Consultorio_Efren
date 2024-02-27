@@ -8,8 +8,6 @@ from .utils import *
 from django.contrib import messages
 
 
-
-
 #Views Clientes
 
 #________________________________________________________________________________________________
