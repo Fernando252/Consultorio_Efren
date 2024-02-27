@@ -2,8 +2,8 @@ from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
-from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado,Horario_atencion,Cita1
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm
+from .models import Abogado, Casos, Clientes, Documentos,Info_Abogado,Horario_atencion,Cita1
+from .forms import DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm
 from .utils import *
 from django.contrib import messages
 
@@ -53,87 +53,6 @@ def ver_casos_abogado(request,codigo_abogado):
     }
     template = "caso.html"  # Asegúrate de que la plantilla tenga el formato correcto
     return render(request, template, contenido)
-
-
-# Citas
-#________________________________________________________________________________________
-@login_required
-def registrar_cita(request):
-    if request.method == 'POST':
-        form = CitaForm(request.POST)
-        if form.is_valid():
-            # Asigna el cliente asociado al usuario actual
-            cita = form.save(commit=False)
-            cita.cliente = request.user.cliente 
-            cita.save()
-            messages.warning(request, 'La cita se ha registrado correctamente.')
-            return redirect('dashboard')  
-    else:
-        form = CitaForm()
-
-    return render(request, 'registrar_cita1.html', {'form': form})
-
-#________________________________________________________________________________________
-
-@login_required
-def citas_t(request):
-    cliente_actual = request.user.cliente  # Accede al cliente del usuario
-    citas_cliente = Cita.objects.filter(cliente=cliente_actual)
-    return render(request, 'cita_general.html', {'citas_cliente': citas_cliente})
-#________________________________________________________________________________________
-
-@login_required
-def citas_clientes(request,codigo_cliente):
-    cliente = Clientes.objects.get(pk=codigo_cliente)
-    citas_cliente = Cita.objects.filter(cliente=cliente)
-    contenido = {
-        'citas_cliente': citas_cliente,
-        'cliente': cliente,
-    }
-    template = "cita_cliente.html"
-    return render(request, template, contenido)
-#________________________________________________________________________________________
-
-@login_required
-def eliminar_cita(request, codigo_cita):
-    cita = get_object_or_404(Cita, id=codigo_cita)
-
-    if request.method == 'POST':
-        cita.delete()
-        messages.warning(request, 'El objeto se ha eliminado correctamente.')
-        return redirect('lista_citas')  
-    return render(request, 'ver_cita.html', {'cita': cita})
-
-def ver_cita(request, codigo_cita):
-   c = {}
-   c['cita'] =  get_object_or_404(Cita, pk=codigo_cita)
-   return render(request, 'ver_cita.html', c)
-
-#________________________________________________________________________________________
-
-@login_required
-def editar_cita(request, codigo_cita):
-    cita = get_object_or_404(Cita, pk=codigo_cita)
-
-    if request.method == 'POST':
-        form = CitaForm(request.POST, instance=cita)
-        if form.is_valid():
-            form.save()
-            # Utiliza reverse para obtener la URL de 'ver_cita' con el nuevo ID de la cita
-            url_ver_cita = reverse('ver_cita', kwargs={'codigo_cita': cita.pk})
-            return redirect(url_ver_cita)
-    else:
-        form = CitaForm(instance=cita)
-
-    return render(request, 'editar_cita.html', {'form': form, 'cita': cita})
-#________________________________________________________________________________________
-
-
-#calendario de citas
-
-class CitaListView(ListView):
-    model = Cita
-    template_name = 'cita_list.html'
 
 #______________________________________________________________________________
 

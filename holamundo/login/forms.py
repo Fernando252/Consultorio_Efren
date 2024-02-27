@@ -1,7 +1,7 @@
 from django import forms
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput,DatePickerInput
-from httpcore import request
-from .models import Cita, Documentos, Clientes, Abogado, Casos,Horario_atencion,Cita1
+from bootstrap_datepicker_plus.widgets import DatePickerInput
+
+from .models import Documentos, Clientes, Abogado, Casos,Horario_atencion,Cita1
 
 
 class RegistroClienteForm(forms.ModelForm):
@@ -22,19 +22,6 @@ class RegistroClienteForm(forms.ModelForm):
 
 
 
-class CitaForm(forms.ModelForm):
-    class Meta:
-        model = Cita
-        fields = ['abogado', 'fecha_cita', 'lugar_cita', 'descripcion']
-        widgets = {
-            'abogado': forms.Select(attrs={'class': 'form-control'}),
-            'fecha_cita': DateTimePickerInput(attrs={'class': 'form-control datetimepicker-input'}),
-            'lugar_cita': forms.TextInput(attrs={'class': 'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
-        }
-        def __init__(self, *args, **kwargs):
-            super(CitaForm, self).__init__(*args, **kwargs)
-            self.fields['abogado'].queryset = Abogado.objects.all()
 
 
 class DocumentoForm(forms.ModelForm):

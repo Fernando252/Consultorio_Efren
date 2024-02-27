@@ -80,32 +80,6 @@ class Cita1(models.Model):
         return f'Cita para {self.cliente.user} - {self.horario_atencion.fecha} - {self.horario_atencion.hora}'
 
 
-
-    
-
-class Cita(models.Model):
-    abogado = models.ForeignKey(Abogado, related_name='citas', on_delete=models.CASCADE)
-    cliente = models.ForeignKey(Clientes, related_name='citas', on_delete=models.CASCADE)
-    fecha_cita = models.DateTimeField()
-    lugar_cita = models.CharField(max_length=255, blank=True, null=True)
-    descripcion = models.TextField(blank=True, null=True)
-    fecha_creacion = models.DateTimeField(default=timezone.now)
-    def __str__(self):
-        return f'Cita con {self.abogado.nombrea} el {self.fecha_cita}'
-
-    
-    def __str__(self) -> str:
-        return f'{self.pk} - {self.cliente}'
-    
-    def get_absolute_url(self):
-        return reverse('ver_cita', kwargs={'codigo_cita': self.pk})
-    def get_edit_url(self):
-        return reverse('editar_cita', kwargs={'codigo_cita': self.pk})
-    
-    def get_delete_url(self):
-        return reverse('eliminar_cita', kwargs={'codigo_cita': self.pk})
-
-
 class Casos(models.Model):
     CASOS_CHOICES = [
         ('Penal', 'Penal'),
