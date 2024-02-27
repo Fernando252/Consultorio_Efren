@@ -40,7 +40,11 @@
                         <!-- Puedes agregar más columnas según tus necesidades -->
                     </tr>
                 {% endfor %}
-                    
+                    <tr>
+                        <td aria-expanded="true" colspan="5">
+                            <a href="{%url 'clientes_con_casos' %}" class="btn btn-secondary">Volver a Detalles</a>
+                        </td>
+                    </tr>
             </tbody>
         </table>
     {% else %}
