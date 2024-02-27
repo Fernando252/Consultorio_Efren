@@ -93,9 +93,16 @@ class HorarioAtencionForm(forms.ModelForm):
     class Meta:
         model = Horario_atencion
         fields = ['fecha', 'hora']
+        widgets = {
+ 
+            'fecha': DatePickerInput(attrs={'class': 'form-control datepicker-input'}),
+
+        }
 
     def __init__(self, *args, **kwargs):
         super(HorarioAtencionForm, self).__init__(*args, **kwargs)
+
+
 
 class AgendarCitaForm(forms.ModelForm):
     class Meta:
