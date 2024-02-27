@@ -542,7 +542,7 @@ def lista_abogados_con_horario(request):
         # Si el usuario no es un cliente, puedes redirigirlo a otra página o mostrar un mensaje de error
         return render(request, 'error.html', {'mensaje': 'Acceso no autorizado'})
 
-@login_required
+
 @login_required
 def registrar_cita(request, abogado_id):
     try:
@@ -582,3 +582,28 @@ def registrar_cita(request, abogado_id):
 
     context = {'form': form, 'abogado': abogado}
     return render(request, 'agendar_cita.html', context)
+
+@login_required
+def lista_clientes_citas_abogado(request):
+    abogado = request.user.abogado
+    citas_abogado = Cita1.objects.filter(abogado=abogado).values('cliente_id').distinct()
+    clientes_con_citas = Clientes.objects.filter(id__in=citas_abogado)
+
+    context = {'clientes_con_citas': clientes_con_citas, 'abogado_id': abogado.id}
+    return render(request, 'abogado_lista_cita_clientes.html', context)
+
+
+@login_required
+def citas_cliente_con_abogado(request, abogado_id):
+    abogado = request.user.abogado
+    citas_cliente_con_abogado = Cita1.objects.filter(abogado=abogado).order_by('horario_atencion__fecha')
+
+    context = {'citas_cliente_con_abogado': citas_cliente_con_abogado}
+    return render(request, 'citas_cliente_con_abogado.html', context)
+
+def lista_fechas_horarios_abogado(request):
+    abogado = request.user.abogado
+    fechas_horarios = Horario_atencion.objects.filter(abogado=abogado).values_list('fecha', flat=True).distinct().order_by('fecha')
+
+    context = {'fechas_horarios': fechas_horarios}
+    return render(request, 'abogado_lista_fechas_horarios.html', context)

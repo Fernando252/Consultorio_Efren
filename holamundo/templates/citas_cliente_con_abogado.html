@@ -1,0 +1,24 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+  <h2>Todas las Citas con el Abogado</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Hora</th>
+          <!-- Agrega más columnas según los campos que desees mostrar -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for cita in citas_cliente_con_abogado %}
+          <tr>
+            <td>{{ cita.horario_atencion.fecha }}</td>
+            <td>{{ cita.horario_atencion.hora }}</td>
+            <!-- Agrega más celdas según los campos que desees mostrar -->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

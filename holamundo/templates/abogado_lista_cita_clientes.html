@@ -1,0 +1,28 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+  <h2>Clientes con Citas</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Opciones</th> <!-- Columna extra para el botón de detalles -->
+          <!-- Agrega más columnas según los campos que desees mostrar -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for cliente in clientes_con_citas %}
+          <tr>
+            <td>{{ cliente.nombrec }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>
+                <a href="{% url 'citas_cliente_con_abogado' abogado_id=abogado_id %}" class="btn btn-primary">Ver Citas</a>
+            </td>
+            <!-- Agrega más celdas según los campos que desees mostrar -->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
