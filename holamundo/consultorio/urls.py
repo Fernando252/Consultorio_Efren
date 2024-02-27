@@ -30,7 +30,7 @@ from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_v
 #Perfil abogado
 from login.views import ver_abogado,editar_abogado
 #Citas
-from login.views import registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha
+from login.views import eliminar_cita_abogado,actualizar_horario,registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha
 
 
 from consultorio import views
@@ -96,7 +96,8 @@ urlpatterns = [
     path('citas_cliente_con_abogado/<int:abogado_id>/', citas_cliente_con_abogado, name='citas_cliente_con_abogado'),
     path('lista_fechas_horarios_abogado/', lista_fechas_horarios_abogado, name='lista_fechas_horarios_abogado'),
     path('horarios_en_fecha/<str:fecha>/', horarios_en_fecha, name='horarios_en_fecha'),
-
+    path('actualizar_en_fecha/<int:horario_id>/', actualizar_horario, name='actualizacion_en_fecha'),
+    path('eliminar_cita_abogado/<int:horario_id>/', eliminar_cita_abogado, name='eliminar_cita_abogado'),
     # Email
     path("email/", include("e_mail.urls")),
     # Components

@@ -2,13 +2,58 @@
 {% load static %}
 
 {% block content %}
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-body">
 
-  <h2>Horarios en la fecha {{ fecha }}</h2>
+              <h4 class="card-title">Horarios de Abogados</h4>
+              
+              <div class="table-responsive">
+                  <table class="table table-bordered table-striped mb-0">
+                      <thead class="text-center">
+                      
+                      <tr>
+                          <th scope="col">
+                            Horarios en la fecha<br>
+                          </th>
+                          
+                          </th>
+                          <th scope="col" colspan="2">
+                          Opciones<br>
+                          </th>  
+                      </tr>
+                      </thead>
+                      <tbody>
+                        {% for horario in horarios_en_fecha %}
+                        <tr>
+                            <td >
+                              {{ horario.hora }}
+                               
+                            </td>
+                              <td>
+                                <a href="{% url 'actualizacion_en_fecha' horario.id %}" class="btn btn-primary">Editar</a>
+                              </td>
+                              <td> 
+                                <a href="{% url 'eliminar_cita_abogado' horario.id  %}" class="btn btn-danger">Eliminar</a>
+                              </td>
+                             
 
-  <ul>
-    {% for horario in horarios_en_fecha %}
-      <li>{{ horario.hora }}</li>
-    {% endfor %}
-  </ul>
+                          {% endfor %}
+                          <tr>
+                            <td colspan="6">
+                              <a href="{% url 'lista_fechas_horarios_abogado' %}" class="btn btn-secondary">Volver </a>     
+                            </td>
+                            
+                          </tr>  
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div> <!-- end col -->
 
+</div> <!-- end row -->
+
+  
 {% endblock %}
