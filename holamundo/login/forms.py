@@ -103,7 +103,6 @@ class HorarioAtencionForm(forms.ModelForm):
         super(HorarioAtencionForm, self).__init__(*args, **kwargs)
 
 
-
 class AgendarCitaForm(forms.ModelForm):
     class Meta:
         model = Cita1
@@ -114,11 +113,16 @@ class AgendarCitaForm(forms.ModelForm):
         self.abogado_id = abogado_id
         self.filtrar_horarios()
 
-    def filtrar_horarios(self):
+    def filtrar_horarios(self, filtro_fecha=None):
         if self.abogado_id is not None:
-            # Filtrar horarios disponibles basados en el abogado y si ya están seleccionados
             horarios_elegidos = Cita1.objects.filter(abogado__id=self.abogado_id).values_list('horario_atencion_id', flat=True)
-            self.fields['horario_atencion'].queryset = Horario_atencion.objects.filter(abogado_id=self.abogado_id).exclude(id__in=horarios_elegidos)
+            
+            # Filtrar por fecha si se proporciona un valor para filtro_fecha
+            queryset = Horario_atencion.objects.filter(abogado_id=self.abogado_id).exclude(id__in=horarios_elegidos)
+            if filtro_fecha:
+                queryset = queryset.filter(fecha=filtro_fecha)
+
+            self.fields['horario_atencion'].queryset = queryset
 
 
             

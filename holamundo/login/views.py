@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
@@ -543,22 +543,42 @@ def lista_abogados_con_horario(request):
         return render(request, 'error.html', {'mensaje': 'Acceso no autorizado'})
 
 @login_required
+@login_required
 def registrar_cita(request, abogado_id):
-    abogado = Abogado.objects.get(pk=abogado_id)
+    try:
+        abogado = Abogado.objects.get(pk=abogado_id)
+    except Abogado.DoesNotExist:
+        raise Http404("El abogado no existe")
+
+    fecha_filtro = request.GET.get('fecha_filtro')
+    form = AgendarCitaForm(abogado_id=abogado_id)
 
     if request.method == 'POST':
         form = AgendarCitaForm(request.POST, abogado_id=abogado_id)
         if form.is_valid():
-            # Procesar el formulario y registrar la cita
             nueva_cita = form.save(commit=False)
-            nueva_cita.cliente = request.user.cliente
-            nueva_cita.abogado = abogado
-            nueva_cita.save()
 
-            messages.success(request, 'Cita registrada exitosamente.')
-            return redirect('dashboard')  # Reemplaza 'dashboard' con la URL correcta de tu página principal
-    else:
-        form = AgendarCitaForm(abogado_id=abogado_id)
+            if request.user.is_authenticated and hasattr(request.user, 'cliente'):
+                nueva_cita.cliente = request.user.cliente
+            else:
+                messages.error(request, 'Error al registrar la cita. Por favor, inicia sesión como cliente.')
+                return redirect('login')
+
+            nueva_cita.abogado = abogado
+
+            # Manejo de errores al intentar guardar la cita
+            try:
+                nueva_cita.save()
+                messages.success(request, 'Cita registrada exitosamente.')
+                return redirect('dashboard')
+            except Exception as e:
+                messages.error(request, f'Error al guardar la cita: {str(e)}')
+                # Puedes redirigir a una página de error o hacer algo más según tus necesidades
+                return redirect('pagina_de_error') 
+
+    # Filtrar los horarios por fecha si se proporciona una fecha en la solicitud
+    if fecha_filtro:
+        form.filtrar_horarios(filtro_fecha=fecha_filtro)
 
     context = {'form': form, 'abogado': abogado}
     return render(request, 'agendar_cita.html', context)
