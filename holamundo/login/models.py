@@ -68,8 +68,7 @@ class Horario_atencion(models.Model):
 
     def __str__(self):
         return f'{self.abogado.nombrea} - {self.fecha} - {self.hora}'
-    def get_absolute_url(self):
-        return reverse('registrar_cita', kwargs={'abogado_id': self.abogado.id, 'horario_id': self.id})
+
     
 class Cita1(models.Model):
     cliente = models.ForeignKey(Clientes,related_name='cita1', on_delete=models.CASCADE)
