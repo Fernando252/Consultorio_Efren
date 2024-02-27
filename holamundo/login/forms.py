@@ -1,6 +1,7 @@
 from django import forms
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
-from .models import Cita, Documentos, Clientes, Abogado, Casos
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput,DatePickerInput
+from httpcore import request
+from .models import Cita, Documentos, Clientes, Abogado, Casos,Horario_atencion,Cita1
 
 
 class RegistroClienteForm(forms.ModelForm):
@@ -87,3 +88,30 @@ class CasosForm(forms.ModelForm):
         'Estado':forms.Select(attrs={'class': 'form-control'}),
         'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
         }
+        
+class HorarioAtencionForm(forms.ModelForm):
+    class Meta:
+        model = Horario_atencion
+        fields = ['fecha', 'hora']
+
+    def __init__(self, *args, **kwargs):
+        super(HorarioAtencionForm, self).__init__(*args, **kwargs)
+
+class AgendarCitaForm(forms.ModelForm):
+    class Meta:
+        model = Cita1
+        fields = ['horario_atencion']
+
+    def __init__(self, *args, abogado_id=None, **kwargs):
+        super(AgendarCitaForm, self).__init__(*args, **kwargs)
+        self.abogado_id = abogado_id
+        self.filtrar_horarios()
+
+    def filtrar_horarios(self):
+        if self.abogado_id is not None:
+            # Filtrar horarios disponibles basados en el abogado y si ya están seleccionados
+            horarios_elegidos = Cita1.objects.filter(abogado__id=self.abogado_id).values_list('horario_atencion_id', flat=True)
+            self.fields['horario_atencion'].queryset = Horario_atencion.objects.filter(abogado_id=self.abogado_id).exclude(id__in=horarios_elegidos)
+
+
+            

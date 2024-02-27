@@ -52,7 +52,7 @@
                         <span key="CitasA">Citas</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{}" key="Cita">Registro citas</a></li>
+                        <li><a href="{% url 'registrar_horario'%}" key="Cita">Registro citas</a></li>
                         <li><a href="{}" key="Email_Read">Ver citas</a></li>
                         <li><a href="{}" key="Email_Read">Historial citas</a></li>
                         
@@ -164,7 +164,7 @@
                             <span key="Citas">Citas</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{%url 'registrar_cita1'%}" key="Cita">Registro citas</a></li>
+                            <li><a href="{%url 'abogados_con_horario' %}" key="Cita">Registro citas</a></li>
                             <li><a href="{% url 'citas_list' %}" key="Email_Read">Ver citas</a></li>
                             <li><a href="{% url 'lista_citas' %}" key="Email_Read">Historial citas</a></li>
                             

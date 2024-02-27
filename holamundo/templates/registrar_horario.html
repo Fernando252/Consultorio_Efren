@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registrar Horario</title>
+
+    <!-- Asegúrate de cargar jQuery antes de los scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Enlace al widget DateTimePicker -->
+    {{ form.media.css }}
+    {{ form.media.js }}
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script>
+        $(function () {
+            // Configura el widget DateTimePicker para la fecha
+            $('#id_fecha').datepicker({
+                format: 'DD/MM/YYYY',
+                useCurrent: false
+            });
+        });
+    </script>
+    <!-- Enlace al estilo de Tempus Dominus -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/css/tempusdominus-bootstrap-4.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registrar Horario</h2>
+
+        <form method="post" action="{% url 'registrar_horario' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.fecha.label_tag }}
+                {{ form.fecha }}
+            </div>
+
+            <div class="form-group">
+                {{ form.hora.label_tag }}
+                {{ form.hora }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Horario</button>
+        </form>
+    </div>
+</body> 
+</html>
+{% endblock %}

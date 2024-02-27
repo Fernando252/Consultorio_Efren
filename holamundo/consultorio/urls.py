@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 #clientes_documentos
-from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento
+from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento,lista_abogados_con_horario,registrar_cita
 #clientes_casos
 from login.views import abogados_por_cliente,ver_casos_abogado
 #Perfil_abogado
@@ -90,8 +90,8 @@ urlpatterns = [
 #______________________________________________________________________________________
     #Citas
     path('registrar_horario/', registrar_horario, name='registrar_horario'),
-
-
+    path('abogados_con_horario/', lista_abogados_con_horario, name='abogados_con_horario'),
+     path('registrar_cita_abogado/<int:abogado_id>/', registrar_cita, name='registrar_cita_abogado'),
     # Email
     path("email/", include("e_mail.urls")),
     # Components

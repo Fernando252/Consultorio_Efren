@@ -1,10 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
-from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado
-from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm
-from django.urls import reverse
+from .models import Abogado, Casos, Clientes,Cita, Documentos,Info_Abogado,Horario_atencion,Cita1
+from .forms import CitaForm, DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm
 from .utils import *
 from django.contrib import messages
 
@@ -519,15 +518,49 @@ def eliminar_caso(request, codigo_caso):
 #__________________________________________________________________________________________
 #citas_Abogado
 #______________________________________
+@login_required
 def registrar_horario(request):
     if request.method == 'POST':
-        form = CitaForm(request.POST)
+        form = HorarioAtencionForm(request.POST)
         if form.is_valid():
-            cita = form.save(commit=False)
-            cita.abogado = request.user
-            cita.save()
-            return redirect('ver_horarios')  # Reemplaza 'ver_horarios' con el nombre de la vista para ver horarios
+            horario_atencion = form.save(commit=False)
+            horario_atencion.abogado = request.user.abogado
+            horario_atencion.save()
+            return redirect('dashboard')
     else:
-        form = CitaForm()
+        form = HorarioAtencionForm()
 
     return render(request, 'registrar_horario.html', {'form': form})
+
+
+@login_required
+def lista_abogados_con_horario(request):
+    # Verifica que el usuario autenticado sea un cliente, no un abogado
+    if request.user.is_authenticated and hasattr(request.user, 'cliente'):
+        abogados_con_horario = Abogado.objects.filter(horarios_atencion__isnull=False).distinct()
+        context = {'abogados_con_horario': abogados_con_horario}
+        return render(request, 'lista_abogados_con_horario.html', context)
+    else:
+        # Si el usuario no es un cliente, puedes redirigirlo a otra página o mostrar un mensaje de error
+        return render(request, 'error.html', {'mensaje': 'Acceso no autorizado'})
+
+@login_required
+def registrar_cita(request, abogado_id):
+    abogado = Abogado.objects.get(pk=abogado_id)
+
+    if request.method == 'POST':
+        form = AgendarCitaForm(request.POST, abogado_id=abogado_id)
+        if form.is_valid():
+            # Procesar el formulario y registrar la cita
+            nueva_cita = form.save(commit=False)
+            nueva_cita.cliente = request.user.cliente
+            nueva_cita.abogado = abogado
+            nueva_cita.save()
+
+            messages.success(request, 'Cita registrada exitosamente.')
+            return redirect('dashboard')  # Reemplaza 'dashboard' con la URL correcta de tu página principal
+    else:
+        form = AgendarCitaForm(abogado_id=abogado_id)
+
+    context = {'form': form, 'abogado': abogado}
+    return render(request, 'agendar_cita.html', context)
