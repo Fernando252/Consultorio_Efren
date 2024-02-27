@@ -600,10 +600,18 @@ def citas_cliente_con_abogado(request, abogado_id):
 
     context = {'citas_cliente_con_abogado': citas_cliente_con_abogado}
     return render(request, 'citas_cliente_con_abogado.html', context)
-
+@login_required
 def lista_fechas_horarios_abogado(request):
     abogado = request.user.abogado
     fechas_horarios = Horario_atencion.objects.filter(abogado=abogado).values_list('fecha', flat=True).distinct().order_by('fecha')
 
     context = {'fechas_horarios': fechas_horarios}
     return render(request, 'abogado_lista_fechas_horarios.html', context)
+
+@login_required
+def horarios_en_fecha(request, fecha):
+    abogado = request.user.abogado
+    horarios_en_fecha = Horario_atencion.objects.filter(abogado=abogado, fecha=fecha)
+
+    context = {'horarios_en_fecha': horarios_en_fecha, 'fecha': fecha}
+    return render(request, 'abogado_horarios_en_fecha.html', context)

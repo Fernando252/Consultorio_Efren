@@ -1,0 +1,14 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <h2>Horarios en la fecha {{ fecha }}</h2>
+
+  <ul>
+    {% for horario in horarios_en_fecha %}
+      <li>{{ horario.hora }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

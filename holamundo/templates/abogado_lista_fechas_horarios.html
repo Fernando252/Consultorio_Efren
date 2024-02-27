@@ -9,12 +9,16 @@
     <thead>
       <tr>
         <th>Fecha</th>
+        <th >Opciones</th>
       </tr>
     </thead>
     <tbody>
       {% for fecha in fechas_horarios %}
         <tr>
           <td>{{ fecha }}</td>
+          <td>
+            <a href="{% url 'horarios_en_fecha' fecha=fecha %}" class="btn btn-primary">Ver Detalles</a>
+        </td>
         </tr>
       {% endfor %}
     </tbody>
