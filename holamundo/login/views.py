@@ -595,6 +595,7 @@ def editar_cita(request, codigo_cita):
     return render(request, 'agendar_cita.html', {'form': form, 'cita': cita})
 
 
+#___________________________________________________________________________________________
 def actualizar_horario(request, horario_id):
     # Obtener el horario de atención existente
     horario = get_object_or_404(Horario_atencion, id=horario_id)

@@ -30,7 +30,7 @@ from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_v
 #Perfil abogado
 from login.views import ver_abogado,editar_abogado
 #Citas
-from login.views import eliminar_cita_abogado,actualizar_horario,registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha
+from login.views import eliminar_cita_abogado,actualizar_horario,registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha, historial_citas_clientes, detalle_citas_cliente, eliminar_cita, editar_cita
 
 
 from consultorio import views
