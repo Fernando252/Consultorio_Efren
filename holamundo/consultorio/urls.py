@@ -30,7 +30,7 @@ from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_v
 #Perfil abogado
 from login.views import ver_abogado,editar_abogado
 #Citas
-from login.views import registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha
+from login.views import registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha, historial_citas_clientes, detalle_citas_cliente, eliminar_cita, editar_cita
 
 
 from consultorio import views
@@ -96,6 +96,12 @@ urlpatterns = [
     path('citas_cliente_con_abogado/<int:abogado_id>/', citas_cliente_con_abogado, name='citas_cliente_con_abogado'),
     path('lista_fechas_horarios_abogado/', lista_fechas_horarios_abogado, name='lista_fechas_horarios_abogado'),
     path('horarios_en_fecha/<str:fecha>/', horarios_en_fecha, name='horarios_en_fecha'),
+
+
+    path('historial_citas_clientes/', historial_citas_clientes, name='historial_citas_clientes'),
+    path('detalle_citas_cliente/<int:cliente_id>/<int:abogado_id>/', detalle_citas_cliente, name='detalle_citas_cliente'),
+    path('eliminar_cita/<int:codigo_cita>/', eliminar_cita, name='eliminar_cita'),
+    path('editar_cita/<int:codigo_cita>/', editar_cita, name='editar_cita'),
 
     # Email
     path("email/", include("e_mail.urls")),
