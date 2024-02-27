@@ -1,6 +1,5 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-
 {% block content %}
 <!DOCTYPE html>
 <html lang="es">
@@ -10,28 +9,36 @@
     <title>Registrar Horario</title>
 
     <!-- Asegúrate de cargar jQuery antes de los scripts de Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <!-- Enlace al widget DateTimePicker -->
+    <!-- Incluye Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Incluye el widget DateTimePicker CSS -->
     {{ form.media.css }}
+    
+    <!-- Incluye Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <!-- Incluye el widget DateTimePicker JS -->
     {{ form.media.js }}
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Incluye Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Configura el widget DateTimePicker -->
     <script>
         $(function () {
-            // Configura el widget DateTimePicker para la fecha
             $('#id_fecha').datepicker({
-                format: 'DD/MM/YYYY',
-                useCurrent: false
+                format: 'dd/mm/yyyy',
+                autoclose: true
             });
         });
     </script>
-    <!-- Enlace al estilo de Tempus Dominus -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/dist/css/tempusdominus-bootstrap-4.min.css">
 </head>
 
 <body>
-    <div class="container">
+
         <h2>Registrar Horario</h2>
 
         <form method="post" action="{% url 'registrar_horario' %}">
@@ -40,6 +47,8 @@
             <div class="form-group">
                 {{ form.fecha.label_tag }}
                 {{ form.fecha }}
+                <hr>
+                <hr>
             </div>
 
             <div class="form-group">
@@ -49,7 +58,7 @@
 
             <button type="submit" class="btn btn-primary">Guardar Horario</button>
         </form>
-    </div>
+
 </body> 
 </html>
 {% endblock %}
