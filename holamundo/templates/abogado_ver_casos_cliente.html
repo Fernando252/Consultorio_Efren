@@ -19,12 +19,20 @@
         <table class="table">
             <thead class="table-light">
                 <tr>
+                    <td aria-expanded="true" colspan="5">
+                        <a href="{%url 'ver_documentos_abogado' %}" class="btn btn-secondary">Volver a Detalles</a>
+                    </td>
+                    
+                </tr>
+                <tr>
                     <th scope="col">Nombre del Caso</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha de Apertura</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Detalles</th>
+                    
                 </tr>
+                
             </thead>
             <tbody>
                 {% for caso in casos_cliente_abogado %}
@@ -34,6 +42,7 @@
                         <td>{{ caso.fecha_apertura }}</td>
                         <td>{{ caso.descripcion }}</td>
                         <td><a href="{% url 'ver_documentos_caso' caso_id=caso.id %}"class="btn btn-primary">Ver Detalles</a></td>
+                        
                     </tr>
                 {% endfor %}
             </tbody>

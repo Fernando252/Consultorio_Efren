@@ -66,6 +66,7 @@ def registrar_cita(request):
             cita = form.save(commit=False)
             cita.cliente = request.user.cliente 
             cita.save()
+            messages.warning(request, 'La cita se ha registrado correctamente.')
             return redirect('dashboard')  
     else:
         form = CitaForm()
@@ -99,6 +100,7 @@ def eliminar_cita(request, codigo_cita):
 
     if request.method == 'POST':
         cita.delete()
+        messages.warning(request, 'El objeto se ha eliminado correctamente.')
         return redirect('lista_citas')  
     return render(request, 'ver_cita.html', {'cita': cita})
 
@@ -220,14 +222,14 @@ def subir_documento(request):
     if request.method == 'POST':
         form = DocumentoForm(request.POST, request.FILES)
         form.fields['caso'].queryset = Casos.objects.filter(cliente=cliente_logueado)
-
+        messages.success(request, '¡Bien hecho! Has realizado una acción exitosa.')
         if form.is_valid():
             form.save()
+            messages.warning(request, 'El documento se ha registrado correctamente.')
             return redirect('dashboard')
     else:
         form = DocumentoForm()
         form.fields['caso'].queryset = Casos.objects.filter(cliente=cliente_logueado)
-
     return render(request, 'subir_documento.html', {'form': form})
 #______________________________________________________________________________
 
@@ -393,7 +395,7 @@ def ver_documentos_caso(request, caso_id):
 
     caso_seleccionado = get_object_or_404(Casos, id=caso_id, abogado=abogado_logueado)
     documentos_caso = Documentos.objects.filter(caso=caso_seleccionado)
-
+    
     contenido = {
         'caso': caso_seleccionado,
         'documentos_caso': documentos_caso,
@@ -428,7 +430,7 @@ def eliminar_documento_abogado(request, codigo_documento):
 
     # Eliminar el documento
     documento_a_eliminar.delete()
-
+    messages.warning(request, 'El objeto se ha eliminado correctamente.')
     # Redirigir a la vista 'subir_documento' u otra vista adecuada
     return redirect('dashboard')
 
@@ -455,6 +457,7 @@ def registrar_caso(request):
             caso = form.save(commit=False)
             caso.abogado = request.user.abogado  
             caso.save()
+            messages.success(request, 'El caso se registro correctamente.')
             return redirect('dashboard')  
     else:
         form = CasosForm()
@@ -511,6 +514,7 @@ def eliminar_caso(request, codigo_caso):
 
     # Eliminar el caso
     caso_a_eliminar.delete()
+    messages.warning(request, 'El objeto se ha eliminado correctamente.')
     return redirect('clientes_con_casos')
 
 #__________________________________________________________________________________________

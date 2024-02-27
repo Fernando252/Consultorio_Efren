@@ -9,7 +9,7 @@
             <div class="card-body">
 
                 <h4 class="card-title">Detalle de la cita</h4>
-                
+                              
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped mb-0">
                         <thead class="text-center">
@@ -49,14 +49,18 @@
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
-                                      {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
+                                    <a href="{%url 'lista_citas' %}" class="btn btn-secondary">Volver </a>
                                 </td>
-                                <td colspan="3">
+                                <td colspan="2">
                                     <a href="{% url 'editar_cita' codigo_cita=cita.id %}" class="btn btn-primary">Editar</a>
                                     
+                                </td>
+                                <td aria-colspan="text-center"  colspan="4">
+                                    
+                                    <form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
+                                        {% csrf_token %}
+                                      <button type="submit" class="btn btn-danger">Eliminar</button>
+                                      </form>
                                 </td>
                             </tr>
                                

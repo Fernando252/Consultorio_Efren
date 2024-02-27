@@ -12,6 +12,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h1>Documentos del Caso: {{ caso.nombre }}</h1>
+            
         </div>
     </div>
 
@@ -59,6 +60,7 @@
         </table>
     {% else %}
         <p>No hay documentos para este caso.</p>
+        <a href="{% url 'ver_documentos_abogado' %}" class="btn btn-secondary">Volver </a>
     {% endif %}
 
 </body>
