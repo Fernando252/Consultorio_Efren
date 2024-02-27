@@ -447,6 +447,7 @@ def registrar_horario(request):
             horario_atencion = form.save(commit=False)
             horario_atencion.abogado = request.user.abogado
             horario_atencion.save()
+            messages.success(request, 'Se ha registrado correctamente.')
             return redirect('dashboard')
     else:
         form = HorarioAtencionForm()
@@ -592,3 +593,37 @@ def editar_cita(request, codigo_cita):
         form = AgendarCitaForm(instance=cita)
 
     return render(request, 'agendar_cita.html', {'form': form, 'cita': cita})
+
+
+def actualizar_horario(request, horario_id):
+    # Obtener el horario de atención existente
+    horario = get_object_or_404(Horario_atencion, id=horario_id)
+    
+    if request.method == 'POST':
+        # Crear un formulario con los datos del horario existente
+        form = HorarioAtencionForm(request.POST, instance=horario)
+        if form.is_valid():
+            # Guardar los cambios en el horario de atención
+            horario = form.save()
+            messages.success(request, 'Se ha actualizado el horario correctamente.')
+            return redirect('dashboard')
+    else:
+        # Crear un formulario prellenado con los datos del horario existente
+        form = HorarioAtencionForm(instance=horario)
+
+    return render(request, 'abogado_horarios_en_fecha_editar.html', {'form': form, 'horario': horario})
+
+@login_required
+def eliminar_cita_abogado(request, horario_id):
+    abogado_logueado = request.user.abogado
+
+    # Obtener el caso a eliminar
+    cita_a_eliminar = get_object_or_404(Horario_atencion, id=horario_id, abogado=abogado_logueado)
+
+    # Eliminar el cita
+    cita_a_eliminar.delete()
+    messages.warning(request, 'Horario elegido se ha eliminado correctamente.')
+    return redirect('dashboard')
+   
+
+  

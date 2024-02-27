@@ -81,9 +81,8 @@ class HorarioAtencionForm(forms.ModelForm):
         model = Horario_atencion
         fields = ['fecha', 'hora']
         widgets = {
- 
+            'hora':forms.Select(attrs={'class': 'form-control'}),
             'fecha': DatePickerInput(attrs={'class': 'form-control datepicker-input'}),
-
         }
 
     def __init__(self, *args, **kwargs):
