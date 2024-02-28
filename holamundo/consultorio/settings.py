@@ -132,7 +132,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stdk$consultorio',
         'USER': 'stdk',
-        'PASSWORD': '',
+        'PASSWORD': 'consultorio2000',
         'HOST': 'stdk.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
