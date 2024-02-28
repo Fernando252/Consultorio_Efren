@@ -468,20 +468,17 @@ def lista_abogados_con_horario(request):
 
 
 @login_required
-def registrar_cita(request, abogado_id, cita_id=None):
+def registrar_cita(request, abogado_id):
     try:
         abogado = Abogado.objects.get(pk=abogado_id)
     except Abogado.DoesNotExist:
         raise Http404("El abogado no existe")
 
-    cita = None
-    if cita_id:
-        cita = get_object_or_404(Cita1, pk=cita_id)
-
     fecha_filtro = request.GET.get('fecha_filtro')
-    form = AgendarCitaForm(request.POST or None, instance=cita, abogado_id=abogado_id)
+    form = AgendarCitaForm(abogado_id=abogado_id)
 
     if request.method == 'POST':
+        form = AgendarCitaForm(request.POST, abogado_id=abogado_id)
         if form.is_valid():
             nueva_cita = form.save(commit=False)
 
@@ -493,21 +490,25 @@ def registrar_cita(request, abogado_id, cita_id=None):
 
             nueva_cita.abogado = abogado
 
+            # Manejo de errores al intentar guardar la cita
             try:
                 nueva_cita.save()
                 messages.success(request, 'Cita registrada exitosamente.')
                 return redirect('dashboard')
             except Exception as e:
                 messages.error(request, f'Error al guardar la cita: {str(e)}')
+                # Puedes redirigir a una página de error o hacer algo más según tus necesidades
                 return redirect('pagina_de_error') 
 
-    if cita_id:
-        # Si se está editando una cita existente, puedes filtrar los horarios por fecha si se proporciona una fecha en la solicitud
-        if fecha_filtro:
-            form.filtrar_horarios(filtro_fecha=fecha_filtro)
+    # Filtrar los horarios por fecha si se proporciona una fecha en la solicitud
+    if fecha_filtro:
+        form.filtrar_horarios(filtro_fecha=fecha_filtro)
 
-    context = {'form': form, 'abogado': abogado, 'cita': cita}
+    context = {'form': form, 'abogado': abogado}
     return render(request, 'agendar_cita.html', context)
+
+
+
 
 @login_required
 def lista_clientes_citas_abogado(request):

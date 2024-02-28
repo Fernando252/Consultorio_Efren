@@ -110,6 +110,14 @@ class AgendarCitaForm(forms.ModelForm):
 
             self.fields['horario_atencion'].queryset = queryset
 
+
+
+
+
+
+
+
+
 class AgendarCitaForm1(forms.ModelForm):
     class Meta:
         model = Cita1
@@ -127,6 +135,8 @@ class AgendarCitaForm1(forms.ModelForm):
             if filtro_fecha:
                 queryset = queryset.filter(fecha=filtro_fecha)
             self.fields['horario_atencion'].queryset = queryset
+
+            
 
     # Este método se agrega para obtener la fecha de la cita y mostrarla en el formulario
     def get_fecha_cita(self):
