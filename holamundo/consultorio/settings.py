@@ -234,7 +234,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-STATIC_ROOT = '/home/stdk/Consultorio_Efren/holamundo/assets/'
+STATIC_ROOT = '/home/stdk/Consultorio_Efren/holamundo/static/'
 
 
 #  All Auth Configurations
