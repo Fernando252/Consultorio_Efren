@@ -522,10 +522,12 @@ def lista_clientes_citas_abogado(request):
 @login_required
 def citas_cliente_con_abogado(request, abogado_id):
     abogado = request.user.abogado
-    citas_cliente_con_abogado = Cita1.objects.filter(abogado=abogado).order_by('horario_atencion__fecha')
+    citas_cliente_con_abogado = Cita1.objects.filter(abogado=abogado, cliente__id=abogado_id).order_by('horario_atencion__fecha')
 
     context = {'citas_cliente_con_abogado': citas_cliente_con_abogado}
     return render(request, 'citas_cliente_con_abogado.html', context)
+
+
 @login_required
 def lista_fechas_horarios_abogado(request):
     abogado = request.user.abogado
