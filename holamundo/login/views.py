@@ -581,7 +581,10 @@ def eliminar_cita(request, codigo_cita):
 @login_required
 def editar_cita(request, codigo_cita):
     cita = get_object_or_404(Cita1, id=codigo_cita)
-
+    
+    # Obtener el abogado asociado a la cita
+    abogado = cita.abogado
+    
     if request.method == 'POST':
         form = AgendarCitaForm1(request.POST, instance=cita, abogado_id=cita.abogado_id)
         if form.is_valid():
@@ -591,7 +594,8 @@ def editar_cita(request, codigo_cita):
     else:
         form = AgendarCitaForm1(instance=cita, abogado_id=cita.abogado_id)
 
-    return render(request, 'editar_cita_cliente.html', {'form': form, 'cita': cita})
+    return render(request, 'editar_cita_cliente.html', {'form': form, 'cita': cita, 'abogado': abogado})
+
 
 
 #___________________________________________________________________________________________

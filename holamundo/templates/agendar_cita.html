@@ -1,23 +1,37 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 
+
 {% block content %}
-  <h2>Registrar Cita con {{ abogado.nombrea }} {{ abogado.apellido }}</h2>
-  <form method="get" action="{% url 'registrar_cita_abogado' abogado_id=abogado.id %}">
-    {% csrf_token %}
+<div class="container"> 
+  <div class="row justify-content-center">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2>Registrar Cita con: {{ abogado.nombrea }} {{ abogado.apellido }}</h2>
+        </div>
+        <div class="card-body">
+          <form method="get" action="{% url 'registrar_cita_abogado' abogado_id=abogado.id %}">
+              <div class="form-group">
+              {% csrf_token %}
+              <!-- Campo de entrada para la fecha de filtro -->
+              <label for="id_fecha_filtro" class="font-weight-bold">Fecha de filtro:</label>
+              <input type="date" id="id_fecha_filtro" name="fecha_filtro" value="{{ request.GET.fecha_filtro }}">    
+              <!-- Botón para activar el filtro por fecha -->
+              <button type="submit">Filtrar por Fecha</button>
+              </div>
+          </form>
+          <form method="post" action="{% url 'registrar_cita_abogado' abogado_id=abogado.id %}">
+              <div class="form-group">
+              {% csrf_token %}
 
-    <!-- Campo de entrada para la fecha de filtro -->
-    <label for="id_fecha_filtro">Fecha de filtro:</label>
-    <input type="date" id="id_fecha_filtro" name="fecha_filtro" value="{{ request.GET.fecha_filtro }}">
-    
-    <!-- Botón para activar el filtro por fecha -->
-    <button type="submit">Filtrar por Fecha</button>
-  </form>
-
-  <form method="post" action="{% url 'registrar_cita_abogado' abogado_id=abogado.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button type="submit">Agendar Cita</button>
-  </form>
+              {{ form.as_p }}
+              </div>
+              <button class="btn btn-primary" type="submit">Agendar Cita</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div> 
 {% endblock %}

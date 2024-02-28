@@ -17,7 +17,7 @@
             <td>{{ cita.horario_atencion.fecha }}</td>
             <td>{{ cita.horario_atencion.hora }}</td>
             <td >
-              <a href="{% url 'editar_cita' codigo_cita=cita.id %}">Editar</a>
+              <a class="btn btn-info" href="{% url 'editar_cita' codigo_cita=cita.id %}">Editar</a>
             </td>
             <td >
                   <form method="post" action="{% url 'eliminar_cita' codigo_cita=cita.id %}">
