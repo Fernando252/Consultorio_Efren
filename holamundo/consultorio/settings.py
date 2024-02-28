@@ -224,7 +224,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
+    
 # Otras configuraciones de allauth (opcional)
 # Puedes personalizar el comportamiento con las siguientes opciones:
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
