@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-#_e3fccne#093b!z1_8%5qusayi3#0f#pj$6$&v21^-9xesu^_
 DEBUG = True
 
 ALLOWED_HOSTS = ['stdk.pythonanywhere.com', 
-                 '127.0.0.1']
+                 '127.0.0.8000']
 
 
 # Application definition
@@ -96,7 +96,7 @@ ROOT_URLCONF = 'consultorio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates','/home/stdk/Consultorio_Efren/holamundo/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
