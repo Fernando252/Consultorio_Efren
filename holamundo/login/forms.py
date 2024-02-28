@@ -109,6 +109,4 @@ class AgendarCitaForm(forms.ModelForm):
                 queryset = queryset.filter(fecha=filtro_fecha)
 
             self.fields['horario_atencion'].queryset = queryset
-
-
             

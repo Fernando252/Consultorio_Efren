@@ -468,17 +468,20 @@ def lista_abogados_con_horario(request):
 
 
 @login_required
-def registrar_cita(request, abogado_id):
+def registrar_cita(request, abogado_id, cita_id=None):
     try:
         abogado = Abogado.objects.get(pk=abogado_id)
     except Abogado.DoesNotExist:
         raise Http404("El abogado no existe")
 
+    cita = None
+    if cita_id:
+        cita = get_object_or_404(Cita1, pk=cita_id)
+
     fecha_filtro = request.GET.get('fecha_filtro')
-    form = AgendarCitaForm(abogado_id=abogado_id)
+    form = AgendarCitaForm(request.POST or None, instance=cita, abogado_id=abogado_id)
 
     if request.method == 'POST':
-        form = AgendarCitaForm(request.POST, abogado_id=abogado_id)
         if form.is_valid():
             nueva_cita = form.save(commit=False)
 
@@ -490,21 +493,20 @@ def registrar_cita(request, abogado_id):
 
             nueva_cita.abogado = abogado
 
-            # Manejo de errores al intentar guardar la cita
             try:
                 nueva_cita.save()
                 messages.success(request, 'Cita registrada exitosamente.')
                 return redirect('dashboard')
             except Exception as e:
                 messages.error(request, f'Error al guardar la cita: {str(e)}')
-                # Puedes redirigir a una página de error o hacer algo más según tus necesidades
                 return redirect('pagina_de_error') 
 
-    # Filtrar los horarios por fecha si se proporciona una fecha en la solicitud
-    if fecha_filtro:
-        form.filtrar_horarios(filtro_fecha=fecha_filtro)
+    if cita_id:
+        # Si se está editando una cita existente, puedes filtrar los horarios por fecha si se proporciona una fecha en la solicitud
+        if fecha_filtro:
+            form.filtrar_horarios(filtro_fecha=fecha_filtro)
 
-    context = {'form': form, 'abogado': abogado}
+    context = {'form': form, 'abogado': abogado, 'cita': cita}
     return render(request, 'agendar_cita.html', context)
 
 @login_required
@@ -540,8 +542,60 @@ def horarios_en_fecha(request, fecha):
     context = {'horarios_en_fecha': horarios_en_fecha, 'fecha': fecha}
     return render(request, 'abogado_horarios_en_fecha.html', context)
 
+#____________________________________________________________________________________
+#historial de citas por el cliente
+
+@login_required
+def historial_citas_clientes(request):
+    cliente = request.user.cliente
+    citas_cliente = Cita1.objects.filter(cliente=cliente).values('abogado_id').distinct()
+    abogados_con_citas = Abogado.objects.filter(id__in=citas_cliente)
+
+    context = {'abogados_con_citas': abogados_con_citas, 'cliente_id': cliente.id}
+    return render(request, 'historial_citas_clientes.html', context)
+
+@login_required
+def detalle_citas_cliente(request, cliente_id, abogado_id):
+    cliente = request.user.cliente
+    citas_cliente_abogado = Cita1.objects.filter(cliente=cliente, abogado_id=abogado_id).order_by('horario_atencion__fecha')
+
+    context = {'citas_cliente_abogado': citas_cliente_abogado}
+    return render(request, 'detalle_citas_cliente.html', context)
+
+@login_required
+def eliminar_cita(request, codigo_cita):
+    cliente = request.user.cliente
+
+    # Obtener el documento a eliminar
+    cita_a_eliminar = get_object_or_404(Cita1, id=codigo_cita, cliente=cliente)
+
+    # Eliminar el documento
+    cita_a_eliminar.delete()
+    messages.warning(request, 'El objeto se ha eliminado correctamente.')
+    # Redirigir a la vista 'subir_documento' u otra vista adecuada
+    return redirect('dashboard')
+
+@login_required
+def editar_cita(request, codigo_cita):
+    try:
+        cita = Cita1.objects.get(pk=codigo_cita)
+    except Cita1.DoesNotExist:
+        raise Http404("La cita no existe")
+
+    if request.method == 'POST':
+        form = AgendarCitaForm(request.POST, instance=cita)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cita actualizada exitosamente.')
+            return redirect('detalle_citas_cliente', cliente_id=request.user.cliente.id)
+    else:
+        # No es necesario pasar abogado_id al formulario al editar una cita existente
+        form = AgendarCitaForm(instance=cita)
+
+    return render(request, 'agendar_cita.html', {'form': form, 'cita': cita})
 
 
+#___________________________________________________________________________________________
 def actualizar_horario(request, horario_id):
     # Obtener el horario de atención existente
     horario = get_object_or_404(Horario_atencion, id=horario_id)
