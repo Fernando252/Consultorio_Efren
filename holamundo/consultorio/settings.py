@@ -34,8 +34,12 @@ SECRET_KEY = 'django-insecure-#_e3fccne#093b!z1_8%5qusayi3#0f#pj$6$&v21^-9xesu^_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['stdk.pythonanywhere.com', 
                  '127.0.0.8000']
+=======
+ALLOWED_HOSTS = []
+>>>>>>> parent of 2b57797 (Merge branch 'main' of https://github.com/Fernando252/Consultorio_Efren)
 
 
 # Application definition
@@ -115,7 +119,6 @@ WSGI_APPLICATION = 'consultorio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -126,19 +129,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-'''
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stdk$consultorio',
-        'USER': 'stdk',
-        'PASSWORD': 'consultorio2000',
-        'HOST': 'stdk.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
-    }
-}
-
 
 
 # Password validation
