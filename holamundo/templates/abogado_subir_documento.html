@@ -4,15 +4,43 @@
 
 
 {% block content %}
-  <h2>Subir Documento</h2>
-  
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Subir Documentos</title>
 
-    <button type="submit">Subir Documento</button>
-  </form>
+    
+</head>  
   
-  <a href="{% url 'dashboard' %}">Volver al Dashboard</a>
+<body>   
+  <form method="post" enctype="multipart/form-data" class="container">
+    {% csrf_token %} 
+      <div class="row justify-content-center">
+        <div class="col-sm-8">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="card-title">Subir Documentos</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                {{ form.as_p }}
+              </div>
+              <div >
+                <button type="submit">Subir Documento</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+    </div> 
+    </form>
+    
+    <a href="{% url 'dashboard' %}">Volver al Dashboard</a>
+
+</body>
+</html>
+  
 {% endblock %}
