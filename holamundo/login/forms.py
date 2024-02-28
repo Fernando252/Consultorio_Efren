@@ -109,4 +109,27 @@ class AgendarCitaForm(forms.ModelForm):
                 queryset = queryset.filter(fecha=filtro_fecha)
 
             self.fields['horario_atencion'].queryset = queryset
-            
+
+class AgendarCitaForm1(forms.ModelForm):
+    class Meta:
+        model = Cita1
+        fields = ['horario_atencion']
+
+    def __init__(self, *args, abogado_id=None, **kwargs):
+        super().__init__(*args, **kwargs)  # Corregimos aquí el llamado a super()
+        self.abogado_id = abogado_id
+        self.filtrar_horarios()
+
+    def filtrar_horarios(self, filtro_fecha=None):
+        if self.abogado_id is not None:
+            horarios_elegidos = Cita1.objects.filter(abogado__id=self.abogado_id).values_list('horario_atencion__id', flat=True)
+            queryset = Horario_atencion.objects.filter(abogado__id=self.abogado_id).exclude(id__in=horarios_elegidos)
+            if filtro_fecha:
+                queryset = queryset.filter(fecha=filtro_fecha)
+            self.fields['horario_atencion'].queryset = queryset
+
+    # Este método se agrega para obtener la fecha de la cita y mostrarla en el formulario
+    def get_fecha_cita(self):
+        if self.instance and self.instance.horario_atencion:
+            return self.instance.horario_atencion.fecha
+        return None

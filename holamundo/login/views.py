@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes, Documentos,Info_Abogado,Horario_atencion,Cita1
-from .forms import DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm
+from .forms import DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm,AgendarCitaForm1
 from .utils import *
 from django.contrib import messages
 
@@ -579,22 +579,18 @@ def eliminar_cita(request, codigo_cita):
 
 @login_required
 def editar_cita(request, codigo_cita):
-    try:
-        cita = Cita1.objects.get(pk=codigo_cita)
-    except Cita1.DoesNotExist:
-        raise Http404("La cita no existe")
+    cita = get_object_or_404(Cita1, id=codigo_cita)
 
     if request.method == 'POST':
-        form = AgendarCitaForm(request.POST, instance=cita)
+        form = AgendarCitaForm1(request.POST, instance=cita, abogado_id=cita.abogado_id)
         if form.is_valid():
             form.save()
             messages.success(request, 'Cita actualizada exitosamente.')
-            return redirect('detalle_citas_cliente', cliente_id=request.user.cliente.id)
+            return redirect('dashboard')
     else:
-        # No es necesario pasar abogado_id al formulario al editar una cita existente
-        form = AgendarCitaForm(instance=cita)
+        form = AgendarCitaForm1(instance=cita, abogado_id=cita.abogado_id)
 
-    return render(request, 'agendar_cita.html', {'form': form, 'cita': cita})
+    return render(request, 'editar_cita_cliente.html', {'form': form, 'cita': cita})
 
 
 #___________________________________________________________________________________________

@@ -1,0 +1,10 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+  <h2>Editar Cita</h2>
+  <p>Fecha de la cita: {{ form.get_fecha_cita }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar Cambios</button>
+  </form>
+{% endblock %}
