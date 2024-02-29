@@ -4,14 +4,14 @@
 {% load account socialaccount %}
 {% load crispy_forms_tags %}
 
-{% block title %}Sign Up{% endblock title %}
+{% block title %}Registrarse{% endblock title %}
     
 {% block content %}
 
             <div class="card overflow-hidden">
                 <div class="bg-primary">
                     <div class="text-primary text-center p-4">
-                        <h5 class="text-white font-size-20">Registrtate</h5>
+                        <h5 class="text-white font-size-20">Registrate</h5>
                         <p class="text-white-50">LLena el formulario para ingresar al sistema</p>
                         <a href="{% url 'dashboard' %}" class="logo logo-admin">
                             <img src="{% static 'images/LOGO.png' %}" height="75" alt="logo">
@@ -57,14 +57,7 @@
                                     <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Registrarse</button>
                                 </div>
                             </div>
-                            <div class="mt-4 pt-2 text-center">
-                                <div class="signin-other-title">
-                                    <h5 class="fs-sm mb-4 title">Inicia sesión con</h5>
-                                </div>
-                                <div>
-                                    <a href="{% provider_login_url 'google' %}" class="btn btn-danger btn-icon waves-effect waves-light"><i class="mdi mdi-google fs-lg"></i></a>
-                                </div>
-                            </div>
+                            
 
                             <div class="mt-2 mb-0 row">
                                 <div class="col-12 mt-4">
