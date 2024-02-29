@@ -22,7 +22,7 @@
                       <h4> {{ abogado.nombrea }} {{ abogado.apellido }} </h4>
                       <p class="text-secondary mb-1">ABOGADO</p>
                       <p class="text-muted font-size-sm">Consorcio Jurídico Efren - Puyo </p>
-                      <a href="{% url 'registrar_cita1' %}" class="btn btn-primary">Registrar Cita</a>
+                      <a href="{% url 'registrar_cita_abogado' abogado_id=abogado.id %}" class="btn btn-primary">Registrar Cita</a>
                     </div>
                   </div>
                 </div>
