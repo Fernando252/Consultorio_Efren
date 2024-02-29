@@ -21,9 +21,6 @@ class RegistroClienteForm(forms.ModelForm):
             self.fields['correo'].widget.attrs['readonly'] = True 
 
 
-
-
-
 class DocumentoForm(forms.ModelForm):
     class Meta:
         model = Documentos

@@ -1,0 +1,51 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0" style="font-weight: bold" >Perfil de Usuario</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="id_abogado" class="font-weight-bold" style="font-weight: bold">Cédula:</label>
+                        {{ cliente.cedula }}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="id_fecha_cita" class="font-weight-bold" style="font-weight: bold">Nombre:</label>
+                        {{ cliente.nombrec }}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="id_lugar_cita" class="font-weight-bold" style="font-weight: bold">Apellido:</label>
+                        {{ cliente.apellido }}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="id_descripcion" class="font-weight-bold" style="font-weight: bold">Dirección:</label>
+                        {{ cliente.direccion }}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="id_descripcion" class="font-weight-bold" style="font-weight: bold">Celular:</label>
+                        {{ cliente.celular }}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="id_descripcion" class="font-weight-bold" style="font-weight: bold">Correo:</label>
+                        {{ cliente.correo }}
+                    </div>
+                    <hr>
+                    <a class="btn btn-primary" href="{% url 'editar_cliente' %}" key="Email_Read">Editar Información</a>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

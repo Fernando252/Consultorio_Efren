@@ -629,5 +629,40 @@ def eliminar_cita_abogado(request, horario_id):
     messages.warning(request, 'Horario elegido se ha eliminado correctamente.')
     return redirect('dashboard')
    
+@login_required
+def ver_cliente(request):
+    cliente = request.user.cliente
+    return render(request, 'ver_cliente.html', {'cliente': cliente})
+
+@login_required
+def editar_cliente(request):
+    cliente = request.user.cliente
+    
+    if request.method == 'POST':
+        form = RegistroClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_cliente')  
+    else:
+        form = RegistroClienteForm(instance=cliente)
+
+    return render(request, 'editar_cliente.html', {'form': form})
+
+'''
+@login_required
+def editar_cliente(request, codigo_abogado):
+    cliente = get_object_or_404(Clientes, pk=codigo_abogado)
+
+    if request.method == 'POST':
+        form = RegistroClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_cliente')
+        else:
+            return render(request, 'editar_cliente.html', {'form': form, 'cliente': cliente})
+    else:
+        form = AbogadoForm(instance=cliente)
+        return render(request, 'editar_cliente.html', {'form': form, 'cliente': cliente})
+'''
 
   
