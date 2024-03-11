@@ -12,9 +12,9 @@
                 <ul class="metismenu list-unstyled" id="side-menu">
                     <li class="menu-title" key="Main">Menu</li>
                 {% if user.abogado %}
-                    <li class="menu-title" key="Main">Es abogado</li>
+                    <li class="menu-title" key="Main">Bienvenido abogado</li>
                 {% else %}
-                    <li class="menu-title" key="Main">No es abogado</li>
+                    <li class="menu-title" key="Main">Bienvenido cliente</li>
                 {% endif %}
                 <li>
 
@@ -99,11 +99,11 @@
                 <!-- Left Menu Start -->
                 <ul class="metismenu list-unstyled" id="side-menu">
                     <li class="menu-title" key="Main">Menu</li>
-                {% if user.abogado %}
-                    <li class="menu-title" key="Main">Es abogado</li>
-                {% else %}
-                    <li class="menu-title" key="Main">No es abogado</li>
-                {% endif %}
+                    {% if user.abogado %}
+                    <li class="menu-title" key="Main">Bienvenido abogado</li>
+                    {% else %}
+                    <li class="menu-title" key="Main">Bienvenido cliente</li>
+                    {% endif %}
                     <li>
 
 
