@@ -22,7 +22,7 @@
             <td>Fecha de Apertura</td>
             <td>Estado</td>
             <td>Tipo de caso</td>
-            <td>Detalle</td>
+            <td>Historial</td>
         </tr>
         
         {% for caso in casos_abogado %}
@@ -32,7 +32,9 @@
                 <td>{{ caso.fecha_apertura }}</td>
                 <td>{{ caso.Estado }}</td>
                 <td>{{ caso.tipos_casos }}</td>
-                <td>{{ caso.descripcion }}</td>
+                <td>
+                    <a href="{% url 'historial_caso' caso_id=caso.id %}">Ver Detalles del Caso</a>
+                </td>
             </tr>
         {% endfor %}
         <th >
