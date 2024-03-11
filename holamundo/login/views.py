@@ -357,6 +357,7 @@ def eliminar_documento_abogado(request, codigo_documento):
 #casos
 #______________________________________
 #Vista de casos por cliente
+@login_required
 def clientes_con_casos(request):
     abogado_logueado = request.user.abogado
 
@@ -384,7 +385,7 @@ def registrar_caso(request):
     return render(request, 'abogado_registrar_caso.html', {'form': form})
 
 #Registrar Casos 
-
+@login_required
 def ver_casos_cliente(request, cliente_id):
     abogado_logueado = request.user.abogado
 
@@ -401,12 +402,14 @@ def ver_casos_cliente(request, cliente_id):
     return render(request, template, contenido)
 
 #Ver un solo caso de abogado por cliente
+@login_required
 def abogado_ver_caso(request, codigo_caso):
    c = {}
    c['caso'] =  get_object_or_404(Casos, pk=codigo_caso)
    return render(request, 'abogado_ver_casoC.html', c)
 
 #Abogado editar caso-cliente
+@login_required
 def editar_caso_abogado(request, codigo_caso):
     caso = get_object_or_404(Casos, pk=codigo_caso)
 
