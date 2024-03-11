@@ -42,7 +42,12 @@
                                 No disponible
                             {% endif %}
                         </td>
+                        <td>
+                            <a href="{% url 'actualizar_descripcion_caso' caso_id=caso.id %}">Actualizar Descripción</a>
+
+                        </td>
                         
+
                         <td>
                             <a href="{% url 'editar_documento_abogado' codigo_documento=documento.id %}" class="btn btn-primary">Editar</a>
                         </td>

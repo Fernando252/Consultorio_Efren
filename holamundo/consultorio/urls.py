@@ -24,7 +24,7 @@ from login.views import abogados_por_cliente,ver_casos_abogado
 from login.views import ver_abogados,detalle_abogado,ver_cliente_usuario,clientesviews
 #________________________________________________________________________________________________
 #abogados_casos
-from login.views import registrar_caso, clientes_con_casos, ver_casos_cliente, abogado_ver_caso, editar_caso_abogado,eliminar_caso
+from login.views import actualizar_descripcion_caso,registrar_caso, clientes_con_casos, ver_casos_cliente, abogado_ver_caso, editar_caso_abogado,eliminar_caso
 #abogados_documentos
 from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_ver_casos_cliente, ver_documentos_caso,editar_documento_abogado,eliminar_documento_abogado
 #Perfil abogado
@@ -70,6 +70,7 @@ urlpatterns = [
     path('registrar_caso/', registrar_caso, name='registrar_caso'),
     path('clientes_con_casos/', clientes_con_casos, name='clientes_con_casos'),
     path('ver_casos_cliente/<int:cliente_id>/', ver_casos_cliente, name='ver_casos_cliente'),
+    path('actualizar_descripcion_caso/<int:caso_id>/', actualizar_descripcion_caso, name='actualizar_descripcion_caso'),
     #Mas detalle 
     path('abogado_caso_cliente/<int:codigo_caso>/', abogado_ver_caso, name='abogado_ver_caso'),
     #Editar vista abogado caso

@@ -1,3 +1,4 @@
+import datetime
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
@@ -669,3 +670,23 @@ def ver_casos_cliente_doc(request):
     casos_cliente = Casos.objects.filter(cliente=request.user.cliente)
 
     return render(request, 'ver_casos_cliente_doc.html', {'casos_cliente': casos_cliente})
+
+def actualizar_descripcion_caso(request, caso_id):
+    caso = get_object_or_404(Casos, id=caso_id)
+
+    if request.method == 'POST':
+        nueva_descripcion = request.POST.get('nueva_descripcion')
+
+        # Agregar la nueva actualización al historial
+        caso.historial_actualizaciones += f'\n{datetime.now()}: {nueva_descripcion}\n'
+        caso.save()
+
+        # Actualizar la descripción en el caso original si es necesario
+        caso.descripcion = nueva_descripcion
+        caso.save()
+
+        return redirect('detalles_caso', caso_id=caso.id)  # Cambia 'detalles_caso' por la URL correcta
+
+    # Resto de la lógica para mostrar detalles del caso y formularios
+    context = {'caso': caso}
+    return render(request, 'actualizar_caso.html', context)
