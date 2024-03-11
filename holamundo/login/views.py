@@ -121,7 +121,7 @@ def editar_documento(request, codigo_documento):
         form = DocumentoForm(instance=documento)
     c['form'] = form
     c['documento']= documento
-    return render(request,'abogado_editar_documento.html', c)
+    return render(request,'cliente_lista_doc.html', c)
 #______________________________________________________________________________
 
 
