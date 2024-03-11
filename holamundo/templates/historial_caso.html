@@ -37,15 +37,13 @@
       </tr>
     </thead>
     <tbody>
-      {% for actualizacion in caso.historial_actualizaciones.split('\n') %}
-        {% if actualizacion %}
-          {% with actualizacion_parts=actualizacion.split(':') %}
-            <tr>
-              <td>{{ actualizacion_parts.0 }}</td>
-              <td>{{ actualizacion_parts.1 }}</td>
-            </tr>
-          {% endwith %}
-        {% endif %}
+      {% for actualizacion in historial_actualizaciones %}
+        {% with actualizacion_parts=actualizacion.split(':') %}
+          <tr>
+            <td>{{ actualizacion_parts.0 }}</td>
+            <td>{{ actualizacion_parts.1 }}</td>
+          </tr>
+        {% endwith %}
       {% endfor %}
     </tbody>
   </table>
