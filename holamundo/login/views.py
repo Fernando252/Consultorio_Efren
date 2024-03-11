@@ -122,7 +122,7 @@ def editar_documento(request, codigo_documento):
         form = DocumentoForm(request.POST, request.FILES, instance=documento)
         if form.is_valid():
             form.save()
-            return redirect('ver_documentos')  # Cambia a la URL que desees después de editar
+            return redirect('ver_casos_cliente_doc')  # Cambia a la URL que desees después de editar
     else:
         form = DocumentoForm(instance=documento)
 
