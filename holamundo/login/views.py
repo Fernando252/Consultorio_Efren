@@ -695,7 +695,9 @@ def historial_caso(request, caso_id):
     caso = get_object_or_404(Casos, id=caso_id)
 
     # Dividir el historial de actualizaciones en una lista
-    historial_actualizaciones = [actualizacion.strip() for actualizacion in caso.historial_actualizaciones.split('\n') if actualizacion.strip()]
+    historial_actualizaciones = [actualizacion.strip().split(':') for actualizacion in caso.historial_actualizaciones.split('\n') if actualizacion.strip()]
+
+    print(historial_actualizaciones)  # Agrega esta línea para imprimir el contenido
 
     context = {'caso': caso, 'historial_actualizaciones': historial_actualizaciones}
     return render(request, 'historial_caso.html', context)
