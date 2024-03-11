@@ -124,14 +124,18 @@ def editar_documento(request, codigo_documento):
     return render(request,'cliente_lista_doc.html', c)
 #______________________________________________________________________________
 
-
+@login_required
 def eliminar_documento(request, codigo_documento):
-    documento = get_object_or_404(Documentos, id=codigo_documento)
+    cliente_logueado = request.user.cliente
 
-    if request.method == 'POST':
-        documento.delete()
-        return redirect('lista_documentos')  
-    return render(request, 'ver_documento.html', {'documento': documento})
+    # Obtener el documento a eliminar
+    documento_a_eliminar = get_object_or_404(Documentos, id=codigo_documento, caso__cliente=cliente_logueado)
+
+    # Eliminar el documento
+    documento_a_eliminar.delete()
+    messages.warning(request, 'El objeto se ha eliminado correctamente.')
+    # Redirigir a la vista 'subir_documento' u otra vista adecuada
+    return redirect('dashboard')
 
 #______________________________________________________________________________
 
