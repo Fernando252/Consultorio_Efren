@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 #clientes_documentos
-from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento,lista_abogados_con_horario,registrar_cita
+from login.views import ver_documentos,eliminar_documento,editar_documento,ver_documento,lista_abogados_con_horario,registrar_cita,ver_casos_cliente_doc
 #clientes_casos
 from login.views import abogados_por_cliente,ver_casos_abogado
 #Perfil_abogado
@@ -49,10 +49,12 @@ urlpatterns = [
     path('', views.DashboardView.as_view(), name='dashboard'),
 
     #documentos 
+    path('ver_casos_cliente/', ver_casos_cliente_doc, name='ver_casos_cliente'),
     path('lista_documentos/', ver_documentos,name="lista_documentos"),
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
     path('documento/<int:codigo_documento>/', ver_documento, name='ver_documento'),
+    
     #casos 
     path('abogados_por_cliente/', abogados_por_cliente, name='abogados_por_cliente'),
     path('caso/<int:codigo_abogado>/', ver_casos_abogado, name="detalle_casos"),

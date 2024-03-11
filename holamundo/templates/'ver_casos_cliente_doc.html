@@ -1,0 +1,31 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Casos del Cliente: {{ request.user.cliente.nombrec }}</h2>
+
+  {% if casos_cliente %}
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre del Caso</th>
+          <th>Estado</th>
+          <th>Fecha de Apertura</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for caso in casos_cliente %}
+          <tr>
+            <td>{{ caso.nombre }}</td>
+            <td>{{ caso.Estado }}</td>
+            <td>{{ caso.fecha_apertura }}</td>
+            <td>{{ caso.descripcion }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No hay casos para este cliente.</p>
+  {% endif %}
+{% endblock %}

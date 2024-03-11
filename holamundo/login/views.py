@@ -659,21 +659,9 @@ def editar_cliente(request):
 
     return render(request, 'editar_cliente.html', {'form': form})
 
-'''
 @login_required
-def editar_cliente(request, codigo_abogado):
-    cliente = get_object_or_404(Clientes, pk=codigo_abogado)
+def ver_casos_cliente_doc(request):
+    # Obtener los casos asociados al cliente logueado
+    casos_cliente = Casos.objects.filter(cliente=request.user.cliente)
 
-    if request.method == 'POST':
-        form = RegistroClienteForm(request.POST, instance=cliente)
-        if form.is_valid():
-            form.save()
-            return redirect('ver_cliente')
-        else:
-            return render(request, 'editar_cliente.html', {'form': form, 'cliente': cliente})
-    else:
-        form = AbogadoForm(instance=cliente)
-        return render(request, 'editar_cliente.html', {'form': form, 'cliente': cliente})
-'''
-
-  
+    return render(request, 'ver_casos_cliente_doc.html', {'casos_cliente': casos_cliente})
