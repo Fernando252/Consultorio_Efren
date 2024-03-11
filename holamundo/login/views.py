@@ -677,8 +677,9 @@ def actualizar_descripcion_caso(request, caso_id):
     if request.method == 'POST':
         nueva_descripcion = request.POST.get('nueva_descripcion')
 
-        # Agregar la nueva actualización al historial
-        caso.historial_actualizaciones += f'\n{datetime.now()}: {nueva_descripcion}\n'
+        # Agregar la nueva actualización al historial con fecha y hora
+        fecha_hora_actual = datetime.now()
+        caso.historial_actualizaciones += f'\n{fecha_hora_actual}: {nueva_descripcion}\n'
         caso.save()
 
         # Actualizar la descripción en el caso original si es necesario
