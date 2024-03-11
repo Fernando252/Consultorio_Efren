@@ -5,22 +5,18 @@
   <h2>Casos del Cliente: {{ request.user.cliente.nombrec }}</h2>
 
   {% if casos_cliente %}
-    <table>
-      <thead>
+  <table class="table">
+    <thead class="table-light">
         <tr>
-          <th>Nombre del Caso</th>
-          <th>Estado</th>
-          <th>Fecha de Apertura</th>
-          <th>Descripción</th>
+          <th scope="col">Nombre del Caso</th>
+       
         </tr>
       </thead>
       <tbody>
         {% for caso in casos_cliente %}
           <tr>
             <td>{{ caso.nombre }}</td>
-            <td>{{ caso.Estado }}</td>
-            <td>{{ caso.fecha_apertura }}</td>
-            <td>{{ caso.descripcion }}</td>
+       
           </tr>
         {% endfor %}
       </tbody>
