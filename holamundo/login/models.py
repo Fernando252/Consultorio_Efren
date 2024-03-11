@@ -99,6 +99,7 @@ class Casos(models.Model):
     Estado = models.CharField(max_length=10, default='Proceso', choices=ESTADO_CHOICES)
     fecha_apertura = models.DateTimeField(default=timezone.now)
     descripcion = models.TextField(blank=True, null=True)
+    historial_actualizaciones = models.TextField(blank=True)
 
     def __str__(self) -> str:
         return f'Caso: {self.nombre} - Abogado: {self.abogado.nombrea} - Cliente: {self.cliente.nombrec}'
