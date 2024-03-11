@@ -17,7 +17,7 @@
         {% for caso in casos_cliente %}
           <tr>
             <td>{{ caso.nombre }}</td>
-            <td><a href="{% url 'ver_documentos' caso_id=caso.id %}">{{ caso.nombre }}</a>Ver Documentos</td>
+            <td><a href="{% url 'ver_documentos' caso_id=caso.id %}">Ver documento</a></td>
        
           </tr>
         {% endfor %}
