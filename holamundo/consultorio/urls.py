@@ -49,7 +49,7 @@ urlpatterns = [
     path('', views.DashboardView.as_view(), name='dashboard'),
 
     #documentos 
-    path('ver_casos_cliente/', ver_casos_cliente_doc, name='ver_casos_cliente'),
+    path('ver_casos_cliente/', ver_casos_cliente_doc, name='ver_casos_cliente_doc'),
     path('lista_documentos/', ver_documentos,name="lista_documentos"),
     path('eliminar_documento/<int:codigo_documento>/', eliminar_documento, name='eliminar_documento'),
     path('editar_documento/<int:codigo_documento>/',editar_documento, name='editar_documento'),
