@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from .models import Abogado, Casos, Clientes, Documentos,Info_Abogado,Horario_atencion,Cita1
-from .forms import DocumentoForm, RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm,AgendarCitaForm1
+from .forms import DocumentoForm,DocumentoFormEdit,RegistroClienteForm, AbogadoForm,CasosForm,ADocumentoForm,HorarioAtencionForm,AgendarCitaForm,AgendarCitaForm1
 from .utils import *
 from django.contrib import messages
 
@@ -113,7 +113,7 @@ def editar_documento(request, codigo_documento):
     c = {}
     documento = get_object_or_404(Documentos, pk=codigo_documento)
     if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES, instance=documento)
+        form = DocumentoFormEdit(request.POST, request.FILES, instance=documento)
         if form.is_valid():
             form.save()
             return redirect(documento.get_absolute_url())
@@ -328,7 +328,7 @@ def editar_documento_abogado(request, codigo_documento):
     c = {}
     documento = get_object_or_404(Documentos, pk=codigo_documento)
     if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES, instance=documento)
+        form = DocumentoFormEdit(request.POST, request.FILES, instance=documento)
         if form.is_valid():
             form.save()
             return redirect(documento.get_absolute_url())
