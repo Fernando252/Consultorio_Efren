@@ -31,6 +31,14 @@ class DocumentoForm(forms.ModelForm):
             'descripcion_documento': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'archivo_adjunto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        # Obtén el documento actual que se está editando
+            documento_actual = kwargs.get('instance')
+
+        # Filtra los casos para mostrar solo el caso actual
+            self.fields['caso'].queryset = self.fields['caso'].queryset.filter(id=documento_actual.caso.id)
 
 class ADocumentoForm(forms.ModelForm):
     class Meta:
