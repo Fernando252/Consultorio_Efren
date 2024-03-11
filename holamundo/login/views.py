@@ -86,17 +86,17 @@ def ver_casos_abogado(request,codigo_abogado):
     return render(request, template, contenido)
 #______________________________________________________________________________
 #Documentos 
-def ver_documentos(request):
-    # Intentar obtener el cliente logueado
-    try:
-        cliente_logueado = request.user.cliente
-    except AttributeError:
+def ver_documentos(request, caso_id):
+    cliente_logueado = request.user.cliente
 
-        return redirect('dashboard')  
+    # Obtener el caso seleccionado por el cliente logueado
+    caso_seleccionado = get_object_or_404(Casos, id=caso_id, cliente=cliente_logueado)
 
-    documentos = Documentos.objects.filter(caso__cliente=cliente_logueado)
+    # Obtener los documentos asociados al caso seleccionado
+    documentos = Documentos.objects.filter(caso=caso_seleccionado)
 
     contenido = {
+        'caso_seleccionado': caso_seleccionado,
         'documentos': documentos,
     }
     return render(request, 'lista_documentos.html', contenido)
@@ -106,7 +106,7 @@ def ver_documento(request, codigo_documento):
    c = {}
    c['documento'] =  get_object_or_404(Documentos, pk=codigo_documento)
    return render(request, 'ver_documento.html', c)
-#______________________________________________________________________________
+#__________________________________________________________________ ____________
 
 
 def editar_documento(request, codigo_documento):

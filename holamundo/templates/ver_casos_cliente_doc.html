@@ -9,6 +9,7 @@
     <thead class="table-light">
         <tr>
           <th scope="col">Nombre del Caso</th>
+          <th scope="col">Opciones</th>
        
         </tr>
       </thead>
@@ -16,6 +17,7 @@
         {% for caso in casos_cliente %}
           <tr>
             <td>{{ caso.nombre }}</td>
+            <td><a href="{% url 'ver_documentos' caso_id=caso.id %}">{{ caso.nombre }}</a>Ver Documentos</td>
        
           </tr>
         {% endfor %}
