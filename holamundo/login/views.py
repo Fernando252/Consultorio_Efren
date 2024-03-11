@@ -112,23 +112,16 @@ def ver_documento(request, codigo_documento):
 def editar_documento(request, codigo_documento):
     c = {}
     documento = get_object_or_404(Documentos, pk=codigo_documento)
-
-    # Verificar que el cliente logueado sea el propietario del documento
-    if documento.caso.cliente != request.user.cliente:
-        # Si no es el propietario, puedes redirigir a algún lugar o mostrar un mensaje de error
-        return redirect('dashboard')
-
     if request.method == 'POST':
         form = DocumentoForm(request.POST, request.FILES, instance=documento)
         if form.is_valid():
             form.save()
-            return redirect('ver_casos_cliente_doc')  # Cambia a la URL que desees después de editar
+            return redirect(documento.get_absolute_url())
     else:
         form = DocumentoForm(instance=documento)
-
     c['form'] = form
-    c['documento'] = documento
-    return render(request,'edit_documento.html', c)
+    c['documento']= documento
+    return render(request,'abogado_editar_documento.html', c)
 #______________________________________________________________________________
 
 
