@@ -18,7 +18,7 @@ class ClientesAdmin(admin.ModelAdmin):
 
 @admin.register(Casos)
 class CasosAdmin(admin.ModelAdmin):
-    list_display = ('abogado', 'cliente', 'tipos_casos', 'Estado', 'fecha_apertura', 'descripcion')
+    list_display = ('abogado', 'cliente', 'tipos_casos', 'Estado', 'fecha_apertura', 'descripcion', 'historial_actualizaciones')
     list_filter = ('tipos_casos', 'Estado')
     search_fields = ('abogado__nombrea', 'cliente__nombrec')
 
