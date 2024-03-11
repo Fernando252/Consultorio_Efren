@@ -43,23 +43,21 @@
                                 
                             </tr>
                             <tr>
+                                
+                                <td>
+                                    <a href="{% url 'actualizar_descripcion_caso' caso_id=caso.id %}"class="btn btn-primary">Actualizar Descripción</a>
+                                  
+                                </td>
+                                <td colspan="2">
+                                    <a href="{% url 'historial_caso' caso_id=caso.id %}" class="btn btn-primary">Historial caso</a>
+                                </td>
                                 <td >
                                     <form method="post" action="{% url 'eliminar_caso' codigo_caso=caso.id %}">
                                       {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
                                 </td>
-                                <td>
-                                    <a href="{% url 'actualizar_descripcion_caso' caso_id=caso.id %}">Actualizar Descripción</a>
-                                  
-                                </td>
-                                <td>
-                                    <a href="{% url 'historial_caso' caso_id=caso.id %}">Ver Detalles del Caso</a>
-                                </td>
-                                <td colspan="2">
-                                    
-                                        <a href='/editar_caso_abogado/{{caso.id}}' class="btn btn-primary">Editar</a>
-                                </td>
+                                
                                 <a href="{% url 'clientes_con_casos' %}" class="btn btn-secondary">Volver </a>
                             </tr>
                             
