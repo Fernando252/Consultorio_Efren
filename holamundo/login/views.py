@@ -685,7 +685,7 @@ def actualizar_descripcion_caso(request, caso_id):
         caso.descripcion = nueva_descripcion
         caso.save()
 
-        return redirect('clientes_con_casos', caso_id=caso.id)  # Cambia 'detalles_caso' por la URL correcta
+        return redirect('clientes_con_casos')  # Cambia 'detalles_caso' por la URL correcta
 
     # Resto de la lógica para mostrar detalles del caso y formularios
     context = {'caso': caso}
