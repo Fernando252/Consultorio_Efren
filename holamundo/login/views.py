@@ -512,8 +512,14 @@ def registrar_cita(request, abogado_id):
 
 @login_required
 def lista_clientes_citas_abogado(request):
+    if not hasattr(request.user, 'abogado'):
+        return render(request, 'error.html', {'mensaje': 'El usuario actual no es un abogado'})
+
     abogado = request.user.abogado
     citas_abogado = Cita1.objects.filter(abogado=abogado).values('cliente_id').distinct()
+    
+    print("Citas abogado:", citas_abogado)  # Imprimir para depuración
+
     clientes_con_citas = Clientes.objects.filter(id__in=citas_abogado)
 
     context = {'clientes_con_citas': clientes_con_citas, 'abogado_id': abogado.id}
