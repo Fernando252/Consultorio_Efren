@@ -690,3 +690,9 @@ def actualizar_descripcion_caso(request, caso_id):
     # Resto de la lógica para mostrar detalles del caso y formularios
     context = {'caso': caso}
     return render(request, 'actualizar_caso.html', context)
+
+def historial_caso(request, caso_id):
+    caso = get_object_or_404(Casos, id=caso_id)
+
+    context = {'caso': caso}
+    return render(request, 'historial_caso.html', context)

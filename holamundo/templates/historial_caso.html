@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Detalles del Caso</h2>
+
+  <!-- Resto de la información del caso -->
+  <table class="table">
+    <tr>
+      <th>Nombre</th>
+      <td>{{ caso.nombre }}</td>
+    </tr>
+    <tr>
+      <th>Tipo de Caso</th>
+      <td>{{ caso.tipos_casos }}</td>
+    </tr>
+    <tr>
+      <th>Estado</th>
+      <td>{{ caso.Estado }}</td>
+    </tr>
+    <tr>
+      <th>Fecha de Apertura</th>
+      <td>{{ caso.fecha_apertura }}</td>
+    </tr>
+    <tr>
+      <th>Descripción</th>
+      <td>{{ caso.descripcion }}</td>
+    </tr>
+  </table>
+
+  <!-- Mostrar historial de actualizaciones en una tabla -->
+  <h3>Historial de Actualizaciones</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Actualización</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for actualizacion in caso.historial_actualizaciones.split('\n') %}
+        {% if actualizacion %}
+          {% with actualizacion_parts=actualizacion.split(':') %}
+            <tr>
+              <td>{{ actualizacion_parts.0 }}</td>
+              <td>{{ actualizacion_parts.1 }}</td>
+            </tr>
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

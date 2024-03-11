@@ -30,7 +30,7 @@ from login.views import abogado_subir_documento,abogado_ver_documentos,abogado_v
 #Perfil abogado
 from login.views import ver_abogado,editar_abogado
 #Citas
-from login.views import eliminar_cita_abogado,actualizar_horario,registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha, historial_citas_clientes, detalle_citas_cliente, eliminar_cita, editar_cita, editar_cliente, ver_cliente
+from login.views import historial_caso, eliminar_cita_abogado,actualizar_horario,registrar_horario,lista_clientes_citas_abogado,citas_cliente_con_abogado,lista_fechas_horarios_abogado,horarios_en_fecha, historial_citas_clientes, detalle_citas_cliente, eliminar_cita, editar_cita, editar_cliente, ver_cliente
 
 
 from consultorio import views
@@ -71,6 +71,7 @@ urlpatterns = [
     path('clientes_con_casos/', clientes_con_casos, name='clientes_con_casos'),
     path('ver_casos_cliente/<int:cliente_id>/', ver_casos_cliente, name='ver_casos_cliente'),
     path('actualizar_descripcion_caso/<int:caso_id>/', actualizar_descripcion_caso, name='actualizar_descripcion_caso'),
+    path('detalles_caso/<int:caso_id>/', historial_caso, name='detalles_caso'),
     #Mas detalle 
     path('abogado_caso_cliente/<int:codigo_caso>/', abogado_ver_caso, name='abogado_ver_caso'),
     #Editar vista abogado caso
