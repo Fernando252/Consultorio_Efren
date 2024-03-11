@@ -37,14 +37,13 @@
       </tr>
     </thead>
     <tbody>
-      {% for actualizacion in historial_actualizaciones %}
-        {% with actualizacion_parts=actualizacion.split(':') %}
-          <tr>
-            <td>{{ actualizacion_parts.0 }}</td>
-            <td>{{ actualizacion_parts.1 }}</td>
-          </tr>
-        {% endwith %}
+      {% for fecha, actualizacion in historial_actualizaciones %}
+        <tr>
+          <td>{{ fecha }}</td>
+          <td>{{ actualizacion }}</td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>
+</table>
 {% endblock %}
