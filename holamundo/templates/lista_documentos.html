@@ -17,9 +17,7 @@
         <div class="col-sm-8">
             <h1>Tus documentos son</h1>
         </div>
-        <div class="col-sm-4">
-            <a href="{% url 'subir_documento'  %}" class="btn btn-primary">Nuevo</a>
-        </div>
+    
     </div>
 
 <div>
@@ -29,6 +27,8 @@
                 <th scope="col">Tipo de documento</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Archivo</th>
+                <th scope="col">Opciones</th>
+                
             </tr>
         </thead>
         {% for documento in documentos %}
