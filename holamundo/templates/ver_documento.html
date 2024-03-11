@@ -43,7 +43,6 @@
                                     <form method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <input type="hidden" name="documento_id" value="{{ documento.id }}">
-                                        <a href="/editar_documento/{{documento.id}}">Editar</a>
                                         <button type="submit" formaction="{% url 'eliminar_documento' codigo_documento=documento.id %}" class="btn btn-danger">Eliminar</button>
                                     </form>
                                 </td>
