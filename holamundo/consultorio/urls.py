@@ -93,7 +93,7 @@ urlpatterns = [
     path('abogados_con_horario/', lista_abogados_con_horario, name='abogados_con_horario'),
     path('registrar_cita_abogado/<int:abogado_id>/', registrar_cita, name='registrar_cita_abogado'),
     path('lista_clientes_citas_abogado/', lista_clientes_citas_abogado, name='lista_clientes_citas_abogado'),
-    path('citas_cliente_con_abogado/<int:abogado_id>/', citas_cliente_con_abogado, name='citas_cliente_con_abogado'),
+    path('citas_cliente_con_abogado/<int:cliente_id>/', citas_cliente_con_abogado, name='citas_cliente_con_abogado'),
     path('lista_fechas_horarios_abogado/', lista_fechas_horarios_abogado, name='lista_fechas_horarios_abogado'),
     path('horarios_en_fecha/<str:fecha>/', horarios_en_fecha, name='horarios_en_fecha'),
 

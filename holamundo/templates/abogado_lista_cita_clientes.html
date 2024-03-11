@@ -17,7 +17,7 @@
             <td>{{ cliente.nombrec }}</td>
             <td>{{ cliente.apellido }}</td>
             <td>
-                <a href="{% url 'citas_cliente_con_abogado' abogado_id=abogado_id %}" class="btn btn-primary">Ver Citas</a>
+                <a href="{% url 'citas_cliente_con_abogado' cliente_id=cliente_id %}" class="btn btn-primary">Ver Citas</a>
             </td>
             <!-- Agrega más celdas según los campos que desees mostrar -->
           </tr>
