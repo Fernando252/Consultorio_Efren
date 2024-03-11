@@ -71,7 +71,7 @@ urlpatterns = [
     path('clientes_con_casos/', clientes_con_casos, name='clientes_con_casos'),
     path('ver_casos_cliente/<int:cliente_id>/', ver_casos_cliente, name='ver_casos_cliente'),
     path('actualizar_descripcion_caso/<int:caso_id>/', actualizar_descripcion_caso, name='actualizar_descripcion_caso'),
-    path('detalles_caso/<int:caso_id>/', historial_caso, name='detalles_caso'),
+    path('detalles_caso/<int:caso_id>/', historial_caso, name='historial_caso'),
     #Mas detalle 
     path('abogado_caso_cliente/<int:codigo_caso>/', abogado_ver_caso, name='abogado_ver_caso'),
     #Editar vista abogado caso
