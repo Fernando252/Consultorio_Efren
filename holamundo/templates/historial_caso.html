@@ -32,14 +32,12 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Fecha</th>
         <th>Actualización</th>
       </tr>
     </thead>
     <tbody>
-      {% for fecha, actualizacion in historial_actualizaciones %}
+        {% for actualizacion in historial_actualizaciones %}
         <tr>
-          <td>{{ fecha }}</td>
           <td>{{ actualizacion }}</td>
         </tr>
       {% endfor %}
